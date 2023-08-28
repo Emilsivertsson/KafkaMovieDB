@@ -3,10 +3,8 @@ package org.CodeForPizza.producer;
 import org.CodeForPizza.entity.Movie;
 import org.slf4j.Logger;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.messaging.Message;
+
 
 @Service
 public class KafkaProducer {

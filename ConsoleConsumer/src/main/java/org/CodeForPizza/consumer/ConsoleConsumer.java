@@ -12,7 +12,7 @@ public class ConsoleConsumer {
     @KafkaListener(topics = "movie", groupId = "Console")
     public void consume(String message) {
         Logger.info(String.format("Consumed message:" + message));
-        System.out.println(message.toString());
+        System.out.println(message);
 
     }
 }

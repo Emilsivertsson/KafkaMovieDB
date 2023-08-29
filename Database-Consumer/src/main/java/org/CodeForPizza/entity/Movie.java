@@ -16,11 +16,9 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Lob
     @Column(name = "title")
     private String title;
 
-    @Lob
     @Column(name = "year")
     private String year;
 

@@ -24,23 +24,31 @@ public class DatabaseConsumer {
     }
 
     @KafkaListener(topics = "movie", groupId = "Database")
-    public void consume(String message) throws ParseException {
-        Logger.info("Consumed message: " + message);
-        // Extract movie information from the payload string
-        String title = extractValue(message, "title");
-        String year = extractValue(message, "year");
+    public void consume(String message)  {
+        try {
+            Logger.info("Consumed message: " + message);
 
-        // Create a Movie object and save it
-        Movie movie = new Movie();
-        movie.setTitle(title);
-        movie.setYear(year);
-        movieRepository.save(movie);
+            String title = extractValue(message, "title");
+            String year = extractValue(message, "year");
+
+            Movie movie = new Movie();
+            movie.setTitle(title);
+            movie.setYear(year);
+            movieRepository.save(movie);
+        } catch (Exception e) {
+            Logger.error("Error parsing message: " + message);
+        }
     }
 
     // Helper method to extract values from payload string
     private String extractValue(String payload, String field) {
+        try{
         int startIndex = payload.indexOf(field + "='") + field.length() + 2;
         int endIndex = payload.indexOf("'", startIndex);
         return payload.substring(startIndex, endIndex);
+        } catch (Exception e) {
+            Logger.error("Error parsing message: " + payload);
+            return "";
+        }
     }
 }

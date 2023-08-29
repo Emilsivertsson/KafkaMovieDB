@@ -1,7 +1,4 @@
 package org.CodeForPizza.entity;
-
-
-
 import lombok.Getter;
 import lombok.Setter;
 

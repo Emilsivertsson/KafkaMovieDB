@@ -22,8 +22,12 @@ public class APIController {
         // http://localhost:8080/api/v1/movie/save?title=HelloWorld&year=2021
         @PostMapping("/save")
         public ResponseEntity<String> publish(@RequestBody() Movie movie) {
+            try{
             kafkaProducer.sendMessage(movie);
             return ResponseEntity.ok("Message sent to Topic");
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Error sending message to Topic");
+            }
         }
 
 

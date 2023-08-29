@@ -11,9 +11,12 @@ public class ConsoleConsumer {
 
     @KafkaListener(topics = "movie", groupId = "Console")
     public void consume(String message) {
+        try{
         Logger.info(String.format("Consumed message:" + message));
         System.out.println(message);
-
+        } catch (Exception e) {
+            Logger.error("Error parsing message: " + message);
+        }
     }
 }
 

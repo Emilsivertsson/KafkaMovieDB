@@ -18,6 +18,7 @@
         <module>API-Producer</module>
         <module>Database-Consumer</module>
         <module>ConsoleConsumer</module>
+        <module>MovieDBApplication</module>
     </modules>
     <properties>
         <java.version>20</java.version>

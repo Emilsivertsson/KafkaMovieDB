@@ -21,7 +21,7 @@ public class APIController {
         public ResponseEntity<String> publish(@RequestBody() Movie movie) {
             try{
             kafkaProducer.sendMessage(movie);
-            return ResponseEntity.ok("Message sent to Topic");
+            return ResponseEntity.ok().body("Message sent to Topic");
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Error sending message to Topic");
             }

@@ -2,7 +2,6 @@ package org.CodeForPizza.producer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.entity.Movie;
-import org.slf4j.Logger;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

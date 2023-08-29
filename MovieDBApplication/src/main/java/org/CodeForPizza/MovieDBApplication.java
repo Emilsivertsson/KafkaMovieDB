@@ -3,6 +3,7 @@ package org.CodeForPizza;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 
@@ -33,7 +34,7 @@ public class MovieDBApplication {
 
             //writes the JSON object to the connection output stream
             try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
 
             } catch (Exception e) {

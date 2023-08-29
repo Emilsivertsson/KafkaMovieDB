@@ -3,8 +3,6 @@ package org.CodeForPizza.consumer;
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.entity.Movie;
 import org.CodeForPizza.repository.MovieRepository;
-import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;

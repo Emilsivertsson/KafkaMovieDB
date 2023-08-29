@@ -1,5 +1,6 @@
 package org.CodeForPizza.consumer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.entity.Movie;
 import org.CodeForPizza.repository.MovieRepository;
 import org.json.simple.parser.ParseException;
@@ -8,13 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-
+@Slf4j
 @Service
 public class DatabaseConsumer {
-
-    private static final Logger Logger = org.slf4j.LoggerFactory.getLogger(DatabaseConsumer.class);
-
-
 
     private MovieRepository movieRepository;
 
@@ -26,7 +23,7 @@ public class DatabaseConsumer {
     @KafkaListener(topics = "movie", groupId = "Database")
     public void consume(String message)  {
         try {
-            Logger.info("Consumed message: " + message);
+            log.info("Consumed message: " + message);
 
             String title = extractValue(message, "title");
             String year = extractValue(message, "year");
@@ -36,7 +33,7 @@ public class DatabaseConsumer {
             movie.setYear(year);
             movieRepository.save(movie);
         } catch (Exception e) {
-            Logger.error("Error parsing message: " + message);
+            log.error("Error parsing message: " + message);
         }
     }
 
@@ -47,7 +44,7 @@ public class DatabaseConsumer {
         int endIndex = payload.indexOf("'", startIndex);
         return payload.substring(startIndex, endIndex);
         } catch (Exception e) {
-            Logger.error("Error parsing message: " + payload);
+            log.error("Error parsing message: " + payload);
             return "";
         }
     }

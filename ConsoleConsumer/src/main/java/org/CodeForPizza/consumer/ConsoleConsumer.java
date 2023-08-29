@@ -1,21 +1,21 @@
 package org.CodeForPizza.consumer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class ConsoleConsumer {
-
-    private static final Logger Logger = org.slf4j.LoggerFactory.getLogger(ConsoleConsumer.class);
 
     @KafkaListener(topics = "movie", groupId = "Console")
     public void consume(String message) {
         try{
-        Logger.info(String.format("Consumed message:" + message));
+        log.info(String.format("Consumed message:" + message));
         System.out.println(message);
         } catch (Exception e) {
-            Logger.error("Error parsing message: " + message);
+            log.error("Error parsing message: " + message);
         }
     }
 }

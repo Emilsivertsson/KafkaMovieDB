@@ -1,54 +1,49 @@
 package org.CodeForPizza;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+
 import java.util.Scanner;
 
-
-/**
- * this class is used to send a POST request to the API-Producer
- * it constructs a JSON object from user input and sends it to the API-Producer
- */
+@Slf4j
 public class MovieDBApplication {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         try {
-            System.out.println("Please enter your movie title: ");
+            System.out.print("Please enter your movie title: ");
             String title = scanner.nextLine();
-            System.out.println("Please enter the production year: ");
+            System.out.print("Please enter the production year: ");
             int year = scanner.nextInt();
 
+            // Construct JSON input string
+            String jsonInputString = "{\"title\": \"" + title + "\", \"year\": \"" + year + "\"}";
 
-            String jsonInputString = "{\"title\": \"" +title + "\", \"year\": \""+year+"\"}";
+            // Send POST request to API-Producer and set content type to JSON
+            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/movie/save");
+                httpPost.setHeader("Content-Type", "application/json; utf-8");
 
-            //creates a connection to the API-Producer and sets the request method to POST
-            //it also sets the content type to JSON and enables output to the connection
-            URL url = new URL("http://localhost:8080/api/v1/movie/save");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json; utf-8");
-            conn.setDoOutput(true);
+                // set the JSON input string as the payload
+                StringEntity stringEntity = new StringEntity(jsonInputString);
+                httpPost.setEntity(stringEntity);
 
-            //writes the JSON object to the connection output stream
-            try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-
-            } catch (Exception e) {
-                System.out.println("Error writing Json data: " + e.getMessage());
+                // execute the POST request
+                try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                    int responseCode = response.getStatusLine().getStatusCode();
+                    log.info("Response Code: " + responseCode);
+                } catch (Exception e) {
+                    log.error("Error executing POST request");
+                }
             }
-            System.out.println(conn.getResponseCode());
-
-            conn.disconnect();
-            scanner.close();
-
-
-
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            log.error("Error parsing input");
         }
     }
+
 }
+

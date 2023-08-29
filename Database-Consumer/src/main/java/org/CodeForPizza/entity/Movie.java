@@ -4,6 +4,9 @@ package org.CodeForPizza.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 @Getter
@@ -16,9 +19,11 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Lob
     @Column(name = "title")
     private String title;
 
+    @Lob
     @Column(name = "year")
     private String year;
 
@@ -39,9 +44,5 @@ public class Movie {
                 '}';
     }
 
-    public void setMovieInfo(String message) {
-        String[] movieInfo = message.split(",");
-        this.title = movieInfo[0];
-        this.year = movieInfo[1];
-    }
+
 }

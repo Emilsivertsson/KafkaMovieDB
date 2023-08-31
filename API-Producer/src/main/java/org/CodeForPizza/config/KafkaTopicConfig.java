@@ -11,8 +11,6 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic movieTopicJson() {
         return TopicBuilder.name("movie")
-                .partitions(3)
-                .replicas(3)
                 .build();
     }
 }

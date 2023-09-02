@@ -1,5 +1,7 @@
 # Your favorite movies!
+***
 ### A Rest API, Kafka and MySQL project
+
 
 # Table of Contents
 - [Description](#Description)

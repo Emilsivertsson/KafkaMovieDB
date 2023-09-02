@@ -1,13 +1,11 @@
-<p align="center">
-# Your favorite movies!
-</p>
+<p align="center"> # Your favorite movies! </p>
 
 ***
 
 ### A Rest API, Kafka and MySQL project
 
 
-# Table of Contents
+## Table of Contents
 - [Description](#Description)
 - [What was your motivation?](#What-was-your-motivation?)
 - [Installation and Usage](#Installation-and-Usage)
@@ -16,7 +14,7 @@
 - [License](#License)
 - [Tests](#Tests)
 
-# Description
+## Description
 This is a School projekt for the course in Integration plattforms. it consists of several moduls.
 - A Console application that takes the users input and sends it to a Rest API as a Json String.
 - A JavaFX application that takes the users input and sends it to a Rest API as a Json String.
@@ -25,7 +23,7 @@ This is a School projekt for the course in Integration plattforms. it consists o
 - A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database.
 
 
-# What was your motivation?
+## What was your motivation?
 
 
 Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
@@ -34,7 +32,7 @@ What did you learn?
 
 
 
-# Installation and Usage
+## Installation and Usage
 1. To use the application you need to have a local MySQL database running on your computer.
    - Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
    - When you have installed MySQL Community you need to create a database called "movies".
@@ -51,16 +49,16 @@ What did you learn?
 When entered the information in the Producer application you can see the information in the Console Consumer application and in the database.
 
 
-# Credits
+## Credits
 - my classmates Kristoffer and Johan for prof-reading my code and checking that i did not miss anything.
 - chatGPT and Bard for helping me when i got stuck.
 
-# Tutorials
+## Tutorials
 - https://youtube.com/playlist?list=PLGRDMO4rOGcNLwoack4ZiTyewUcF6y6BU&si=BByR1u0OqgjQH9TE
 - https://youtu.be/EUzH9khPYgs?si=fGigvrOFoLD9ZXpK
 - https://youtu.be/B5j3uNBH8X4?si=HF4JNBrfoxOhQD4g
 
-# License
+## License
 The application is licensed under the MIT license. Please see the license file for more information.
 
 
@@ -72,5 +70,5 @@ To add a screenshot, create an assets/images folder in your repository and uploa
 
 
 
-# Tests
+## Tests
 

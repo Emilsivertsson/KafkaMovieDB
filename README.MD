@@ -1,6 +1,8 @@
-# 
+
 <p style="text-align: center;">Your favorite movies!</p>
+
 ***
+
 ### A Rest API, Kafka and MySQL project
 
 

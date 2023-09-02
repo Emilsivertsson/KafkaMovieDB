@@ -1,5 +1,5 @@
-Your favorite movies!
-A Rest API, Kafka and MySQL project
+### Your favorite movies!
+# A Rest API, Kafka and MySQL project
 
 # Table of Contents
 - [Description](#Description)
@@ -12,8 +12,8 @@ A Rest API, Kafka and MySQL project
 
 # Description
 This is a School projekt for the course in Integration plattforms. it consists of several moduls.
-- A Consol application that takes the users input and sends it to a Rest API as a Json String.
-- A JavaFX applicatoin that takes the users input and sends it to a Rest API as a Json String.
+- A Console application that takes the users input and sends it to a Rest API as a Json String.
+- A JavaFX application that takes the users input and sends it to a Rest API as a Json String.
 - A Rest API that serves as a Kafka producer and sends the Json String to a Kafka topic.
 - A Console application that serves as a Kafka consumer and takes the Json String and prints its information to the user.
 - A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database.
@@ -29,18 +29,18 @@ What did you learn?
 
 
 # Installation and Usage
--To use the application you need to have a local MySQL database running on your computer.
-Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
-When you have installed MySQL Community you need to create a database called "movies".
-- You also need to have a local Kafka server running on your computer.
-Download Kafka from https://kafka.apache.org/downloads and install it.
-When you have installed Kafka you need to run the Zookeeper and Kafka server.
-Please see the informations on the homepage on how to do this.
-- Clone this repository to your computer and open it in your IDE.
-- First run the Rest API application.
-- Second run the Console Consumer application.
-- Third run the Database Consumer application.
-- Fourth run the either the Console Producer or the JavaFX Producer application.
+1. To use the application you need to have a local MySQL database running on your computer.
+   ⋅⋅*Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
+   ⋅⋅*When you have installed MySQL Community you need to create a database called "movies".
+2. You also need to have a local Kafka server running on your computer.
+   ⋅⋅*Download Kafka from https://kafka.apache.org/downloads and install it.
+   ⋅⋅*When you have installed Kafka you need to run the Zookeeper and Kafka server.
+   ⋅⋅*Please see the information on the homepage on how to do this.
+3. Clone this repository to your computer and open it in your IDE.
+   ⋅⋅* First run the Rest API application.
+   ⋅⋅* Second run the Console Consumer application.
+   ⋅⋅* Third run the Database Consumer application.
+   ⋅⋅* Fourth run either the Console Producer or the JavaFX Producer application.
 
 When entered the information in the Producer application you can see the information in the Console Consumer application and in the database.
 

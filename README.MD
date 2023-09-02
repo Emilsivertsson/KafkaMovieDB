@@ -30,17 +30,17 @@ What did you learn?
 
 # Installation and Usage
 1. To use the application you need to have a local MySQL database running on your computer.
-   ⋅⋅* Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
-   ⋅⋅* When you have installed MySQL Community you need to create a database called "movies".
+   - Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
+   - When you have installed MySQL Community you need to create a database called "movies".
 2. You also need to have a local Kafka server running on your computer.
-   ⋅⋅* Download Kafka from https://kafka.apache.org/downloads and install it.
-   ⋅⋅* When you have installed Kafka you need to run the Zookeeper and Kafka server.
-   ⋅⋅* Please see the information on the homepage on how to do this.
+   - Download Kafka from https://kafka.apache.org/downloads and install it.
+   - When you have installed Kafka you need to run the Zookeeper and Kafka server.
+   - Please see the information on the homepage on how to do this.
 3. Clone this repository to your computer and open it in your IDE.
-   ⋅⋅* First run the Rest API application.
-   ⋅⋅* Second run the Console Consumer application.
-   ⋅⋅* Third run the Database Consumer application.
-   ⋅⋅* Fourth run either the Console Producer or the JavaFX Producer application.
+   - First run the Rest API application.
+   - Second run the Console Consumer application.
+   - Third run the Database Consumer application.
+   - Fourth run either the Console Producer or the JavaFX Producer application.
 
 When entered the information in the Producer application you can see the information in the Console Consumer application and in the database.
 

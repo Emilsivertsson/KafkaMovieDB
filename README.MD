@@ -1,5 +1,6 @@
-
-<p style="text-align: center;">Your favorite movies!</p>
+<p align="center">
+# Your favorite movies!
+</p>
 
 ***
 

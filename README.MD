@@ -14,11 +14,12 @@
 
 ## Description
 This is a School projekt for the course in Integration plattforms. it consists of several moduls.
-- A Console application that takes the users input and sends it to a Rest API as a Json String.
-- A JavaFX application that takes the users input and sends it to a Rest API as a Json String.
+- A Console application that takes the users input and sends it to a Rest API as a Json String \
+  and serves as a consumer for a kafka topic.
 - A Rest API that serves as a Kafka producer and sends the Json String to a Kafka topic.
 - A Console application that serves as a Kafka consumer and takes the Json String and prints its information to the user.
-- A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database.
+- A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database. \
+    It also serves as a Kafka producer and sends the information from the database to a Kafka topic.
 
 
 ## What was your motivation?
@@ -43,18 +44,21 @@ i also extended my knowledge about spring boot. I have used it before but not to
    - First run the Rest API application.
      - This will start on port 8080, start the API that serves as a Producer for the Topic "movie". 
    - Second run the Console Consumer application.
-     - This will start on port 8081, starts an application that serves as a Consumer for the Topic "movie", with the group-id "Console".
-     - It is only function is to print the information from the Topic to the user.
+     - This will start on port 8081, starts an application that serves as a Consumer for the Topic "returningData", with the group-id "Console".
+     - It is only function is to print the information that´s saved in the database to the user.
    - Third run the Database Consumer application.
      - This will start on port 8082, starts an application that serves as :
        - a Consumer for the Topic "movie", with the group-id "Database". The information from the Topic is saved to the database.
        - a Producer for the Topic "returningData". The information from the database is sent to the Topic.
-   - Fourth run the Console Producer.
-     - This will start on port 8083, starts an application that uses the API to send the information to the Topic "movie".
-     - It also serves as a Consumer for the Topic "returningData" group-id "Application". The information from the Topic is printed to the user.
+   - Fourth run the MovieDBApplication.
+     - This will start on port 8083, starts an application that takes the users input, sends it in a POST request to the Rest API as a Json String.
+     - It also serves as a Consumer for the Topic "movie" group-id "Application". The information from the Topic is printed to the user.
    
 
-When entered the information in the Producer application you can see the information in the Console Consumer application and in the database.
+When entered the information in the MovieDBApplication you will get the information printed back via the Kafka Consumer.\
+you can also see the information in the database.\
+The information from the Database also gets printed to the user via the Console Consumer.\
+
 
 ## Dependencies
 All dependencies are included in the pom.xml file.

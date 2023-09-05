@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConsoleConsumer {
 
-    @KafkaListener(topics = "movie", groupId = "Console")
+    @KafkaListener(topics = "returningData", groupId = "Console")
     public void consume(String message) {
         try{
             log.info("Consumed message: " + message);
             JSONParser parser = new JSONParser();
             JSONObject movieInfo = (JSONObject) parser.parse(message);
-            System.out.println("Movie information received from Topic:");
+            System.out.println("Movie information received from Database:");
             System.out.println("Title: " + movieInfo.get("title"));
             System.out.println("Year: " + movieInfo.get("year"));
 

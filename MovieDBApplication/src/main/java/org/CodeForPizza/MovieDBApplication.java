@@ -21,13 +21,35 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class MovieDBApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(MovieDBApplication.class);
 
-
         JSONObject movieToSave = new JSONObject();
+        Scanner scanner = new Scanner(System.in);
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        while (true) {
+            System.out.println("Enter '1' to save a movie to the database.");
+            System.out.println("Enter '2' to exit the program.");
+            String input = scanner.nextLine();
+            if (input.equals("1")) {
+                createJson(scanner, movieToSave);
+                executePostRequest(movieToSave);
+                System.out.println("Saving movie to database...");
+                Thread.sleep(2000);
+            } else if (input.equals("2")) {
+                System.out.println("Exiting program.");
+                System.exit(0);
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+
+
+
+    }
+
+    private static void createJson(Scanner scanner, JSONObject movieToSave) {
+        try  {
             System.out.print("Please enter your movie title: ");
             String title = scanner.nextLine();
             System.out.print("Please enter the production year: ");
@@ -39,14 +61,6 @@ public class MovieDBApplication {
 
         } catch (Exception e) {
             log.error("Error creating JSON");
-            log.info(e.getMessage());
-        }
-
-        try {
-            executePostRequest(movieToSave);
-            System.out.println("Movie information sent to the database.");
-        } catch (Exception e) {
-            log.error("Error executing POST request");
             log.info(e.getMessage());
         }
     }
@@ -64,6 +78,7 @@ public class MovieDBApplication {
             try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                 int responseCode = response.getStatusLine().getStatusCode();
                 log.info("Response Code: " + responseCode);
+                System.out.println("Movie information sent to the database.");
 
             } catch (Exception e) {
                 log.error("Error executing POST request");

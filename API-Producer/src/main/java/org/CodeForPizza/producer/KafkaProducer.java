@@ -20,6 +20,7 @@ public class KafkaProducer {
         kafkaTemplate.send("movie", movieInfo);
         } catch (Exception e) {
             log.error("Error producing message: " + movieInfo);
+            log.info(e.getMessage());
         }
     }
 }

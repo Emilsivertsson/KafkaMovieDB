@@ -24,7 +24,7 @@ public class ApplicationConsumer {
     }
 
 
-    @KafkaListener(topics = "returningData", groupId = "Application")
+    @KafkaListener(topics = "movie", groupId = "user")
     public void consume(String message) {
         try {
             log.info("Consumed message: " + message);

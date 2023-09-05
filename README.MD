@@ -7,6 +7,7 @@
 - [Description](#Description)
 - [What was your motivation?](#What-was-your-motivation?)
 - [Installation and Usage](#Installation-and-Usage)
+- [Dependencies](#Dependencies)
 - [Credits](#Credits)
 - [Tutorials](#Tutorials)
 - [License](#License)
@@ -63,7 +64,17 @@ The information from the Database also gets printed to the user via the Console 
 ## Dependencies
 All dependencies are included in the pom.xml file.
 - Java 17
-- 
+- org.springframework.boot
+- org.springframework.kafka
+- org.projectlombok
+- org.springframework.boot
+- spring-boot-starter-data-jpa 
+- org.springframework.boot 3.1.2 
+- org.springframework.kafka 
+- com.googlecode.json-simple 1.1.1 
+- org.apache.httpcomponents 4.5.13 
+- org.junit.vintage 
+- com.mysqlmysql-connector-j 8.0.33
 
 ## Credits
 - my classmates Kristoffer and Johan for prof-reading my code and checking that i did not miss anything.

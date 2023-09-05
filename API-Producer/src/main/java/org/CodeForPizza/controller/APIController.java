@@ -28,6 +28,7 @@ public class APIController {
             return ResponseEntity.ok().body("Message sent to Topic");
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Error sending message to Topic");
+
             }
         }
 

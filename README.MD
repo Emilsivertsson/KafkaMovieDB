@@ -22,12 +22,13 @@ This is a School projekt for the course in Integration plattforms. it consists o
 
 
 ## What was your motivation?
-
-
-Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-What problem does it solve?
-What did you learn?
-
+Our assignment was to create a Rest API that takes the users input and sends it to a Kafka topic.\
+Then we were supposed to create a Kafka consumer that takes the Json String and prints its information to the user.\
+We were also supposed to create a Kafka consumer that takes the Json String and saves it to a database.\
+I wanted to take it a step further and create a JavaFX application that takes the users input and sends it to the Rest API as a Json String.\
+I learned alot from this project , and i can see the benefits of using Kafka in a project with multiple applications \
+and microservices that needs to communicate with each other.\
+i also extended my knowledge about spring boot. I have used it before but not to this extent.\
 
 
 ## Installation and Usage
@@ -40,12 +41,25 @@ What did you learn?
    - Please see the information on the homepage on how to do this.
 3. Clone this repository to your computer and open it in your IDE.
    - First run the Rest API application.
+     - This will start on port 8080, start the API that serves as a Producer for the Topic "movie". 
    - Second run the Console Consumer application.
+     - This will start on port 8081, starts an application that serves as a Consumer for the Topic "movie", with the group-id "Console".
+     - It is only function is to print the information from the Topic to the user.
    - Third run the Database Consumer application.
-   - Fourth run either the Console Producer or the JavaFX Producer application.
+     - This will start on port 8082, starts an application that serves as :
+       - a Consumer for the Topic "movie", with the group-id "Database". The information from the Topic is saved to the database.
+       - a Producer for the Topic "returningData". The information from the database is sent to the Topic.
+   - Fourth run the Console Producer.
+     - This will start on port 8083, starts an application that uses the API to send the information to the Topic "movie".
+     - It also serves as a Consumer for the Topic "returningData" group-id "Application". The information from the Topic is printed to the user.
+   
 
 When entered the information in the Producer application you can see the information in the Console Consumer application and in the database.
 
+## Dependencies
+All dependencies are included in the pom.xml file.
+- Java 17
+- 
 
 ## Credits
 - my classmates Kristoffer and Johan for prof-reading my code and checking that i did not miss anything.

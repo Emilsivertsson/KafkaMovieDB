@@ -18,6 +18,7 @@ public class ConsoleConsumer {
             log.info("Consumed message: " + message);
             JSONParser parser = new JSONParser();
             JSONObject movieInfo = (JSONObject) parser.parse(message);
+            System.out.println("Movie information received from Topic:");
             System.out.println("Title: " + movieInfo.get("title"));
             System.out.println("Year: " + movieInfo.get("year"));
 

@@ -16,7 +16,6 @@ public class DatabaseConsumer {
     private DatabaseProducer databaseProducer;
     private MovieRepository movieRepository;
 
-
     public DatabaseConsumer(DatabaseProducer databaseProducer, MovieRepository movieRepository) {
         this.databaseProducer = databaseProducer;
         this.movieRepository = movieRepository;

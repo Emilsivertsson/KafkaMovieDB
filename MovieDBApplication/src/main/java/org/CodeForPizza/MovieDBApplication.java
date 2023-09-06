@@ -2,7 +2,6 @@ package org.CodeForPizza;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.CodeForPizza.consumer.ApplicationConsumer;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -12,11 +11,8 @@ import org.json.simple.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
+
 
 @Slf4j
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
@@ -43,9 +39,6 @@ public class MovieDBApplication {
                 System.out.println("Invalid input. Please try again.");
             }
         }
-
-
-
     }
 
     private static void createJson(Scanner scanner, JSONObject movieToSave) {
@@ -55,7 +48,6 @@ public class MovieDBApplication {
             System.out.print("Please enter the production year: ");
             String year = scanner.nextLine();
 
-            // Construct JSON input string
             movieToSave.put("title", title);
             movieToSave.put("year", year);
 

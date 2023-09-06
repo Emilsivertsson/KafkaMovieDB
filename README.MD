@@ -18,7 +18,7 @@ This is a School projekt for the course in Integration plattforms. it consists o
 - A Console application that takes the users input and sends it to a Rest API as a Json String \
   and serves as a consumer for a kafka topic.
 - A Rest API that serves as a Kafka producer and sends the Json String to a Kafka topic.
-- A Console application that serves as a Kafka consumer and takes the Json String and prints its information to the user.
+- A Console application that serves as a Kafka consumer and takes the Json String and prints its information to a TXT-file.
 - A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database. \
     It also serves as a Kafka producer and sends the information from the database to a Kafka topic.
 
@@ -46,7 +46,7 @@ i also extended my knowledge about spring boot. I have used it before but not to
      - This will start on port 8080, start the API that serves as a Producer for the Topic "movie". 
    - Second run the Console Consumer application.
      - This will start on port 8081, starts an application that serves as a Consumer for the Topic "returningData", with the group-id "Console".
-     - It is only function is to print the information that´s saved in the database to the user.
+     - Its function is to write the information from the topic into a local file.
    - Third run the Database Consumer application.
      - This will start on port 8082, starts an application that serves as :
        - a Consumer for the Topic "movie", with the group-id "Database". The information from the Topic is saved to the database.
@@ -62,7 +62,7 @@ The information from the Database also gets printed to the user via the Console 
 
 
 ## Dependencies
-All dependencies are included in the pom.xml file.
+All dependencies are included in the pom.xml file.\
 - Java 17
 - org.springframework.boot
 - org.springframework.kafka
@@ -87,7 +87,6 @@ All dependencies are included in the pom.xml file.
 
 ## License
 The application is licensed under the MIT license. Please see the license file for more information.
-
 
 
 To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:

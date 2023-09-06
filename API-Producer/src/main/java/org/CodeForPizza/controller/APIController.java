@@ -1,9 +1,7 @@
 package org.CodeForPizza.controller;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.producer.KafkaProducer;
-import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +26,6 @@ public class APIController {
             return ResponseEntity.ok().body("Message sent to Topic");
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Error sending message to Topic");
-
             }
         }
 

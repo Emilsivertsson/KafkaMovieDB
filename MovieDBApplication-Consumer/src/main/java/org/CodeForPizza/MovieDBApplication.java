@@ -29,7 +29,7 @@ public class MovieDBApplication {
             String input = scanner.nextLine();
             if (input.equals("1")) {
                 createJson(scanner, movieToSave);
-                executePostRequest(movieToSave);
+                sendRequestToAPI(movieToSave);
                 System.out.println("Saving movie to database...");
                 Thread.sleep(2000);
             } else if (input.equals("2")) {
@@ -57,7 +57,7 @@ public class MovieDBApplication {
         }
     }
 
-    private static void executePostRequest(JSONObject movie)   {
+    private static void sendRequestToAPI(JSONObject movie)   {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/movie/save");
             httpPost.setHeader("Content-Type", "application/json; utf-8");
@@ -67,17 +67,22 @@ public class MovieDBApplication {
             httpPost.setEntity(entity);
 
             // execute the POST request
-            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                int responseCode = response.getStatusLine().getStatusCode();
-                log.info("Response Code: " + responseCode);
-                System.out.println("Movie information sent to the database.");
+            executePOST(httpClient, httpPost);
 
-            } catch (Exception e) {
-                log.error("Error executing POST request");
-                log.info(e.getMessage());
-            }
         } catch (Exception e) {
             log.error("Error creating HTTP client");
+            log.info(e.getMessage());
+        }
+    }
+
+    private static void executePOST(CloseableHttpClient httpClient, HttpPost httpPost) {
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+            int responseCode = response.getStatusLine().getStatusCode();
+            log.info("Response Code: " + responseCode);
+            System.out.println("Movie information sent to the database.");
+
+        } catch (Exception e) {
+            log.error("Error executing POST request");
             log.info(e.getMessage());
         }
     }

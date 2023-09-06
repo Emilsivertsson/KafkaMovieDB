@@ -10,13 +10,13 @@ public class FileWrite {
         System.out.println("Writing movie information to file...");
 
         try {
-            FileWriter file = new FileWriter("ConsoleConsumer/src/main/java/org/CodeForPizza/log/TopicLog.txt", true);
+            FileWriter file = new FileWriter("Console-FileWrite-Consumer/src/main/java/org/CodeForPizza/log/TopicLog.txt", true);
             file.write(movieInfo.toJSONString()+ ",\n");
             file.flush();
             file.close();
+            System.out.println("Movie information written to file.");
         } catch (Exception e) {
             log.error("Error writing to file.");
         }
-        System.out.println("Movie information written to file.");
     }
 }

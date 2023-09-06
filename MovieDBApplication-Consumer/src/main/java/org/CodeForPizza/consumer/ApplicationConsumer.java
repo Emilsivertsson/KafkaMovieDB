@@ -2,17 +2,10 @@ package org.CodeForPizza.consumer;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.CodeForPizza.MovieDBApplication;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.CountDownLatch;
 
 @Getter
 @Slf4j

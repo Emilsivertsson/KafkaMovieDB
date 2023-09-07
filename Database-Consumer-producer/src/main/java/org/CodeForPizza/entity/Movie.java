@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
+/**
+ * This class is used to create a movie object.
+ * It is used to save the movie information to the database.
+ */
 @Getter
 @Setter
 @Entity

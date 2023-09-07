@@ -7,6 +7,12 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * This class implements a kafka consumer that listens to the topic "movie", group "user".
+ * It uses a KafkaListener to listen to the topic.
+ * it prints out the movie information to the console.
+ */
 @Getter
 @Slf4j
 @Service

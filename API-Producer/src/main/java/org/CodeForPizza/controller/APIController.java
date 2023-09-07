@@ -5,6 +5,9 @@ import org.CodeForPizza.producer.KafkaProducer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * This class is used to create the REST API. it has one endpoint that receives a JSON object and sends it to Kafka producer.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/movie")

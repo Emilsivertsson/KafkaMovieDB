@@ -13,7 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import java.util.Scanner;
 
-
+/**
+ * this class takes user input and turns it into a JSON object.
+ * It sends the JSON object as a string, to the API as a POST request.
+ */
 @Slf4j
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class MovieDBApplication {

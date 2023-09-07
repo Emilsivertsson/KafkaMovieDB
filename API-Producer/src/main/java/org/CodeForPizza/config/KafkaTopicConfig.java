@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
+/**
+ * This class is used to create a topic in Kafka, for the broker running on 9092.
+ */
 @Configuration
 public class KafkaTopicConfig {
 

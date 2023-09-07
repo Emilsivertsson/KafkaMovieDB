@@ -9,6 +9,12 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+/**
+ * this class implements a kafka consumer that listens to the topic "movie", group "Database".
+ * It uses a KafkaListener to listen to the topic, and saves the movie information to the database.
+ * The listener is configured in the application.properties file.
+ * It also uses a DatabaseProducer to send the message to the topic "returningData".
+ */
 @Slf4j
 @Service
 public class DatabaseConsumer {

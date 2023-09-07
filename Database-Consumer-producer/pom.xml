@@ -24,6 +24,11 @@
         <artifactId>mysql-connector-j</artifactId>
         <scope>8.0.33</scope>
     </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 

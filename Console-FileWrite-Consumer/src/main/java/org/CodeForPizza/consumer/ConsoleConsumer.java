@@ -9,6 +9,11 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * This class implements a kafka consumer that listens to the topic "returningData", group "Console".
+ * It uses a KafkaListener to listen to the topic.
+ * The listener is configured in the application.properties file.
+ */
 @Slf4j
 @Service
 public class ConsoleConsumer {

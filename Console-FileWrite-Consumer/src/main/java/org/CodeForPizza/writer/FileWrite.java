@@ -2,8 +2,11 @@ package org.CodeForPizza.writer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
-
 import java.io.FileWriter;
+
+/**
+ * This class uses FileWriter to write the Json object to a file.
+ */
 @Slf4j
 public class FileWrite {
     public void writeToFile(JSONObject movieInfo) {

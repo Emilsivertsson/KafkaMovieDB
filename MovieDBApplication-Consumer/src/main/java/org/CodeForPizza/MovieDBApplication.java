@@ -46,10 +46,9 @@ public class MovieDBApplication {
 
     private static void createJson(Scanner scanner, JSONObject movieToSave) {
         try  {
-            System.out.print("Please enter your movie title: ");
-            String title = scanner.nextLine();
-            System.out.print("Please enter the production year: ");
-            String year = scanner.nextLine();
+            String title = askForTitle(scanner);
+
+            String year = askForYear(scanner);
 
             movieToSave.put("title", title);
             movieToSave.put("year", year);
@@ -58,6 +57,26 @@ public class MovieDBApplication {
             log.error("Error creating JSON");
             log.info(e.getMessage());
         }
+    }
+
+    private static String askForYear(Scanner scanner) {
+        System.out.print("Please enter the production year: ");
+        String year = scanner.nextLine();
+        if(year.equals("") || year.length() != 4){
+            System.out.println("Year cant be empty and must be 4 digits. Please try again.");
+            askForYear(scanner);
+        }
+        return year;
+    }
+
+    private static String askForTitle(Scanner scanner) {
+        System.out.print("Please enter your movie title: ");
+        String title = scanner.nextLine();
+        if(title.equals("")) {
+            System.out.println("Title cant be empty. Please try again.");
+            askForTitle(scanner);
+        }
+        return title;
     }
 
     private static void sendRequestToAPI(JSONObject movie)   {
@@ -73,7 +92,7 @@ public class MovieDBApplication {
             executePOST(httpClient, httpPost);
 
         } catch (Exception e) {
-            log.error("Error creating HTTP client");
+            log.error("Error creating HTTP client, please check that your API is running.");
             log.info(e.getMessage());
         }
     }
@@ -85,7 +104,7 @@ public class MovieDBApplication {
             System.out.println("Movie information sent to the database.");
 
         } catch (Exception e) {
-            log.error("Error executing POST request");
+            log.error("Error executing POST request, please check that you have the API running.");
             log.info(e.getMessage());
         }
     }

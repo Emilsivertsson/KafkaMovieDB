@@ -34,19 +34,32 @@ public class DatabaseConsumer {
             JSONParser parser = new JSONParser();
             JSONObject movieInfo = (JSONObject) parser.parse(message);
             Movie movie = new Movie(movieInfo.get("title").toString(), movieInfo.get("year").toString());
-            movieRepository.save(movie);
 
-            try{
-            databaseProducer.sendMessage(movieInfo.toJSONString());
-            } catch (Exception e) {
-                log.error("Error producing message: " + movieInfo);
-                log.error(e.getMessage());
-            }
+            saveToDB(movie);
+            produceMessage(movieInfo);
 
         } catch (Exception e) {
             log.error("Error parsing message: " + message);
             log.error(e.getMessage());
         }
 
+    }
+
+    private void saveToDB(Movie movie) {
+        try{
+        movieRepository.save(movie);
+        } catch (Exception e) {
+            log.error("Error saving movie to database: " + movie);
+            log.error(e.getMessage());
+        }
+    }
+
+    private void produceMessage(JSONObject movieInfo) {
+        try{
+        databaseProducer.sendMessage(movieInfo.toJSONString());
+        } catch (Exception e) {
+            log.error("Error producing message: " + movieInfo);
+            log.error(e.getMessage());
+        }
     }
 }

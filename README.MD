@@ -2,7 +2,6 @@
 
 ### A Rest API, Kafka and MySQL project
 
-
 ## Table of Contents
 - [Description](#Description)
 - [What was your motivation?](#What-was-your-motivation?)
@@ -60,6 +59,16 @@ When entered the information in the MovieDBApplication you will get the informat
 you can also see the information in the database.\
 The information from the Database also gets printed to the user via the Console Consumer.\
 
+## Replication and participation over serveral brokers
+I tried to get this to work, but failed short. \
+I alterd the server.properties file in the config folder in Kafka and changed the broker ids and the port numbers.\ 
+I changed the port numbers in the application.properties files in the applications.\
+I start the brokers, and the topics are created on each broker, so that works.\ but when i start the applications, \
+the offsets are not sent even on one broker.\
+I cant find anymore information about it, so i will leave it for now.\
+I do however understand the value of having several brokers, and replicating the data over them, to make sure that the data is not lost.\
+when you set your replication factor to 2, you will have 2 copies of the data, and if one broker goes down, the other one will take over.\
+Preferably you want to have at least 3 brokers, so that you can have 2 copies of the data, and one broker that is a leader.\
 
 ## Dependencies
 All dependencies are included in the pom.xml file.\

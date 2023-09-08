@@ -11,6 +11,8 @@ public class TopicConfig {
     @Bean
     public NewTopic movieTopicJson() {
         return TopicBuilder.name("returningData")
+                .partitions(3)
+                .replicas(3)
                 .build();
     }
 }

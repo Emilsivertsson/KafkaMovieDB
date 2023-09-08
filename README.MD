@@ -36,10 +36,20 @@ i also extended my knowledge about spring boot. I have used it before but not to
 1. To use the application you need to have a local MySQL database running on your computer.
    - Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
    - When you have installed MySQL Community you need to create a database called "movies".
+   - The application uses password "root" and username "root" to connect to a local MySQL database.
+   - please alter the password and username in the application.properties file in the MovieDBApplication, if yours not the same.
+
 2. You also need to have a local Kafka server running on your computer.
    - Download Kafka from https://kafka.apache.org/downloads and install it.
    - When you have installed Kafka you need to run the Zookeeper and Kafka server.
    - Please see the information on the homepage on how to do this.
+   - you need to copy three files from the folder "Brokers" to the config directory in the Kafka folder on your computer.
+     - server.properties
+     - server2.properties
+     - server3.properties
+   - start your Zookeeper and the three Kafka servers (Brokers), its very important that you start them before \
+   you start the applications, or else the applications you will get an error. that the replication factor don't have enough brokers.
+   
 3. Clone this repository to your computer and open it in your IDE.
    - First run the Rest API application.
      - This will start on port 8080, start the API that serves as a Producer for the Topic "movie". 
@@ -60,15 +70,10 @@ you can also see the information in the database.\
 The information from the Database also gets printed to the user via the Console Consumer.\
 
 ## Replication and participation over serveral brokers
-I tried to get this to work, but failed short. \
-I alterd the server.properties file in the config folder in Kafka and changed the broker ids and the port numbers.\ 
-I changed the port numbers in the application.properties files in the applications.\
-I start the brokers, and the topics are created on each broker, so that works.\ but when i start the applications, \
-the offsets are not sent even on one broker.\
-I cant find anymore information about it, so i will leave it for now.\
-I do however understand the value of having several brokers, and replicating the data over them, to make sure that the data is not lost.\
-when you set your replication factor to 2, you will have 2 copies of the data, and if one broker goes down, the other one will take over.\
-Preferably you want to have at least 3 brokers, so that you can have 2 copies of the data, and one broker that is a leader.\
+The application uses three Kafka servers (Brokers) to replicate the information sent through the Kafka topics.\
+One of the Brokers will serve as the leader and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
+The application uses the replication factor 3, so that the information will be replicated over all three brokers.\
+The Replication is a fail-safe if one of the brokers goes down, the information will still be available on the other brokers.\
 
 ## Dependencies
 All dependencies are included in the pom.xml file.\

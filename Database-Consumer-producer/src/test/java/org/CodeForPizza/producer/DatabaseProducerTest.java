@@ -1,12 +1,5 @@
 package org.CodeForPizza.producer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.concurrent.CompletableFuture;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -16,31 +9,38 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {KafkaProducer.class})
+import java.util.concurrent.CompletableFuture;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ContextConfiguration(classes = {DatabaseProducer.class})
 @ExtendWith(SpringExtension.class)
-class KafkaProducerTest {
+class DatabaseProducerTest {
+
     @Autowired
-    private KafkaProducer kafkaProducer;
+    private DatabaseProducer databaseProducer;
 
     @MockBean
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @Test
-    void testSendMessage_Success() throws Exception {
+    void sendMessage_Success() {
         when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<String>any())).thenReturn(new CompletableFuture<>());
-        kafkaProducer.sendMessage("Movie Info");
+        databaseProducer.sendMessage("Movie Info");
         verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
     }
 
     @Test
-    void testSendMessage_Fail() throws Exception {
+    void sendMessage_Fail() {
         when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<String>any())).thenThrow(new RuntimeException("An error occurred"));
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            kafkaProducer.sendMessage("Movie Info");
+            databaseProducer.sendMessage("Movie Info");
         });
 
         assertEquals("An error occurred", exception.getMessage());
         verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
+        //TODO finish this test
     }
 }
-

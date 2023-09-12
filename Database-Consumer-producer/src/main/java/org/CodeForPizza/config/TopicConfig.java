@@ -9,7 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 public class TopicConfig {
 
     @Bean
-    public NewTopic movieTopicJson() {
+    public NewTopic returningDataTopic() {
         return TopicBuilder.name("returningData")
                 .partitions(3)
                 .replicas(3)

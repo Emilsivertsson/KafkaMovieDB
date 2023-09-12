@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.writer.FileWrite;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ConsoleConsumer {
     private FileWrite fileWrite = new FileWrite();
 
     @KafkaListener(topics = "returningData", groupId = "Console")
-    public void consume(String message) {
+    public void consume(String message) throws Exception {
         try{
             log.info("Consumed message: " + message);
             JSONParser parser = new JSONParser();
@@ -30,8 +31,8 @@ public class ConsoleConsumer {
             fileWrite.writeToFile(movieInfo);
 
         } catch (Exception e) {
-            log.error("Error parsing message: " + message);
             log.error(e.getMessage());
+            throw new NullPointerException("Error parsing message: " + message);
         }
     }
 }

@@ -18,13 +18,14 @@ public class KafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(String movieInfo) {
+    public void sendMessage(String movieInfo) throws Exception {
         try{
         log.info("Producing message: " + movieInfo);
         kafkaTemplate.send("movie", movieInfo);
         } catch (Exception e) {
             log.error("Error producing message: " + movieInfo);
             log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

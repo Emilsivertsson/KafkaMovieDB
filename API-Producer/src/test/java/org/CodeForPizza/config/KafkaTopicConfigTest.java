@@ -11,10 +11,10 @@ class KafkaTopicConfigTest {
     @Test
     void testMovieTopicJson() {
 
-        NewTopic actualMovieTopicJsonResult = (new KafkaTopicConfig()).movieTopicJson();
-        assertNull(actualMovieTopicJsonResult.configs());
-        assertNull(actualMovieTopicJsonResult.replicasAssignments());
-        assertEquals("movie", actualMovieTopicJsonResult.name());
+        NewTopic actualResult = (new KafkaTopicConfig()).movieTopicJson();
+        assertNull(actualResult.configs());
+        assertNull(actualResult.replicasAssignments());
+        assertEquals("movie", actualResult.name());
     }
 }
 

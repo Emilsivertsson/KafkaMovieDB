@@ -27,6 +27,7 @@ public class DatabaseProducer {
             kafkaTemplate.send("returningData", movieInfo);
         } catch (Exception e) {
             log.error("Error producing message: " + movieInfo);
+            throw new NullPointerException("Error producing message: " + movieInfo);
         }
     }
 

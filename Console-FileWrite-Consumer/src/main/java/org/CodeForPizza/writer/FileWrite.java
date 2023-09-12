@@ -5,10 +5,19 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 
 /**
- * This class uses FileWriter to write the Json object to a file.
+ * FileWriter to write the Json object to a file.
  */
 @Slf4j
 public class FileWrite {
+
+    private FileWriter fileWriter;
+    public FileWrite(FileWriter fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+
+    public FileWrite() {
+    }
+
     public void writeToFile(JSONObject movieInfo) {
         System.out.println("Writing movie information to file...");
 
@@ -20,6 +29,7 @@ public class FileWrite {
             System.out.println("Movie information written to file.");
         } catch (Exception e) {
             log.error("Error writing to file.");
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

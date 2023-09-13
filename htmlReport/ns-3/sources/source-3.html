@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">DatabaseConsumer</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/5)
+    (5/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    64,9%
   </span>
   <span class="absValue">
-    (0/24)
+    (24/37)
   </span>
 </td>
 </tr>
@@ -92,52 +92,55 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * The listener is configured in the application.properties file.
 &nbsp; * It also uses a DatabaseProducer to send the message to the topic &quot;returningData&quot;.
 &nbsp; */
-<b class="nc">&nbsp;@Slf4j</b>
+<b class="fc">&nbsp;@Slf4j</b>
 &nbsp;@Service
 &nbsp;public class DatabaseConsumer {
 &nbsp;
 &nbsp;    private DatabaseProducer databaseProducer;
 &nbsp;    private MovieRepository movieRepository;
 &nbsp;
-<b class="nc">&nbsp;    public DatabaseConsumer(DatabaseProducer databaseProducer, MovieRepository movieRepository) {</b>
-<b class="nc">&nbsp;        this.databaseProducer = databaseProducer;</b>
-<b class="nc">&nbsp;        this.movieRepository = movieRepository;</b>
+<b class="fc">&nbsp;    JSONObject movieInfo = new JSONObject();</b>
+<b class="nc">&nbsp;</b>
+<b class="fc">&nbsp;    public DatabaseConsumer(DatabaseProducer databaseProducer, MovieRepository movieRepository) {</b>
+<b class="fc">&nbsp;        this.databaseProducer = databaseProducer;</b>
+<b class="fc">&nbsp;        this.movieRepository = movieRepository;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @KafkaListener(topics = &quot;movie&quot;, groupId = &quot;Database&quot;)
-&nbsp;    public void consume(String message) {
-&nbsp;        try {
-<b class="nc">&nbsp;            log.info(&quot;Consumed message: &quot; + message);</b>
-<b class="nc">&nbsp;            JSONParser parser = new JSONParser();</b>
-<b class="nc">&nbsp;            JSONObject movieInfo = (JSONObject) parser.parse(message);</b>
-<b class="nc">&nbsp;            Movie movie = new Movie(movieInfo.get(&quot;title&quot;).toString(), movieInfo.get(&quot;year&quot;).toString());</b>
-&nbsp;
-<b class="nc">&nbsp;            saveToDB(movie);</b>
-<b class="nc">&nbsp;            produceMessage(movieInfo);</b>
-&nbsp;
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            log.error(&quot;Error parsing message: &quot; + message);</b>
-<b class="nc">&nbsp;            log.error(e.getMessage());</b>
-<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;    public void consume(String message) {</b>
+<b class="nc">&nbsp;        try {</b>
+<b class="fc">&nbsp;            log.info(&quot;Consumed message: &quot; + message);</b>
+<b class="fc">&nbsp;            JSONParser parser = new JSONParser();</b>
+<b class="fc">&nbsp;            movieInfo = (JSONObject) parser.parse(message);</b>
+<b class="fc">&nbsp;            Movie movie = new Movie(movieInfo.get(&quot;title&quot;).toString(), movieInfo.get(&quot;year&quot;).toString());</b>
+<b class="nc">&nbsp;</b>
+<b class="fc">&nbsp;            saveToDB(movie);</b>
+<b class="fc">&nbsp;            produceMessage(movieInfo);</b>
+<b class="nc">&nbsp;</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            log.error(&quot;Error parsing message: &quot; + message);</b>
+<b class="fc">&nbsp;            log.error(e.getMessage());</b>
+<b class="fc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + message);</b>
+<b class="fc">&nbsp;        }</b>
 &nbsp;
 &nbsp;    }
-&nbsp;
-&nbsp;    private void saveToDB(Movie movie) {
-&nbsp;        try{
-<b class="nc">&nbsp;        movieRepository.save(movie);</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    private void saveToDB(Movie movie) {</b>
+<b class="fc">&nbsp;        try{</b>
+<b class="fc">&nbsp;        movieRepository.save(movie);</b>
 <b class="nc">&nbsp;        } catch (Exception e) {</b>
 <b class="nc">&nbsp;            log.error(&quot;Error saving movie to database: &quot; + movie);</b>
-<b class="nc">&nbsp;            log.error(e.getMessage());</b>
-<b class="nc">&nbsp;        }</b>
+<b class="fc">&nbsp;            log.error(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
 &nbsp;    }
-&nbsp;
-&nbsp;    private void produceMessage(JSONObject movieInfo) {
-&nbsp;        try{
-<b class="nc">&nbsp;        databaseProducer.sendMessage(movieInfo.toJSONString());</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    private void produceMessage(JSONObject movieInfo) {</b>
+<b class="fc">&nbsp;        try{</b>
+<b class="fc">&nbsp;        databaseProducer.sendMessage(movieInfo.toJSONString());</b>
 <b class="nc">&nbsp;        } catch (Exception e) {</b>
 <b class="nc">&nbsp;            log.error(&quot;Error producing message: &quot; + movieInfo);</b>
-<b class="nc">&nbsp;            log.error(e.getMessage());</b>
-<b class="nc">&nbsp;        }</b>
+<b class="fc">&nbsp;            log.error(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -163,7 +166,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-11 14:59</div>
+    <div style="float:right;">generated on 2023-09-13 15:14</div>
 </div>
 </body>
 </html>

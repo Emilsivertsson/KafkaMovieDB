@@ -60,10 +60,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    94,1%
+    76,9%
   </span>
   <span class="absValue">
-    (16/17)
+    (10/13)
   </span>
 </td>
 </tr>
@@ -91,27 +91,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * This class implements a kafka consumer that listens to the topic &quot;returningData&quot;, group &quot;Console&quot;.
 &nbsp; * It uses a KafkaListener to listen to the topic.
 &nbsp; * The listener is configured in the application.properties file.
-<b class="fc">&nbsp; */</b>
+&nbsp; */
 <b class="fc">&nbsp;@Slf4j</b>
-<b class="fc">&nbsp;@Service</b>
+&nbsp;@Service
 <b class="fc">&nbsp;public class ConsoleConsumer {</b>
-<b class="fc">&nbsp;</b>
+&nbsp;
+<b class="fc">&nbsp;    JSONObject movieInfo = new JSONObject();</b>
+&nbsp;
 <b class="fc">&nbsp;    private FileWrite fileWrite = new FileWrite();</b>
 &nbsp;
 &nbsp;    @KafkaListener(topics = &quot;returningData&quot;, groupId = &quot;Console&quot;)
 &nbsp;    public void consume(String message) throws Exception {
-<b class="fc">&nbsp;        try{</b>
+&nbsp;        try{
 <b class="fc">&nbsp;            log.info(&quot;Consumed message: &quot; + message);</b>
 <b class="fc">&nbsp;            JSONParser parser = new JSONParser();</b>
-<b class="fc">&nbsp;            JSONObject movieInfo = (JSONObject) parser.parse(message);</b>
-<b class="fc">&nbsp;            System.out.println(&quot;Movie information received from Database.&quot;);</b>
-<b class="fc">&nbsp;            fileWrite.writeToFile(movieInfo);</b>
-<b class="nc">&nbsp;</b>
+<b class="fc">&nbsp;            movieInfo = (JSONObject) parser.parse(message);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Movie information received from Database.&quot;);</b>
+<b class="nc">&nbsp;            fileWrite.writeToFile(movieInfo);</b>
+&nbsp;
 <b class="fc">&nbsp;        } catch (Exception e) {</b>
 <b class="fc">&nbsp;            log.error(e.getMessage());</b>
 <b class="fc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + message);</b>
-<b class="fc">&nbsp;        }</b>
+<b class="nc">&nbsp;        }</b>
 &nbsp;    }
+&nbsp;
+&nbsp;
 &nbsp;}
 &nbsp;
 </code>
@@ -137,7 +141,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-11 14:59</div>
+    <div style="float:right;">generated on 2023-09-13 15:14</div>
 </div>
 </body>
 </html>

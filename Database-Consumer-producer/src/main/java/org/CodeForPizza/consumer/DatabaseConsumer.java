@@ -22,6 +22,8 @@ public class DatabaseConsumer {
     private DatabaseProducer databaseProducer;
     private MovieRepository movieRepository;
 
+    JSONObject movieInfo = new JSONObject();
+
     public DatabaseConsumer(DatabaseProducer databaseProducer, MovieRepository movieRepository) {
         this.databaseProducer = databaseProducer;
         this.movieRepository = movieRepository;
@@ -32,7 +34,7 @@ public class DatabaseConsumer {
         try {
             log.info("Consumed message: " + message);
             JSONParser parser = new JSONParser();
-            JSONObject movieInfo = (JSONObject) parser.parse(message);
+            movieInfo = (JSONObject) parser.parse(message);
             Movie movie = new Movie(movieInfo.get("title").toString(), movieInfo.get("year").toString());
 
             saveToDB(movie);
@@ -41,6 +43,7 @@ public class DatabaseConsumer {
         } catch (Exception e) {
             log.error("Error parsing message: " + message);
             log.error(e.getMessage());
+            throw new NullPointerException("Error parsing message: " + message);
         }
 
     }

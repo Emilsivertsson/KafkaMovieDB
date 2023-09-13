@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationConsumer {
 
+    JSONObject movieInfo = new JSONObject();
+
     public ApplicationConsumer( ) {
 
     }
@@ -28,7 +30,7 @@ public class ApplicationConsumer {
         try {
             log.info("Consumed message: " + message);
             JSONParser parser = new JSONParser();
-            JSONObject movieInfo = (JSONObject) parser.parse(message);
+            movieInfo = (JSONObject) parser.parse(message);
             System.out.println("=============================================");
             System.out.println("Movie information saved in the database:");
             System.out.println("Title: " + movieInfo.get("title"));
@@ -36,7 +38,9 @@ public class ApplicationConsumer {
 
         } catch (Exception e) {
             log.error("Error parsing message: " + message);
+            throw new NullPointerException("Error parsing message: " + message);
         }
     }
+
 
 }

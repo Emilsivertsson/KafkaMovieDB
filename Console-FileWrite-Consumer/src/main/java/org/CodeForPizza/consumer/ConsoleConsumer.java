@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConsoleConsumer {
 
+    JSONObject movieInfo = new JSONObject();
+
     private FileWrite fileWrite = new FileWrite();
 
     @KafkaListener(topics = "returningData", groupId = "Console")
@@ -26,7 +28,7 @@ public class ConsoleConsumer {
         try{
             log.info("Consumed message: " + message);
             JSONParser parser = new JSONParser();
-            JSONObject movieInfo = (JSONObject) parser.parse(message);
+            movieInfo = (JSONObject) parser.parse(message);
             System.out.println("Movie information received from Database.");
             fileWrite.writeToFile(movieInfo);
 
@@ -35,5 +37,7 @@ public class ConsoleConsumer {
             throw new NullPointerException("Error parsing message: " + message);
         }
     }
+
+
 }
 

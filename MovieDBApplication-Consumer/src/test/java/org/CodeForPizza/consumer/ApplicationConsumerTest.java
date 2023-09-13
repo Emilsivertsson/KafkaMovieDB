@@ -1,9 +1,8 @@
 package org.CodeForPizza.consumer;
 
 
-import org.CodeForPizza.repository.MovieRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,15 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
-class DatabaseConsumerTest {
+class ApplicationConsumerTest {
+    
+    @Autowired
+    private ApplicationConsumer applicationConsumer;
 
     @Autowired
-    KafkaTemplate<String, String> kafkaTemplate;
-
-    @Autowired
-    private DatabaseConsumer databaseConsumer;
-
-
+    private KafkaTemplate<String, String> kafkaTemplate;
+    
 
     @Test
     void consume_Success() {
@@ -33,9 +31,7 @@ class DatabaseConsumerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //Mockito.doNothing().when(movieRepository).save(Mockito.any());
-        assert(databaseConsumer.movieInfo.get("title").equals("The Matrix"));
-        //TODO make it not save to the database
+        assert(applicationConsumer.getMovieInfo().get("title").equals("The Matrix"));
 
     }
 
@@ -49,8 +45,10 @@ class DatabaseConsumerTest {
             e.printStackTrace();
         }
         assertThrows(NullPointerException.class, () -> {
-            databaseConsumer.consume(message);
+            applicationConsumer.consume(message);
         });
-        //TODO make it not save to the database
+
+
     }
+
 }

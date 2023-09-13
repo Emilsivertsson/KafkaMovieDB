@@ -4,55 +4,55 @@ import org.CodeForPizza.writer.FileWrite;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ContextConfiguration(classes = {ConsoleConsumer.class})
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
 class ConsoleConsumerTest {
     @Mock
     private FileWrite fileWrite;
 
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
     private ConsoleConsumer consoleConsumer;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        consoleConsumer = new ConsoleConsumer();
+
+    @Test
+    void testConsume_success() {
+        String message = "{\"title\":\"The Matrix\",\"year\":\"1999\"}";
+        kafkaTemplate.send("returningData", message);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assert(consoleConsumer.movieInfo.get("title").equals("The Matrix"));
+        verify(fileWrite, never()).writeToFile(any(JSONObject.class));
     }
 
     @Test
-    void testConsume_success() throws Exception {
-        String message = "{\"title\":\"Test Movie\"}";
-
-            JSONParser mockParser = mock(JSONParser.class);
-            when(mockParser.parse(message)).thenReturn(new JSONObject());
-            consoleConsumer.consume(message);
-    }
-
-    @Test
-    void testConsume_Fail() throws ParseException {
-        String message = "\"title\":\"Test Movie\"";
-
-        JSONParser mockParser = mock(JSONParser.class);
-        when(mockParser.parse(message)).thenThrow(NullPointerException.class);
-
+    void testConsume_Fail() {
+        String message = "\"title\":\"The Matrix\",\"yea\"1999\"}";
+        kafkaTemplate.send("returningData", message);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         assertThrows(NullPointerException.class, () -> {
             consoleConsumer.consume(message);
         });
-
         verify(fileWrite, never()).writeToFile(any(JSONObject.class));
     }
 }

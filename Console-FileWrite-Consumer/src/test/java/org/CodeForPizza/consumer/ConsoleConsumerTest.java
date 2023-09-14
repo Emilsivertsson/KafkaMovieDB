@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -29,7 +30,7 @@ class ConsoleConsumerTest {
 
 
     @Test
-    void testConsume_success() {
+    void testConsume1Success() {
         String message = "{\"title\":\"The Matrix\",\"year\":\"1999\"}";
         kafkaTemplate.send("returningData", message);
         try {
@@ -38,13 +39,14 @@ class ConsoleConsumerTest {
             e.printStackTrace();
         }
         assert(consoleConsumer.movieInfo.get("title").equals("The Matrix"));
-        //todo make it not write to file
+
     }
 
     @Test
-    void testConsume_Fail() {
+    void testConsume2Fail() {
         String message = "\"title\":\"The Matrix\",\"yea\"1999\"}";
         kafkaTemplate.send("returningData", message);
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -53,7 +55,7 @@ class ConsoleConsumerTest {
         assertThrows(NullPointerException.class, () -> {
             consoleConsumer.consume(message);
         });
-        //todo make it not write to file
+
     }
 }
 

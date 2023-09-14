@@ -39,8 +39,7 @@ class DatabaseProducerTest {
             databaseProducer.sendMessage("Movie Info");
         });
 
-        assertEquals("An error occurred", exception.getMessage());
+        assertEquals("Error producing message: An error occurred", exception.getMessage());
         verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
-        //TODO finish this test
     }
 }

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > Movie</title>
+  <title>Coverage Report > APIController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.entity</a>
+    <a href="../index.html">org.CodeForPizza.controller</a>
 </div>
 
-<h1>Coverage Summary for Class: Movie (org.CodeForPizza.entity)</h1>
+<h1>Coverage Summary for Class: APIController (org.CodeForPizza.controller)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,29 +41,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Movie</td>
+  <td class="name">APIController</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/7)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/9)
+    (8/8)
   </span>
 </td>
 </tr>
@@ -75,49 +75,40 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.entity;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.controller;
 &nbsp;
-&nbsp;
-&nbsp;import jakarta.persistence.*;
-&nbsp;import lombok.Getter;
-&nbsp;import lombok.Setter;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.CodeForPizza.producer.KafkaProducer;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
 &nbsp;
 &nbsp;/**
-&nbsp; * This class is used to create a movie object.
-&nbsp; * It is used to save the movie information to the database.
+&nbsp; * This class is used to create the REST API. it has one endpoint that receives a JSON object and sends it to Kafka producer.
 &nbsp; */
-&nbsp;@Getter
-<b class="nc">&nbsp;@Setter</b>
-&nbsp;@Entity
-&nbsp;@Table(name = &quot;movies&quot;)
-&nbsp;public class Movie {
+<b class="fc">&nbsp;@Slf4j</b>
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/v1/movie&quot;)
+&nbsp;public class APIController {
 &nbsp;
-&nbsp;    @Id
-&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
-<b class="nc">&nbsp;    private long id;</b>
+&nbsp;        private KafkaProducer kafkaProducer;
 &nbsp;
-&nbsp;    @Column(name = &quot;title&quot;)
-<b class="nc">&nbsp;    private String title;</b>
+<b class="fc">&nbsp;        public APIController(KafkaProducer kafkaProducer) {</b>
+<b class="fc">&nbsp;            this.kafkaProducer = kafkaProducer;</b>
+&nbsp;        }
 &nbsp;
-&nbsp;    @Column(name = &quot;year&quot;)
-<b class="nc">&nbsp;    private String year;</b>
 &nbsp;
-<b class="nc">&nbsp;    public Movie(String title, String year) {</b>
-<b class="nc">&nbsp;        this.title = title;</b>
-<b class="nc">&nbsp;        this.year = year;</b>
-&nbsp;    }
+&nbsp;        // http://localhost:8080/api/v1/movie/save
+&nbsp;        @PostMapping(&quot;/save&quot;)
+&nbsp;        public ResponseEntity&lt;String&gt; publish(@RequestBody() String movie) {
+&nbsp;            try{
+<b class="fc">&nbsp;                log.info(&quot;Received message: &quot; + movie);</b>
+<b class="fc">&nbsp;            kafkaProducer.sendMessage(movie);</b>
+<b class="fc">&nbsp;            return ResponseEntity.ok().body(&quot;Message sent to Topic&quot;);</b>
+<b class="fc">&nbsp;            } catch (Exception e) {</b>
+<b class="fc">&nbsp;                return ResponseEntity.badRequest().body(&quot;Error sending message to Topic&quot;);</b>
+&nbsp;            }
+&nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;    public Movie() {</b>
-&nbsp;
-&nbsp;    }
-&nbsp;
-&nbsp;    @Override
-&nbsp;    public String toString() {
-<b class="nc">&nbsp;        return &quot;Movie{&quot; +</b>
-&nbsp;                &quot;title=&#39;&quot; + title + &#39;\&#39;&#39; +
-&nbsp;                &quot;, year=&#39;&quot; + year + &#39;\&#39;&#39; +
-&nbsp;                &#39;}&#39;;
-&nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;}
@@ -144,7 +135,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-13 15:14</div>
+    <div style="float:right;">generated on 2023-09-14 10:30</div>
 </div>
 </body>
 </html>

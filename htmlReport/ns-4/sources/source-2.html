@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > KafkaProducer</title>
+  <title>Coverage Report > ConsoleConsumer</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.producer</a>
+    <a href="../index.html">org.CodeForPizza.consumer</a>
 </div>
 
-<h1>Coverage Summary for Class: KafkaProducer (org.CodeForPizza.producer)</h1>
+<h1>Coverage Summary for Class: ConsoleConsumer (org.CodeForPizza.consumer)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">KafkaProducer</td>
+  <td class="name">ConsoleConsumer</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -60,10 +60,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    76,9%
   </span>
   <span class="absValue">
-    (10/10)
+    (10/13)
   </span>
 </td>
 </tr>
@@ -75,37 +75,49 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.producer;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.consumer;
 &nbsp;
 &nbsp;import lombok.extern.slf4j.Slf4j;
-&nbsp;import org.springframework.kafka.core.KafkaTemplate;
+&nbsp;
+&nbsp;import org.CodeForPizza.writer.FileWrite;
+&nbsp;import org.json.simple.JSONObject;
+&nbsp;import org.json.simple.parser.JSONParser;
+&nbsp;import org.json.simple.parser.ParseException;
+&nbsp;import org.springframework.kafka.annotation.KafkaListener;
 &nbsp;import org.springframework.stereotype.Service;
 &nbsp;
+&nbsp;
 &nbsp;/**
-&nbsp; * This class implements a kafka producer that sends a message to the topic &quot;movie&quot;.
-&nbsp; * It uses a KafkaTemplate to send the message. The template is configured in the application.properties file.
+&nbsp; * This class implements a kafka consumer that listens to the topic &quot;returningData&quot;, group &quot;Console&quot;.
+&nbsp; * It uses a KafkaListener to listen to the topic.
+&nbsp; * The listener is configured in the application.properties file.
 &nbsp; */
 <b class="fc">&nbsp;@Slf4j</b>
 &nbsp;@Service
-&nbsp;public class KafkaProducer {
+<b class="fc">&nbsp;public class ConsoleConsumer {</b>
 &nbsp;
-&nbsp;    private final KafkaTemplate&lt;String, String&gt; kafkaTemplate;
+<b class="fc">&nbsp;    JSONObject movieInfo = new JSONObject();</b>
 &nbsp;
-<b class="fc">&nbsp;    public KafkaProducer(KafkaTemplate&lt;String, String&gt; kafkaTemplate) {</b>
-<b class="fc">&nbsp;        this.kafkaTemplate = kafkaTemplate;</b>
-&nbsp;    }
+<b class="fc">&nbsp;    private FileWrite fileWrite = new FileWrite();</b>
 &nbsp;
-&nbsp;    public void sendMessage(String movieInfo) throws Exception {
+&nbsp;    @KafkaListener(topics = &quot;returningData&quot;, groupId = &quot;Console&quot;)
+&nbsp;    public void consume(String message) throws Exception {
 &nbsp;        try{
-<b class="fc">&nbsp;        log.info(&quot;Producing message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;        kafkaTemplate.send(&quot;movie&quot;, movieInfo);</b>
+<b class="fc">&nbsp;            log.info(&quot;Consumed message: &quot; + message);</b>
+<b class="fc">&nbsp;            JSONParser parser = new JSONParser();</b>
+<b class="fc">&nbsp;            movieInfo = (JSONObject) parser.parse(message);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Movie information received from Database.&quot;);</b>
+<b class="nc">&nbsp;            fileWrite.writeToFile(movieInfo);</b>
+&nbsp;
 <b class="fc">&nbsp;        } catch (Exception e) {</b>
-<b class="fc">&nbsp;            log.error(&quot;Error producing message: &quot; + movieInfo);</b>
 <b class="fc">&nbsp;            log.error(e.getMessage());</b>
-<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
-<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + message);</b>
+<b class="nc">&nbsp;        }</b>
 &nbsp;    }
+&nbsp;
+&nbsp;
 &nbsp;}
+&nbsp;
 </code>
 </pre>
 </div>
@@ -129,7 +141,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-11 13:01</div>
+    <div style="float:right;">generated on 2023-09-14 10:30</div>
 </div>
 </body>
 </html>

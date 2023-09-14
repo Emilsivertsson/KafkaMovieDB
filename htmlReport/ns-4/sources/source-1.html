@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > APIController</title>
+  <title>Coverage Report > ApplicationConsumer</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.controller</a>
+    <a href="../index.html">org.CodeForPizza.consumer</a>
 </div>
 
-<h1>Coverage Summary for Class: APIController (org.CodeForPizza.controller)</h1>
+<h1>Coverage Summary for Class: ApplicationConsumer (org.CodeForPizza.consumer)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">APIController</td>
+  <td class="name">ApplicationConsumer</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (8/8)
+    (14/14)
   </span>
 </td>
 </tr>
@@ -75,43 +75,47 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.controller;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.consumer;
 &nbsp;
+&nbsp;import lombok.Getter;
 &nbsp;import lombok.extern.slf4j.Slf4j;
-&nbsp;import org.CodeForPizza.producer.KafkaProducer;
-&nbsp;import org.springframework.http.ResponseEntity;
-&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import org.json.simple.JSONObject;
+&nbsp;import org.json.simple.parser.JSONParser;
+&nbsp;import org.springframework.kafka.annotation.KafkaListener;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
 &nbsp;
 &nbsp;/**
-&nbsp; * This class is used to create the REST API. it has one endpoint that receives a JSON object and sends it to Kafka producer.
+&nbsp; * This class implements a kafka consumer that listens to the topic &quot;movie&quot;, group &quot;user&quot;.
+&nbsp; * It uses a KafkaListener to listen to the topic.
+&nbsp; * it prints out the movie information to the console.
 &nbsp; */
+&nbsp;@Getter
 <b class="fc">&nbsp;@Slf4j</b>
-&nbsp;@RestController
-&nbsp;@RequestMapping(&quot;/api/v1/movie&quot;)
-&nbsp;public class APIController {
+&nbsp;@Service
+&nbsp;public class ApplicationConsumer {
 &nbsp;
-&nbsp;        private KafkaProducer kafkaProducer;
+<b class="fc">&nbsp;    JSONObject movieInfo = new JSONObject();</b>
 &nbsp;
-<b class="fc">&nbsp;        public APIController(KafkaProducer kafkaProducer) {</b>
-<b class="fc">&nbsp;            this.kafkaProducer = kafkaProducer;</b>
-&nbsp;        }
+<b class="fc">&nbsp;    public ApplicationConsumer( ) {</b>
+&nbsp;    }
 &nbsp;
+&nbsp;    @KafkaListener(topics = &quot;movie&quot;, groupId = &quot;user&quot;)
+&nbsp;    public void consume(String message) {
+&nbsp;        try {
+<b class="fc">&nbsp;            log.info(&quot;Consumed message: &quot; + message);</b>
+<b class="fc">&nbsp;            JSONParser parser = new JSONParser();</b>
+<b class="fc">&nbsp;            movieInfo = (JSONObject) parser.parse(message);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;=============================================&quot;);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Movie information saved in the database:&quot;);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Title: &quot; + movieInfo.get(&quot;title&quot;));</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Year: &quot; + movieInfo.get(&quot;year&quot;));</b>
 &nbsp;
-&nbsp;        // http://localhost:8080/api/v1/movie/save
-&nbsp;        @PostMapping(&quot;/save&quot;)
-&nbsp;        public ResponseEntity&lt;String&gt; publish(@RequestBody() String movie) {
-&nbsp;            try{
-<b class="fc">&nbsp;                log.info(&quot;Received message: &quot; + movie);</b>
-<b class="fc">&nbsp;            kafkaProducer.sendMessage(movie);</b>
-<b class="fc">&nbsp;            return ResponseEntity.ok().body(&quot;Message sent to Topic&quot;);</b>
-<b class="fc">&nbsp;            } catch (Exception e) {</b>
-<b class="fc">&nbsp;                return ResponseEntity.badRequest().body(&quot;Error sending message to Topic&quot;);</b>
-&nbsp;
-&nbsp;            }
-&nbsp;        }
-&nbsp;
-&nbsp;
-&nbsp;
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            log.error(&quot;Error parsing message: &quot; + message);</b>
+<b class="fc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + message);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -136,7 +140,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-13 15:14</div>
+    <div style="float:right;">generated on 2023-09-14 10:30</div>
 </div>
 </body>
 </html>

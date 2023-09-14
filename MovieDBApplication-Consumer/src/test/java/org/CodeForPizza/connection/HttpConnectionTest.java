@@ -7,9 +7,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.nio.file.Paths;
-import java.util.HashMap;
-
 import org.apache.http.HttpException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -22,17 +19,7 @@ import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.conn.routing.HttpRoutePlanner;
 import org.apache.http.impl.DefaultConnectionReuseStrategy;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.ContentEncodingHttpClient;
-import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
-import org.apache.http.impl.client.DefaultUserTokenHandler;
-import org.apache.http.impl.client.ProxyAuthenticationStrategy;
-import org.apache.http.impl.client.SystemDefaultHttpClient;
-import org.apache.http.impl.client.TargetAuthenticationStrategy;
+import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.BasicClientConnectionManager;
 import org.apache.http.impl.conn.DefaultHttpRoutePlanner;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
@@ -47,10 +34,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class HttpConnectionTest {
-    /**
-     * Method under test: {@link HttpConnection#sendRequestToAPI(JSONObject)}
-     */
-
 
     @Test
     void testSendRequestToAPI5() {
@@ -61,9 +44,6 @@ class HttpConnectionTest {
         verify(movie).toJSONString();
     }
 
-    /**
-     * Method under test: {@link HttpConnection#sendRequestToAPI(JSONObject)}
-     */
     @Test
     void testSendRequestToAPI6() {
         HttpConnection httpConnection = new HttpConnection();
@@ -73,9 +53,6 @@ class HttpConnectionTest {
         verify(movie).toJSONString();
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
     @Test
     void testExecutePOST() {
         HttpConnection httpConnection = new HttpConnection();
@@ -112,9 +89,6 @@ class HttpConnectionTest {
         assertTrue(httpPost.getProtocolVersion() instanceof HttpVersion);
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
     @Test
     void testExecutePOST2() {
         HttpConnection httpConnection = new HttpConnection();
@@ -126,9 +100,6 @@ class HttpConnectionTest {
         assertTrue(httpPost.getProtocolVersion() instanceof HttpVersion);
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
     @Test
     void testExecutePOST3() {
         HttpConnection httpConnection = new HttpConnection();
@@ -166,9 +137,7 @@ class HttpConnectionTest {
         assertTrue(httpPost.getParams() instanceof BasicHttpParams);
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
+
     @Test
     void testExecutePOST4() {
         HttpConnection httpConnection = new HttpConnection();
@@ -205,9 +174,6 @@ class HttpConnectionTest {
         assertTrue(httpPost.getProtocolVersion() instanceof HttpVersion);
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
     @Test
     void testExecutePOST5() throws HttpException {
         HttpConnection httpConnection = new HttpConnection();
@@ -249,9 +215,7 @@ class HttpConnectionTest {
         assertTrue(httpPost.getProtocolVersion() instanceof HttpVersion);
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
+
     @Test
     void testExecutePOST6() throws HttpException {
         HttpConnection httpConnection = new HttpConnection();
@@ -293,9 +257,6 @@ class HttpConnectionTest {
         assertTrue(httpPost.getProtocolVersion() instanceof HttpVersion);
     }
 
-    /**
-     * Method under test: {@link HttpConnection#executePOST(CloseableHttpClient, HttpPost)}
-     */
     @Test
     void testExecutePOST7() {
         HttpConnection httpConnection = new HttpConnection();

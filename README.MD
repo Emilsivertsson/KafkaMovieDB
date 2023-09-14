@@ -69,6 +69,18 @@ When entered the information in the MovieDBApplication you will get the informat
 you can also see the information in the database.\
 The information from the Database also gets printed to the user via the Console Consumer.\
 
+### If installed correctly this is what you should see when you run the applications:\
+
+![MovieDB](Images/MovieApplication.png)
+
+![RestAPI](Images/API.png)
+
+![Console](Images/ConsolWriter.png)
+
+![Database](Images/Database.png)
+
+
+
 ## Replication and participation over serveral brokers
 The application uses three Kafka servers (Brokers) to replicate the information sent through the Kafka topics.\
 One of the Brokers will serve as the leader and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
@@ -102,13 +114,8 @@ All dependencies are included in the pom.xml file.\
 ## License
 The application is licensed under the MIT license. Please see the license file for more information.
 
-
-To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-```md
-![alt text](assets/images/screenshot.png)
-```
-
-
-
 ## Tests
+I have added tests written with junit, Mockito and Kafka testing.\
+most of the test have two ,one for a positive test and one for a negative test.\ 
 
+![Test results](Images/tests.png)

@@ -45,7 +45,7 @@ public class MovieDBApplication {
     private static void createJson(Scanner scanner, JSONObject movieToSave) {
         try  {
             String title = askForTitle(scanner);
-            String year = askForYear(scanner);
+            String year = Integer.toString(askForYear(scanner));
             movieToSave.put("title", title);
             movieToSave.put("year", year);
         } catch (Exception e) {
@@ -54,23 +54,34 @@ public class MovieDBApplication {
         }
     }
 
-    private static String askForYear(Scanner scanner) {
-        System.out.print("Please enter the production year: ");
-        String year = scanner.nextLine();
-        if(year.length() != 4){
-            System.out.println("Year cant be empty and must be 4 digits. Please try again.");
-            askForYear(scanner);
-        }
+    private static int askForYear(Scanner scanner) {
+        int year;
+        do {
+            System.out.print("Please enter the year: ");
+            year = Integer.parseInt(scanner.nextLine());
+            if (year < 1888 || year > 2024) {
+                System.out.println("Year must be between 1888 and 2024. Please try again.");
+            }
+            if (year <= 0 ) {
+                System.out.println("Year cant be 0. Please try again.");
+            }
+        } while (year < 1888 || year > 2024 || year <= 0);
         return year;
     }
 
     private static String askForTitle(Scanner scanner) {
-        System.out.print("Please enter your movie title: ");
-        String title = scanner.nextLine();
-        if(title.isEmpty()) {
-            System.out.println("Title cant be empty. Please try again.");
-            askForTitle(scanner);
-        }
+        String title;
+        do {
+            System.out.print("Please enter the title: ");
+            title = scanner.nextLine();
+            if(title.isEmpty()){
+                System.out.println("Title cant be empty. Please try again.");
+            }
+            if (title.contains("å") || title.contains("ä") || title.contains("ö")) {
+                System.out.println("Title cant contain å, ä or ö. Please try again.");
+            }
+        } while (title.contains("å") || title.contains("ä") || title.contains("ö") || title.isEmpty() || title.isBlank());
+
         return title;
     }
 

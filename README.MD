@@ -116,6 +116,7 @@ The application is licensed under the MIT license. Please see the license file f
 
 ## Tests
 I have added tests written with junit, Mockito and Kafka testing.\
-most of the test have two ,one for a positive test and one for a negative test.\ 
+most of the test have two ,one for a positive test and one for a negative test.\
+the tests for the HTTP Connections class was written using Diffblue, to try out its functionality.
 
 ![Test results](Images/tests.png)

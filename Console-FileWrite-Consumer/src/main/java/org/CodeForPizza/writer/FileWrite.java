@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 
 /**
- * FileWriter to write the Json object to a file.
+ * FileWriter to write the Json object to a logfile. The logfile is located in the same folder as the project.
  */
 @Slf4j
 public class FileWrite {

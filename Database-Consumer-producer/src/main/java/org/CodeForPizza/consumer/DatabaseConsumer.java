@@ -45,7 +45,6 @@ public class DatabaseConsumer {
             log.error(e.getMessage());
             throw new NullPointerException("Error parsing message: " + message);
         }
-
     }
 
     private void saveToDB(Movie movie) {
@@ -54,6 +53,7 @@ public class DatabaseConsumer {
         } catch (Exception e) {
             log.error("Error saving movie to database: " + movie);
             log.error(e.getMessage());
+            throw new NullPointerException("Error saving movie to database: " + movie);
         }
     }
 
@@ -63,6 +63,7 @@ public class DatabaseConsumer {
         } catch (Exception e) {
             log.error("Error producing message: " + movieInfo);
             log.error(e.getMessage());
+            throw new NullPointerException("Error producing message: " + movieInfo);
         }
     }
 }

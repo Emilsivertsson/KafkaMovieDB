@@ -21,9 +21,7 @@ public class ApplicationConsumer {
     JSONObject movieInfo = new JSONObject();
 
     public ApplicationConsumer( ) {
-
     }
-
 
     @KafkaListener(topics = "movie", groupId = "user")
     public void consume(String message) {
@@ -41,6 +39,4 @@ public class ApplicationConsumer {
             throw new NullPointerException("Error parsing message: " + message);
         }
     }
-
-
 }

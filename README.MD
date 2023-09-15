@@ -105,6 +105,7 @@ All dependencies are included in the pom.xml file.\
 ## Credits
 - my classmates Kristoffer and Johan for prof-reading my code and checking that i did not miss anything.
 - chatGPT and Bard for helping me when i got stuck.
+- Diffblue for helping me with the tests for the HTTP Connections class.
 
 ## Tutorials
 - https://youtube.com/playlist?list=PLGRDMO4rOGcNLwoack4ZiTyewUcF6y6BU&si=BByR1u0OqgjQH9TE

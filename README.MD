@@ -47,8 +47,8 @@ i also extended my knowledge about spring boot. I have used it before but not to
      - server.properties
      - server2.properties
      - server3.properties
-   - start your Zookeeper and the three Kafka servers (Brokers), its very important that you start them before \
-   you start the applications, or else the applications you will get an error. that the replication factor don't have enough brokers.
+   - start your Zookeeper and the three Kafka servers (Brokers), information on how to do this for your system can be found on the Kafka homepage.
+   - its very important that you start them before you start the applications, or else the applications you will get an error that the replication factor don't have enough brokers.
    
 3. Clone this repository to your computer and open it in your IDE.
    - First run the Rest API application.
@@ -83,11 +83,17 @@ The information from the Database also gets printed to the user via the Console 
 
 ## Replication and participation over serveral brokers
 The application uses three Kafka servers (Brokers) to replicate the information sent through the Kafka topics.\
-One of the Brokers will serve as the leader and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
-The application uses the replication factor 3, so that the information will be replicated over all three brokers.\
+One of the Brokers will serve as the leader for a partition and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
+Each topic uses the replication factor 3 and the partition factor 3, so that the information will be replicated over all three brokers.\
 The Replication is a fail-safe if one of the brokers goes down, the information will still be available on the other brokers.\
 ![Replication](Images/relication1.png)
 ![Replication](Images/relication2.png)
+
+## Efficient data usage
+I could have more efficiently only used one topic for the application to send to all the consumers, \
+but i wanted to add more producers, consumers and topics the make the application more complex.\
+To have the data replicated over several brokers demands more data usage, but it also makes the application more fail-safe.\
+and Kafka is designed to handle large amounts of data, so I think it's a good trade-off.\
 
 ## Dependencies
 All dependencies are included in the pom.xml file.

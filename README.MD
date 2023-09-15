@@ -69,7 +69,7 @@ When entered the information in the MovieDBApplication you will get the informat
 you can also see the information in the database.\
 The information from the Database also gets printed to the user via the Console Consumer.\
 
-### If installed correctly this is what you should see when you run the applications:\
+### If installed correctly this is what you should see when you run the applications:
 
 ![MovieDB](Images/MovieApplication.png)
 
@@ -86,9 +86,11 @@ The application uses three Kafka servers (Brokers) to replicate the information 
 One of the Brokers will serve as the leader and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
 The application uses the replication factor 3, so that the information will be replicated over all three brokers.\
 The Replication is a fail-safe if one of the brokers goes down, the information will still be available on the other brokers.\
+![Replication](Images/relication1.png)
+![Replication](Images/relication2.png)
 
 ## Dependencies
-All dependencies are included in the pom.xml file.\
+All dependencies are included in the pom.xml file.
 - Java 17
 - org.springframework.boot
 - org.springframework.kafka

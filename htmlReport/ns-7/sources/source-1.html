@@ -103,8 +103,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            log.info(&quot;Producing message: &quot; + movieInfo);</b>
 <b class="fc">&nbsp;            kafkaTemplate.send(&quot;returningData&quot;, movieInfo);</b>
 <b class="fc">&nbsp;        } catch (Exception e) {</b>
-<b class="fc">&nbsp;            log.error(&quot;Error producing message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;            throw new NullPointerException(&quot;Error producing message: &quot; + movieInfo);</b>
+<b class="fc">&nbsp;            log.error(&quot;Error producing message: &quot; + e.getMessage());</b>
+<b class="fc">&nbsp;            throw new NullPointerException(&quot;Error producing message: &quot; + e.getMessage());</b>
 <b class="fc">&nbsp;        }</b>
 &nbsp;    }
 &nbsp;
@@ -133,7 +133,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-14 10:30</div>
+    <div style="float:right;">generated on 2023-09-14 14:22</div>
 </div>
 </body>
 </html>

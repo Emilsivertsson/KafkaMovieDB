@@ -1,4 +1,4 @@
-# Projektrapport: Gruppnamn
+# Projektrapport
 
 ## Gruppen
 

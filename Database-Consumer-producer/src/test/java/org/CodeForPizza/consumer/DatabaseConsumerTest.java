@@ -35,8 +35,6 @@ class DatabaseConsumerTest {
         }
         //Mockito.doNothing().when(movieRepository).save(Mockito.any());
         assert(databaseConsumer.movieInfo.get("title").equals("The Matrix"));
-        //TODO make it not save to the database
-
     }
 
     @Test
@@ -51,6 +49,6 @@ class DatabaseConsumerTest {
         assertThrows(NullPointerException.class, () -> {
             databaseConsumer.consume(message);
         });
-        //TODO make it not save to the database
+
     }
 }

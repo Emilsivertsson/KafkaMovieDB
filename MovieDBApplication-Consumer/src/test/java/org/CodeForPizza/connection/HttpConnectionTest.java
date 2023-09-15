@@ -33,6 +33,9 @@ import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+// tests for this class was written using DiffBlue , a tool that automatically generates unit tests for Java classes.
+// to try out its functionality.
+
 class HttpConnectionTest {
 
     @Test

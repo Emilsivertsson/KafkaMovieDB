@@ -35,9 +35,6 @@ class FileWriteTest {
         JSONObject movieInfo = new JSONObject();
         movieInfo.put("name", "The Shawshank Redemption");
         movieInfo.put("year", 1994);
-
-        //TODO: Write a test that verifies that the writeToFile method writes the movieInfo to the file.
-
     }
 
     @Test

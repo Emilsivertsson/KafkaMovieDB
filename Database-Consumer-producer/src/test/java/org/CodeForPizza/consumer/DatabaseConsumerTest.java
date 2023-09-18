@@ -1,7 +1,7 @@
 package org.CodeForPizza.consumer;
 
 
-import org.CodeForPizza.repository.MovieRepository;
+import org.CodeForPizza.consumer.DatabaseConsumer.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ class DatabaseConsumerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //Mockito.doNothing().when(movieRepository).save(Mockito.any());
+
         assert(databaseConsumer.movieInfo.get("title").equals("The Matrix"));
     }
 

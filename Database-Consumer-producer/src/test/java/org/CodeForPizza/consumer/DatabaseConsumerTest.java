@@ -23,7 +23,6 @@ class DatabaseConsumerTest {
     private DatabaseConsumer databaseConsumer;
 
 
-
     @Test
     void consume_Success() {
         String message = "{\"title\":\"The Matrix\",\"year\":\"1999\"}";

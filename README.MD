@@ -86,6 +86,7 @@ The application uses three Kafka servers (Brokers) to replicate the information 
 One of the Brokers will serve as the leader for a partition and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
 Each topic uses the replication factor 3 and the partition factor 3, so that the information will be replicated over all three brokers.\
 The Replication is a fail-safe if one of the brokers goes down, the information will still be available on the other brokers.\
+if the leader goes down one of the followers will take over as leader.\ this does take a few seconds, and the application will not be able to send or receive information during that time.\
 ![Replication](Images/relication1.png)
 ![Replication](Images/relication2.png)
 

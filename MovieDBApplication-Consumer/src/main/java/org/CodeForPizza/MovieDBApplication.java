@@ -3,6 +3,7 @@ package org.CodeForPizza;
 
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.connection.HttpConnection;
+import org.CodeForPizza.consumer.ApplicationConsumer;
 import org.json.simple.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,8 +32,9 @@ public class MovieDBApplication {
             if (input.equals("1")) {
                 createJson(scanner, movieToSave);
                 httpConnection.sendRequestToAPI(movieToSave);
-                System.out.println("Saving movie to database...");
-                Thread.sleep(2000);
+                System.out.println("Saving movie to database...Awaiting response from server.");
+                Thread.sleep(3000);
+
             } else if (input.equals("2")) {
                 System.out.println("Exiting program.");
                 System.exit(0);

@@ -1,5 +1,6 @@
 package org.CodeForPizza.consumer;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.entity.Movie;
 import org.CodeForPizza.producer.DatabaseProducer;
@@ -38,13 +39,23 @@ public class DatabaseConsumer {
             Movie movie = new Movie(movieInfo.get("title").toString(), movieInfo.get("year").toString());
 
             saveToDB(movie);
-            produceMessage(movieInfo);
+            JSONObject movieToReturnJson = getMovieFromDB(movie);
+            produceMessage(movieToReturnJson);
 
         } catch (Exception e) {
             log.error("Error parsing message: " + message);
             log.error(e.getMessage());
             throw new NullPointerException("Error parsing message: " + message);
         }
+    }
+
+    private JSONObject getMovieFromDB(Movie movie) {
+        Movie MovieToReturn = movieRepository.findByTitleAndYear(movie.getTitle(), movie.getYear());
+        JSONObject movieToReturnJson = new JSONObject();
+        movieToReturnJson.put("id", MovieToReturn.getId());
+        movieToReturnJson.put("title", MovieToReturn.getTitle());
+        movieToReturnJson.put("year", MovieToReturn.getYear());
+        return movieToReturnJson;
     }
 
     private void saveToDB(Movie movie) {

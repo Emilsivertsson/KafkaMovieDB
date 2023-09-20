@@ -1,5 +1,6 @@
 package org.CodeForPizza.service.movieImpl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,7 @@ import org.CodeForPizza.repository.MovieRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @AutoConfiguration
+@Transactional
 @Service
 public class MovieServiceImpl implements MovieService {
 

@@ -38,8 +38,8 @@ class MovieRepositoryTest {
     @AfterEach
     void tearDown() {
         System.out.println("tearDown");
-        if (movieRepository.findById((int) testMovie.getId()).isPresent()) {
-            movieRepository.deleteById((int) testMovie.getId());
+        if (movieRepository.findById(Math.toIntExact(testMovie.getId())).isPresent()) {
+            movieRepository.deleteById(Math.toIntExact(testMovie.getId()));
         }
     }
 
@@ -55,7 +55,7 @@ class MovieRepositoryTest {
     @Order(2)
     void UpdateUser(){
         // hämta testuser från databasen
-        Movie movieFromDB = movieRepository.findById((int) testMovie.getId()).get();
+        Movie movieFromDB = movieRepository.findById(Math.toIntExact(testMovie.getId())).get();
 
         // ändra förnamn och efternamn
         movieFromDB.setTitle("C");
@@ -63,7 +63,7 @@ class MovieRepositoryTest {
         movieRepository.save(movieFromDB);
 
         // hämta testuser från databasen igen
-        Movie updatedUserFromDB = movieRepository.findById((int) testMovie.getId()).get();
+        Movie updatedUserFromDB = movieRepository.findById(Math.toIntExact(testMovie.getId())).get();
 
         assertEquals(movieFromDB.getTitle(), updatedUserFromDB.getTitle());
 
@@ -73,12 +73,12 @@ class MovieRepositoryTest {
     @Order(3)
     void deleteUser(){
         // kontrollera att user med id 1 finns
-        assertNotNull(movieRepository.findById((int) testMovie.getId()).get());
+        assertNotNull(movieRepository.findById(Math.toIntExact(testMovie.getId())).get());
 
         // ta bort user med id 1
-        movieRepository.deleteById((int) testMovie.getId());
+        movieRepository.deleteById(Math.toIntExact(testMovie.getId()));
 
         // kontrollera att user med id 1 inte finns
-        assertFalse(movieRepository.findById((int) testMovie.getId()).isPresent());
+        assertFalse(movieRepository.findById(Math.toIntExact(testMovie.getId())).isPresent());
     }
 }

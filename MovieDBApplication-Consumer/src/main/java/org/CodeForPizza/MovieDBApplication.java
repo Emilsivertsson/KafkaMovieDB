@@ -3,11 +3,14 @@ package org.CodeForPizza;
 
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.connection.HttpConnection;
-import org.CodeForPizza.consumer.ApplicationConsumer;
+import org.CodeForPizza.dto.Movie;
+import org.CodeForPizza.output.Output;
 import org.json.simple.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -26,22 +29,45 @@ public class MovieDBApplication {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Enter '1' to save a movie to the database.");
-            System.out.println("Enter '2' to exit the program.");
-            String input = scanner.nextLine();
-            if (input.equals("1")) {
-                createJson(scanner, movieToSave);
-                httpConnection.sendRequestToAPI(movieToSave);
-                System.out.println("Saving movie to database...Awaiting response from server.");
-                Thread.sleep(3000);
-
-            } else if (input.equals("2")) {
-                System.out.println("Exiting program.");
-                System.exit(0);
-            } else {
-                System.out.println("Invalid input. Please try again.");
+            Output.printMenu();
+            int input = Integer.parseInt(scanner.nextLine());
+            switch (input){
+                case 1: addMovie(scanner, httpConnection, movieToSave);
+                        break;
+                case 2: listMovies(scanner, httpConnection);
+                        break;
+                case 3: updateMovie(scanner, httpConnection, movieToSave);
+                        break;
+                case 4: deleteMovie(scanner, httpConnection);
+                        break;
+                case 5: Output.thankYou();
+                        System.exit(0);
+                        break;
+                default: System.out.println("Invalid input. Please try again.");
             }
+
         }
+    }
+
+    private static void deleteMovie(Scanner scanner, HttpConnection httpConnection) {
+    }
+
+    private static void updateMovie(Scanner scanner, HttpConnection httpConnection, JSONObject movieToSave) {
+    }
+
+    private static void listMovies(Scanner scanner, HttpConnection httpConnection) {
+        System.out.println("Listing all movies in database...Awaiting response from server.");
+        List<Movie> movies = httpConnection.getAllMovies();
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
+    }
+
+    private static void addMovie(Scanner scanner, HttpConnection httpConnection, JSONObject movieToSave) throws InterruptedException {
+        createJson(scanner, movieToSave);
+        httpConnection.sendRequestToAPI(movieToSave);
+        System.out.println("Saving movie to database...Awaiting response from server.");
+        Thread.sleep(3000);
     }
 
     private static void createJson(Scanner scanner, JSONObject movieToSave) {
@@ -59,7 +85,7 @@ public class MovieDBApplication {
     private static int askForYear(Scanner scanner) {
         int year;
         do {
-            System.out.print("Please enter the year: ");
+            Output.askForYear();
             year = Integer.parseInt(scanner.nextLine());
             if (year < 1888 || year > 2024) {
                 System.out.println("Year must be between 1888 and 2024. Please try again.");
@@ -74,7 +100,7 @@ public class MovieDBApplication {
     private static String askForTitle(Scanner scanner) {
         String title;
         do {
-            System.out.print("Please enter the title: ");
+            Output.askForTitle();
             title = scanner.nextLine();
             if(title.isEmpty()){
                 System.out.println("Title cant be empty. Please try again.");

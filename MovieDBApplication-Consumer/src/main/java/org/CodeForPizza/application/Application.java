@@ -5,6 +5,7 @@ import org.CodeForPizza.connection.HttpConnection;
 import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.output.Output;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Slf4j
@@ -12,7 +13,13 @@ public class Application {
 
     HttpConnection httpConnection = new HttpConnection();
 
-    MovieDTO movie = new MovieDTO();
+    MovieDTO movie;
+
+    MovieDTO movieToUpdate;
+
+    List<MovieDTO> moviesFromDB;
+
+    int id;
     Scanner scanner = new Scanner(System.in);
 
     public Application() {
@@ -46,18 +53,51 @@ public class Application {
 }
 
     private  void deleteMovie() {
+        System.out.println("list of all movies in the database:");
+        for (MovieDTO movie : moviesFromDB) {
+            System.out.println("Id: " + movie.getId()
+                    + " Title: " + movie.getTitle()
+                    + " Year: " + movie.getYear());
+        }
+        System.out.println("what is the id of the movie you want to delete?");
+        id = Integer.parseInt(scanner.nextLine());
+        httpConnection.deleteMovie(id);
     }
 
     private  void updateMovie() {
+        System.out.println("list of all movies in the database:");
+        for (MovieDTO movie : moviesFromDB) {
+            System.out.println("Id: " + movie.getId()
+                    + " Title: " + movie.getTitle()
+                    + " Year: " + movie.getYear());
+        }
+        System.out.println("what is the id of the movie you want to update?");
+        id = Integer.parseInt(scanner.nextLine());
+        movieToUpdate = httpConnection.getMovieById(id);
+        System.out.println("what is the new title?");
+        movieToUpdate.setTitle(scanner.nextLine());
+        System.out.println("what is the new year?");
+        movieToUpdate.setYear(scanner.nextLine());
+        httpConnection.updateMovie(id, movieToUpdate);
+
+
+
     }
 
     private  void listMovies() {
+        System.out.println("List of all movies in the database:");
+        moviesFromDB = httpConnection.getAllMovies();
+        for (MovieDTO movie : moviesFromDB) {
+            System.out.println("Id: " + movie.getId()
+                    + " Title: " + movie.getTitle()
+                    + " Year: " + movie.getYear());
+        }
     }
 
     private  void addMovie() {
         createMovie();
         System.out.println(movie.toString());
-        httpConnection.sendRequestToAPI(movie);
+        httpConnection.saveMovieToAPI(movie);
     }
 
     private void createMovie( ) {

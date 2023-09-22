@@ -4,16 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.output.Output;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -29,8 +23,45 @@ public class HttpConnection {
 
     Gson gson = new Gson();
 
-    public void sendRequestToAPI(MovieDTO movie) {
-        //"http://localhost:8080/api/v1/movie/save"
+    public  MovieDTO getMovieById(int id) {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/movie/" + id);
+            httpGet.setHeader("Content-Type", "application/json; utf-8");
+            return executeGETOne(httpClient, httpGet);
+        } catch (Exception e) {
+            log.error("Error creating HTTP client, please check that your API is running.");
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    private MovieDTO executeGETOne(CloseableHttpClient httpClient, HttpGet httpGet) {
+        try{
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            int responseCode = response.getStatusLine().getStatusCode();
+            log.info("Response Code: " + responseCode);
+            if (responseCode == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuilder responseText = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    responseText.append(line);
+                }
+                String movieAsJson = responseText.toString();
+                MovieDTO movieToUpdate = gson.fromJson(movieAsJson, MovieDTO.class);
+                return movieToUpdate;
+            } else {
+                log.error("Error: Unexpected response code - " + responseCode);
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("Error executing GET request, please check that you have the API running.");
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    public void saveMovieToAPI(MovieDTO movie) {
         try{
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/movie/save");
@@ -60,21 +91,19 @@ public class HttpConnection {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/movie/all");
             httpGet.setHeader("Content-Type", "application/json; utf-8");
-            return executeGET(httpClient, httpGet);
+            return executeGETAll(httpClient, httpGet);
 
         } catch (Exception e) {
             log.error("Error creating HTTP client, please check that your API is running.");
-            log.error(e.getMessage());
+            return null;
         }
-        return null;
     }
 
-    private List<MovieDTO> executeGET(CloseableHttpClient httpClient, HttpGet httpGet) {
+    private List<MovieDTO> executeGETAll(CloseableHttpClient httpClient, HttpGet httpGet) {
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             int responseCode = response.getStatusLine().getStatusCode();
             log.info("Response Code: " + responseCode);
             if (responseCode == 200) {
-                // Parse the JSON response and convert it into a list of Movie objects
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuilder responseText = new StringBuilder();
                 String line;
@@ -82,29 +111,81 @@ public class HttpConnection {
                     responseText.append(line);
                 }
 
-                // Parse the JSON array into a list of Movie objects
                 List<MovieDTO> movieList = new ArrayList<>();
-                JSONParser jsonParser = new JSONParser();
-                JSONArray jsonArray = (JSONArray) jsonParser.parse(responseText.toString());
-                for (Object obj : jsonArray) {
-                    JSONObject movieJson = (JSONObject) obj;
-                    String title = (String) movieJson.get("title");
-                    String year = (String) movieJson.get("year");
-                    // Assuming you have a Movie constructor that accepts title and year
-                    MovieDTO movie = new MovieDTO(title, year);
+                String movieListAsJson = responseText.toString();
+                MovieDTO[] movieArray = gson.fromJson(movieListAsJson, MovieDTO[].class);
+                for (MovieDTO movie : movieArray) {
                     movieList.add(movie);
                 }
 
                 return movieList;
             } else {
                 log.error("Error: Unexpected response code - " + responseCode);
+                return null;
             }
         } catch (Exception e) {
             log.error("Error executing GET request, please check that you have the API running.");
-            log.error(e.getMessage());
+            return null;
         }
-        return null;
+    }
 
 
+    public String deleteMovie(int id) {
+        try{
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpDelete httpDelete = new HttpDelete("http://localhost:8080/api/v1/movie/delete/" + id);
+            httpDelete.setHeader("Content-Type", "application/json; utf-8");
+            return executeDELETE(httpClient, httpDelete);
+        } catch (Exception e) {
+            log.error("Error creating HTTP client, please check that your API is running.");
+            return e.getMessage();
+        }
+    }
+
+    private String executeDELETE(CloseableHttpClient httpClient, HttpDelete httpDelete) {
+        try {
+            CloseableHttpResponse response = httpClient.execute(httpDelete);
+            int responseCode = response.getStatusLine().getStatusCode();
+            log.info("Response Code: " + responseCode);
+            if (responseCode == 200) {
+                 return Output.movieDeleted();
+            } else {
+                return "Error: Unexpected response code - " + responseCode;
+            }
+        } catch (Exception e) {
+            log.error("Error executing DELETE request, please check that you have the API running.");
+            return e.getMessage();
+        }
+    }
+
+    public String updateMovie(int id, MovieDTO movie) {
+        //http://localhost:8080/api/v1/movie/update/{id}
+        try{
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpPut httpPut = new HttpPut("http://localhost:8080/api/v1/movie/update/" + id);
+            httpPut.setHeader("Content-Type", "application/json; utf-8");
+            String movieAsJson = gson.toJson(movie);
+            httpPut.setEntity(new StringEntity(movieAsJson));
+            return executePut(httpClient, httpPut);
+        } catch (Exception e) {
+            log.error("Error creating HTTP client, please check that your API is running.");
+            return e.getMessage();
+        }
+    }
+
+    private String executePut(CloseableHttpClient httpClient, HttpPut httpPut) {
+        try{
+            CloseableHttpResponse response = httpClient.execute(httpPut);
+            int responseCode = response.getStatusLine().getStatusCode();
+            log.info("Response Code: " + responseCode);
+            if (responseCode == 200) {
+                return Output.MovieUpdated();
+            } else {
+                return  "Error: Unexpected response code - " + responseCode;
+            }
+        } catch (Exception e) {
+            log.error("Error executing PUT request, please check that you have the API running.");
+            return e.getMessage();
+        }
     }
 }

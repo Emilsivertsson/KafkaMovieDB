@@ -28,5 +28,11 @@ public class Output {
         System.out.println("Movie information sent to the database.");
     }
 
+    public static String movieDeleted() {
+        return  "Movie deleted from the database.";
+    }
 
+    public static String MovieUpdated() {
+        return  "Movie updated in the database.";
+    }
 }

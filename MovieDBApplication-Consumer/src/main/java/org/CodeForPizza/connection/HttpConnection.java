@@ -18,7 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.google.gson.Gson;
 
 /**
  * This class creates a HTTP client and sends a POST request to the API.
@@ -27,13 +27,16 @@ import java.util.List;
 @Slf4j
 public class HttpConnection {
 
+    Gson gson = new Gson();
+
     public void sendRequestToAPI(MovieDTO movie) {
         //"http://localhost:8080/api/v1/movie/save"
         try{
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/movie/save");
             httpPost.setHeader("Content-Type", "application/json; utf-8");
-            httpPost.setEntity(new StringEntity(movie.toString()));
+            String movieAsJson = gson.toJson(movie);
+            httpPost.setEntity(new StringEntity(movieAsJson));
             executePOST(httpClient, httpPost);
         } catch (Exception e) {
             log.error("Error creating HTTP client, please check that your API is running.");

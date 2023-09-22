@@ -36,7 +36,6 @@ public class ApplicationConsumer {
 
             System.out.println("=============================================");
             System.out.println("Movie information saved in the database:");
-            System.out.println("id: " + movieFromDataBase.getId());
             System.out.println("Title: " + movieFromDataBase.getTitle());
             System.out.println("Year: " + movieFromDataBase.getYear());
 

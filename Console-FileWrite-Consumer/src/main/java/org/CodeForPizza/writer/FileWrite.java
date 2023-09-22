@@ -1,6 +1,7 @@
 package org.CodeForPizza.writer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.CodeForPizza.dto.MovieDTO;
 import org.json.simple.JSONObject;
 import java.io.FileWriter;
 
@@ -18,12 +19,12 @@ public class FileWrite {
     public FileWrite() {
     }
 
-    public void writeToFile(JSONObject movieInfo) {
+    public void writeToFile(MovieDTO movieInfo) {
         System.out.println("Writing movie information to file...");
 
         try {
             FileWriter file = new FileWriter("Console-FileWrite-Consumer/src/main/java/org/CodeForPizza/log/TopicLog.txt", true);
-            file.write(movieInfo.toJSONString()+ ",\n");
+            file.write(movieInfo.toString()+ ",\n");
             file.flush();
             file.close();
             System.out.println("Movie information written to file.");

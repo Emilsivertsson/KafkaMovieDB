@@ -4,18 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.dto.MovieDTO;
-import org.CodeForPizza.entity.Movie;
-import org.CodeForPizza.mapper.MovieMapper;
 import org.CodeForPizza.producer.KafkaProducer;
-import org.CodeForPizza.repository.MovieRepository;
 import org.CodeForPizza.service.movieImpl.MovieService;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +22,15 @@ import java.util.List;
 @RequestMapping("/api/v1/movie")
 public class APIController {
 
+    @Autowired
     private KafkaProducer kafkaProducer;
 
+    @Autowired
     private MovieService movieService;
 
     // http://localhost:8080/api/v1/movie/save
     @PostMapping("/save")
-    public ResponseEntity<String> publish(@RequestBody() String movie) {
+    public ResponseEntity<String> publish(@RequestBody() MovieDTO movie) {
         try {
             log.info("Received message: " + movie);
             kafkaProducer.sendMessage(movie);
@@ -53,7 +48,7 @@ public class APIController {
             MovieDTO savedMovie = movieService.save(movieDTO);
             return ResponseEntity.ok(savedMovie);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MovieDTO());
+            return ResponseEntity.badRequest().body(null);
         }
     }
 

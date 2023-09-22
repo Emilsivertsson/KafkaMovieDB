@@ -1,6 +1,7 @@
 package org.CodeForPizza.producer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.CodeForPizza.dto.MovieDTO;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +13,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducer {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, MovieDTO> kafkaTemplate;
 
-    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaProducer(KafkaTemplate<String, MovieDTO> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(String movieInfo) throws Exception {
+    public void sendMessage(MovieDTO movieInfo) {
         try{
-        log.info("Producing message: " + movieInfo);
+        log.info("Producing message: " + movieInfo.toString());
         kafkaTemplate.send("movie", movieInfo);
         } catch (Exception e) {
-            log.error("Error producing message: " + movieInfo);
+            log.error("Error producing message: " + movieInfo.toString());
             log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }

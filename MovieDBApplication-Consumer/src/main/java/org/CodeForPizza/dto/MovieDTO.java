@@ -5,15 +5,14 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class MovieDTO {
 
     private Long id;
     private String title;
     private String year;
-
 
     public MovieDTO(String title, String year) {
         this.title = title;

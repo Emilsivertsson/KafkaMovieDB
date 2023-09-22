@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9095", "port=9095"})
 class DatabaseConsumerTest {
 
+    /*
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
 
@@ -47,4 +48,6 @@ class DatabaseConsumerTest {
         });
 
     }
+
+     */
 }

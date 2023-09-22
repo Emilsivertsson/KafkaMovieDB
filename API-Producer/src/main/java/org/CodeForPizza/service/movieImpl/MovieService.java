@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Transactional
+
 @Service
 public interface MovieService {
 

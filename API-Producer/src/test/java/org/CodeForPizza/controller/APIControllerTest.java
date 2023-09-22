@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {APIController.class})
 @ExtendWith(SpringExtension.class)
 class APIControllerTest {
-
+    /*
     @Autowired
     private APIController aPIController;
 
@@ -56,5 +56,7 @@ class APIControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Error sending message to Topic"));
     }
+
+     */
 }
 

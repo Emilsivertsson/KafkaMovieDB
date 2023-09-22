@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
-@AutoConfiguration
-@Transactional
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -36,12 +34,19 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDTO save(MovieDTO movieDTO) {
+        try{
         log.info("Saving movie: " + movieDTO);
         Movie movie = MovieMapper.toMovie(movieDTO);
         log.info("mapped movie: " + movie);
+
         Movie savedMovie = movieRepository.save(movie);
         log.info("saved movie: " + savedMovie);
         return MovieMapper.toMovieDTO(savedMovie);
+
+        } catch (Exception e) {
+            log.info("Error saving movie: " + e);
+            return null;
+        }
     }
 
     @Override

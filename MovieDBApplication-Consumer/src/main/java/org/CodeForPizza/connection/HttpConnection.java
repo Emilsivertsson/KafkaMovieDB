@@ -1,7 +1,8 @@
 package org.CodeForPizza.connection;
 
 import lombok.extern.slf4j.Slf4j;
-import org.CodeForPizza.dto.Movie;
+
+import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.output.Output;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -18,6 +19,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This class creates a HTTP client and sends a POST request to the API.
  * It uses the JSONObject movie to send the movie information to the API.
@@ -25,33 +27,33 @@ import java.util.List;
 @Slf4j
 public class HttpConnection {
 
-    public void sendRequestToAPI(JSONObject movie) {
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+    public void sendRequestToAPI(MovieDTO movie) {
+        //"http://localhost:8080/api/v1/movie/save"
+        try{
+            CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/movie/save");
             httpPost.setHeader("Content-Type", "application/json; utf-8");
-            StringEntity entity = new StringEntity(movie.toJSONString());
-            httpPost.setEntity(entity);
+            httpPost.setEntity(new StringEntity(movie.toString()));
             executePOST(httpClient, httpPost);
-
         } catch (Exception e) {
             log.error("Error creating HTTP client, please check that your API is running.");
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
     public void executePOST(CloseableHttpClient httpClient, HttpPost httpPost) {
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
             int responseCode = response.getStatusLine().getStatusCode();
-            log.info("Response Code: " + responseCode);
+            log.error("Response Code: " + responseCode);
             Output.printResponse();
 
         } catch (Exception e) {
             log.error("Error executing POST request, please check that you have the API running.");
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
-    public List<Movie> getAllMovies() {
+    public List<MovieDTO> getAllMovies() {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/movie/all");
             httpGet.setHeader("Content-Type", "application/json; utf-8");
@@ -59,12 +61,12 @@ public class HttpConnection {
 
         } catch (Exception e) {
             log.error("Error creating HTTP client, please check that your API is running.");
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
         return null;
     }
 
-    private List<Movie> executeGET(CloseableHttpClient httpClient, HttpGet httpGet) {
+    private List<MovieDTO> executeGET(CloseableHttpClient httpClient, HttpGet httpGet) {
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             int responseCode = response.getStatusLine().getStatusCode();
             log.info("Response Code: " + responseCode);
@@ -78,7 +80,7 @@ public class HttpConnection {
                 }
 
                 // Parse the JSON array into a list of Movie objects
-                List<Movie> movieList = new ArrayList<>();
+                List<MovieDTO> movieList = new ArrayList<>();
                 JSONParser jsonParser = new JSONParser();
                 JSONArray jsonArray = (JSONArray) jsonParser.parse(responseText.toString());
                 for (Object obj : jsonArray) {
@@ -86,7 +88,7 @@ public class HttpConnection {
                     String title = (String) movieJson.get("title");
                     String year = (String) movieJson.get("year");
                     // Assuming you have a Movie constructor that accepts title and year
-                    Movie movie = new Movie(title, year);
+                    MovieDTO movie = new MovieDTO(title, year);
                     movieList.add(movie);
                 }
 
@@ -96,7 +98,7 @@ public class HttpConnection {
             }
         } catch (Exception e) {
             log.error("Error executing GET request, please check that you have the API running.");
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
         return null;
 

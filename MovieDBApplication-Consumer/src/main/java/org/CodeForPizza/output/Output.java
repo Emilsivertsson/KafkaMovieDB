@@ -1,8 +1,5 @@
 package org.CodeForPizza.output;
 
-import org.apache.http.client.methods.CloseableHttpResponse;
-
-import java.util.List;
 
 public class Output {
     public static void printMenu() {
@@ -15,7 +12,7 @@ public class Output {
     }
 
     public static void thankYou() {
-System.out.println("Thank you for using the movie database. Goodbye.");
+        System.out.println("Thank you for using the movie database. Goodbye.");
 
     }
 

@@ -2,6 +2,7 @@ package org.CodeForPizza.producer;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.CodeForPizza.dto.MovieDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatabaseProducer {
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, MovieDTO> kafkaTemplate;
 
     @Autowired
-    public DatabaseProducer(KafkaTemplate<String, String> kafkaTemplate) {
+    public DatabaseProducer(KafkaTemplate<String, MovieDTO> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(String movieInfo) {
+    public void sendMessage(MovieDTO movieInfo) {
         try{
             log.info("Producing message: " + movieInfo);
             kafkaTemplate.send("returningData", movieInfo);

@@ -18,4 +18,5 @@ public class KafkaTopicConfig {
                 .replicas(3)
                 .build();
     }
+
 }

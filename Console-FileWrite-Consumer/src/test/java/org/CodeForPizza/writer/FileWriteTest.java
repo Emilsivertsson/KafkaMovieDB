@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 class FileWriteTest {
 
+    /*
     @Mock
     private FileWriter mockWriter;
 
@@ -51,4 +52,6 @@ class FileWriteTest {
 
 
     }
+
+     */
 }

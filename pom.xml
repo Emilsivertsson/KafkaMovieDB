@@ -19,6 +19,7 @@
         <module>Database-Consumer-producer</module>
         <module>Console-FileWrite-Consumer</module>
         <module>MovieDBApplication-Consumer</module>
+        <module>Movie</module>
     </modules>
     <properties>
         <java.version>17</java.version>

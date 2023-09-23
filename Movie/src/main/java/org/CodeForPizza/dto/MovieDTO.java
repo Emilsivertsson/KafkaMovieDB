@@ -1,12 +1,11 @@
 package org.CodeForPizza.dto;
 
-
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class MovieDTO {
 

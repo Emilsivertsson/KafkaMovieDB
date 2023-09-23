@@ -1,10 +1,7 @@
 package org.CodeForPizza.entity;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -13,8 +10,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "movies")
 public class Movie {
@@ -28,6 +23,15 @@ public class Movie {
 
     @Column(name = "year")
     private String year;
+
+    public Movie(String title, String year) {
+        this.title = title;
+        this.year = year;
+    }
+
+    public Movie() {
+
+    }
 
     @Override
     public String toString() {

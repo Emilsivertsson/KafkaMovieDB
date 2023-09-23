@@ -4,7 +4,7 @@
 
 ## Table of Contents
 - [Description](#Description)
-- [What was your motivation?](#What-was-your-motivation?)
+- [What was your motivation?](#What-was-your-motivation)
 - [Installation and Usage](#Installation-and-Usage)
 - [Dependencies](#Dependencies)
 - [Credits](#Credits)

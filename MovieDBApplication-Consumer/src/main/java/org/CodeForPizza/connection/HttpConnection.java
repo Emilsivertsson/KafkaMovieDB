@@ -11,6 +11,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import com.google.gson.Gson;
@@ -23,44 +24,6 @@ import com.google.gson.Gson;
 public class HttpConnection {
 
     Gson gson = new Gson();
-
-    public  MovieDTO getMovieById(int id) {
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/movie/" + id);
-            httpGet.setHeader("Content-Type", "application/json; utf-8");
-            return executeGETOne(httpClient, httpGet);
-        } catch (Exception e) {
-            log.error("Error creating HTTP client, please check that your API is running.");
-            log.error(e.getMessage());
-            return null;
-        }
-    }
-
-    private MovieDTO executeGETOne(CloseableHttpClient httpClient, HttpGet httpGet) {
-        try{
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            int responseCode = response.getStatusLine().getStatusCode();
-            log.info("Response Code: " + responseCode);
-            if (responseCode == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuilder responseText = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    responseText.append(line);
-                }
-                String movieAsJson = responseText.toString();
-                MovieDTO movieToUpdate = gson.fromJson(movieAsJson, MovieDTO.class);
-                return movieToUpdate;
-            } else {
-                log.error("Error: Unexpected response code - " + responseCode);
-                return null;
-            }
-        } catch (Exception e) {
-            log.error("Error executing GET request, please check that you have the API running.");
-            log.error(e.getMessage());
-            return null;
-        }
-    }
 
     public String saveMovieToAPI(MovieDTO movie) {
         try{
@@ -115,9 +78,7 @@ public class HttpConnection {
                 List<MovieDTO> movieList = new ArrayList<>();
                 String movieListAsJson = responseText.toString();
                 MovieDTO[] movieArray = gson.fromJson(movieListAsJson, MovieDTO[].class);
-                for (MovieDTO movie : movieArray) {
-                    movieList.add(movie);
-                }
+                movieList.addAll(Arrays.asList(movieArray));
 
                 return movieList;
             } else {

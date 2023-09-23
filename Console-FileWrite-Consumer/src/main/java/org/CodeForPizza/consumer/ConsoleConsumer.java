@@ -24,7 +24,7 @@ public class ConsoleConsumer {
     private FileWrite fileWrite = new FileWrite();
 
     @KafkaListener(topics = "returningData", groupId = "Console")
-    public void consume(MovieDTO movieInfo) throws Exception {
+    public void consume(MovieDTO movieInfo) {
         try{
             log.info("Consumed message: " + movieInfo);
             String movieInfoString = gson.toJson(movieInfo);

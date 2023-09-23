@@ -14,9 +14,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class MovieDBApplication {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         SpringApplication.run(MovieDBApplication.class);
         Application application = new Application();
+        application.run();
     }
 }
 

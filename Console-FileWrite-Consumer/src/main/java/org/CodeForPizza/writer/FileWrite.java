@@ -1,23 +1,20 @@
 package org.CodeForPizza.writer;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.dto.MovieDTO;
-import org.json.simple.JSONObject;
 import java.io.FileWriter;
 
 /**
  * FileWriter to write the Json object to a logfile. The logfile is located in the same folder as the project.
  */
 @Slf4j
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileWrite {
 
     private FileWriter fileWriter;
-    public FileWrite(FileWriter fileWriter) {
-        this.fileWriter = fileWriter;
-    }
-
-    public FileWrite() {
-    }
 
     public void writeToFile(MovieDTO movieInfo) {
         System.out.println("Writing movie information to file...");

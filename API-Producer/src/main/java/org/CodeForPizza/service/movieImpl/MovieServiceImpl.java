@@ -8,12 +8,8 @@ import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.entity.Movie;
 import org.CodeForPizza.mapper.MovieMapper;
 import org.CodeForPizza.repository.MovieRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,12 +22,14 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Transactional
     @Override
     public MovieDTO findById(Long id) {
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
         return MovieMapper.toMovieDTO(movie);
     }
 
+    @Transactional
     @Override
     public MovieDTO save(MovieDTO movieDTO) {
         try{
@@ -49,12 +47,14 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
         movieRepository.deleteById(movie.getId());
     }
 
+    @Transactional
     @Override
     public MovieDTO update(Long id,MovieDTO movieDTO) {
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
@@ -64,6 +64,7 @@ public class MovieServiceImpl implements MovieService {
         return MovieMapper.toMovieDTO(updatedMovie);
     }
 
+    @Transactional
     @Override
     public List<MovieDTO> findAll() {
         List<Movie> movies = movieRepository.findAll();

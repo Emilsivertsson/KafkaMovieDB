@@ -1,6 +1,5 @@
 package org.CodeForPizza.consumer;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.entity.Movie;
@@ -61,6 +60,7 @@ public class DatabaseConsumer {
             throw new NullPointerException("Error mapping from entity to DTO: " + movie);
         }
     }
+
 
     private Movie saveToDB(Movie movie) {
         try{

@@ -33,7 +33,7 @@ public class Application {
         }
     }
 
-    public void run() throws InterruptedException {
+    public void run() {
         while (true) {
         System.out.println(Output.printMenu());
         int input = Integer.parseInt(scanner.nextLine());
@@ -158,7 +158,7 @@ public class Application {
                 if (year <= 0 ) {
                     System.out.println(Output.yearCantBeZero());
                 }
-            } while (year < 1888 || year > 2024 || year <= 0);
+            } while (year < 1888 || year > 2024);
             return String.valueOf(year);
         } catch (Exception e) {
             log.error("Error asking for year");

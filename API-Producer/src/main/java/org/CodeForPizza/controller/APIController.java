@@ -40,6 +40,7 @@ public class APIController {
         }
     }
 
+    //this method is used in development to test the API without Kafka
     // http://localhost:8080/api/v1/movie/saveapi
     @PostMapping("/saveapi")
     public ResponseEntity<MovieDTO> publishApi(@RequestBody() MovieDTO movieDTO) {

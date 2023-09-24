@@ -1,12 +1,17 @@
 package org.CodeForPizza.consumer;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.entity.Movie;
 import org.CodeForPizza.producer.DatabaseProducer;
 import org.CodeForPizza.repository.MovieRepository;
+import org.CodeForPizza.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.CodeForPizza.mapper.MovieMapper;
 import com.google.gson.Gson;
 
 /**
@@ -17,29 +22,29 @@ import com.google.gson.Gson;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class DatabaseConsumer {
 
+    @Autowired
     private DatabaseProducer databaseProducer;
-    private MovieRepository movieRepository;
 
+    @Autowired
+    private MovieService movieService;
+
+    MovieDTO movieToSaveJson = new MovieDTO();
     MovieDTO movieToReturnJson = new MovieDTO();
 
     Gson gson = new Gson();
-
-    public DatabaseConsumer(DatabaseProducer databaseProducer, MovieRepository movieRepository) {
-        this.databaseProducer = databaseProducer;
-        this.movieRepository = movieRepository;
-    }
 
     @KafkaListener(topics = "movie", groupId = "Database")
     public void consume(MovieDTO movieInfo) {
         try {
             log.info("Consumed message: " + movieInfo);
             String movieInfoString = gson.toJson(movieInfo);
-            Movie movie = gson.fromJson(movieInfoString, Movie.class);
+            movieToSaveJson = gson.fromJson(movieInfoString, MovieDTO.class);
 
-            movieToReturnJson = mapFromEntityToDTO(saveToDB(movie));
-            produceMessage(movieToReturnJson);
+            produceMessage(saveToDB(movieToSaveJson));
 
         } catch (Exception e) {
             log.error("Error parsing message: " + movieInfo);
@@ -48,23 +53,9 @@ public class DatabaseConsumer {
         }
     }
 
-    private MovieDTO mapFromEntityToDTO(Movie movie) {
+    private MovieDTO saveToDB(MovieDTO movie) {
         try{
-            movieToReturnJson.setId(movie.getId());
-            movieToReturnJson.setTitle(movie.getTitle());
-            movieToReturnJson.setYear(movie.getYear());
-            return movieToReturnJson;
-        } catch (Exception e) {
-            log.error("Error mapping from entity to DTO: " + movie);
-            log.error(e.getMessage());
-            throw new NullPointerException("Error mapping from entity to DTO: " + movie);
-        }
-    }
-
-
-    private Movie saveToDB(Movie movie) {
-        try{
-        return movieRepository.save(movie);
+        return movieService.save(movie);
         } catch (Exception e) {
             log.error("Error saving movie to database: " + movie);
             log.error(e.getMessage());

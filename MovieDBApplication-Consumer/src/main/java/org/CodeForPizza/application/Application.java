@@ -35,7 +35,7 @@ public class Application {
 
     public void run() {
         while (true) {
-        System.out.println(Output.printMenu());
+        System.out.println(Output.printMenu);
         int input = Integer.parseInt(scanner.nextLine());
         switch (input){
             case 1: addMovie();
@@ -47,7 +47,7 @@ public class Application {
             case 4: deleteMovie();
                 break;
             case 5:
-                System.out.println(Output.thankYou());
+                System.out.println(Output.thankYou);
                 System.exit(0);
                 break;
             default: System.out.println("Invalid input. Please try again.");
@@ -56,13 +56,13 @@ public class Application {
 }
 
     private  void deleteMovie() {
-        System.out.println(Output.whatMovieToDelete());
+        System.out.println(Output.whatMovieToDelete);
         moviesFromDB = httpConnection.getAllMovies();
         for (MovieDTO movie : moviesFromDB) {
             System.out.println(Output.movieInformation(movie));
         }
-        System.out.println(Output.breakBar());
-        System.out.println(Output.whatIdToDelete());
+        System.out.println(Output.breakBar);
+        System.out.println(Output.whatIdToDelete);
         id = Integer.parseInt(scanner.nextLine());
         ifIdExistsDelete();
     }
@@ -77,20 +77,18 @@ public class Application {
         if (containsId) {
             System.out.println(httpConnection.deleteMovie(id));
         } else {
-            System.out.println(Output.noMovieWithThatId());
+            System.out.println(Output.noMovieWithThatId);
         }
     }
 
     private void updateMovie() {
-        System.out.println(Output.whatMovieToUpdate());
+        System.out.println(Output.whatMovieToUpdate);
         moviesFromDB = httpConnection.getAllMovies();
         for (MovieDTO movie : moviesFromDB) {
-            System.out.println("Id: " + movie.getId()
-                    + " Title: " + movie.getTitle()
-                    + " Year: " + movie.getYear());
+            System.out.println(Output.movieInformation(movie));
         }
-        System.out.println(Output.breakBar());
-        System.out.println(Output.whatIdToUpdate());
+        System.out.println(Output.breakBar);
+        System.out.println(Output.whatIdToUpdate);
         id = Integer.parseInt(scanner.nextLine());
         ifIdExistsUpdate();
     }
@@ -103,26 +101,26 @@ public class Application {
             }
         }
         if (containsId) {
-            System.out.println(Output.newTitle());
+            System.out.println(Output.newTitle);
             String newTitle = scanner.nextLine();
-            System.out.println(Output.newYear());
+            System.out.println(Output.newYear);
             int newYear = Integer.parseInt(scanner.nextLine());
             movieToUpdate.setTitle(newTitle);
             movieToUpdate.setYear(String.valueOf(newYear));
             System.out.println(httpConnection.updateMovie(id, movieToUpdate));
         } else {
-            System.out.println(Output.noMovieWithThatId());
+            System.out.println(Output.noMovieWithThatId);
         }
     }
 
     private  void listMovies() {
-        System.out.println(Output.allMovies());
+        System.out.println(Output.allMovies);
         moviesFromDB = httpConnection.getAllMovies();
         for (MovieDTO movie : moviesFromDB) {
             System.out.println(Output.movieInformation(movie));
 
         }
-        System.out.println(Output.breakBar());
+        System.out.println(Output.breakBar);
     }
 
     private  void addMovie() {
@@ -146,17 +144,17 @@ public class Application {
         }
     }
 
-    private  String askForYear( ) {
+    private String askForYear( ) {
         int year;
         try{
             do {
-                System.out.println(Output.askForYear());
+                System.out.println(Output.askForYear);
                 year = Integer.parseInt(scanner.nextLine());
                 if (year < 1888 || year > 2024) {
-                    System.out.println(Output.YearOutOfRange());
+                    System.out.println(Output.YearOutOfRange);
                 }
                 if (year <= 0 ) {
-                    System.out.println(Output.yearCantBeZero());
+                    System.out.println(Output.yearCantBeZero);
                 }
             } while (year < 1888 || year > 2024);
             return String.valueOf(year);
@@ -166,17 +164,17 @@ public class Application {
         }
     }
 
-    private  String askForTitle() {
+    private String askForTitle() {
         String title;
         try{
             do {
-                System.out.println(Output.askForTitle());
+                System.out.println(Output.askForTitle);
                 title = scanner.nextLine();
                 if(title.isEmpty()){
-                    System.out.println(Output.titleCantBeEmpty());
+                    System.out.println(Output.titleCantBeEmpty);
                 }
                 if (title.contains("å") || title.contains("ä") || title.contains("ö")) {
-                    System.out.println(Output.titleCantBeSwe());
+                    System.out.println(Output.titleCantBeSwe);
                 }
             } while (title.contains("å") || title.contains("ä") || title.contains("ö") || title.isEmpty() || title.isBlank());
             return title;

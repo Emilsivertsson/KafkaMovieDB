@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatabaseProducer {
 
-    private KafkaTemplate<String, MovieDTO> kafkaTemplate;
+    private final KafkaTemplate<String, MovieDTO> kafkaTemplate;
 
     @Autowired
     public DatabaseProducer(KafkaTemplate<String, MovieDTO> kafkaTemplate) {

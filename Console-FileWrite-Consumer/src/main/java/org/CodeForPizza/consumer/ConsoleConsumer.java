@@ -21,15 +21,12 @@ public class ConsoleConsumer {
 
     Gson gson = new Gson();
 
-    private FileWrite fileWrite = new FileWrite();
+    private final FileWrite fileWrite = new FileWrite();
 
     @KafkaListener(topics = "returningData", groupId = "Console")
     public void consume(MovieDTO movieInfo) {
         try{
             log.info("Consumed message: " + movieInfo);
-            String movieInfoString = gson.toJson(movieInfo);
-            movie = gson.fromJson(movieInfoString, MovieDTO.class);
-
             System.out.println("Movie information received from Database.");
             fileWrite.writeToFile(movieInfo);
 

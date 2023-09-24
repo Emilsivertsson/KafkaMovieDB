@@ -43,7 +43,7 @@ public class HttpConnection {
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
             int responseCode = response.getEntity().getContent().read();
             log.info("Response Code: " + responseCode);
-            return Output.movieSaved();
+            return Output.movieSaved;
 
         } catch (Exception e) {
             log.error("Error executing POST request, please check that you have the API running.");
@@ -110,7 +110,7 @@ public class HttpConnection {
             int responseCode = response.getStatusLine().getStatusCode();
             log.info("Response Code: " + responseCode);
             if (responseCode == 200) {
-                 return Output.movieDeleted();
+                 return Output.movieDeleted;
             } else {
                 return "There is no movie with that ID.";
             }
@@ -140,7 +140,7 @@ public class HttpConnection {
             int responseCode = response.getStatusLine().getStatusCode();
             log.info("Response Code: " + responseCode);
             if (responseCode == 200) {
-                return Output.MovieUpdated();
+                return Output.MovieUpdated;
             } else {
                 return "Error: Unexpected response code - " + responseCode;
             }

@@ -4,97 +4,55 @@ package org.CodeForPizza.output;
 import org.CodeForPizza.dto.MovieDTO;
 
 public class Output {
-    public static String printMenu() {
-       return  """
-         Welcome to the movie database. Please choose an option:
-        1. Add a movie to the database
-        2. list all movies in the database
-        3. update a movie in the database
-        4. delete a movie from the database
-        5. exit program
-        """;
-    }
 
-    public static String thankYou() {
-        return  "Thank you for using the movie database. Goodbye.";
+    public static String printMenu = """
+            Welcome to the movie database. Please choose an option:
+            1. Add a movie to the database
+            2. list all movies in the database
+            3. update a movie in the database
+            4. delete a movie from the database
+            5. exit program
+            """;
+    public static String thankYou = "Thank you for using the movie database. Goodbye.";
 
-    }
+    public static String askForYear = "Please enter the year: ";
+    public static String askForTitle = "Please enter the title: ";
 
-    public static String askForYear() {
-        return  "Please enter the year: ";
-    }
+    public static String movieSaved = "Movie information sent to the database.";
 
-    public static String askForTitle() {
-        return  "Please enter the title: ";
-    }
+    public static String movieDeleted = "Movie deleted from the database.";
 
-    public static String movieSaved() {
-        return  "Movie information sent to the database.";
-    }
+    public static String MovieUpdated = "Movie updated in the database.";
 
-    public static String movieDeleted() {
-        return  "Movie deleted from the database.";
-    }
+    public static String whatMovieToDelete = "What movie do you want to delete?";
 
-    public static String MovieUpdated() {
-        return  "Movie updated in the database.";
-    }
+    public static String whatIdToDelete = "what is the id of the movie you want to delete?";
 
-    public static String whatMovieToDelete() {
-        return  "What movie do you want to delete?";
-    }
+    public static String whatMovieToUpdate = "What movie do you want to update?";
 
-    public static String whatIdToDelete() {
-        return "what is the id of the movie you want to delete?";
-    }
+    public static String whatIdToUpdate = "what is the id of the movie you want to update?";
 
-    public static String whatMovieToUpdate() {
-        return "What movie do you want to update?";
-    }
+    public static String newTitle = "what is the new title?";
 
-    public static String whatIdToUpdate() {
-        return "what is the id of the movie you want to update?";
-    }
+    public static String newYear = "what is the new year?";
 
-    public static String newTitle() {
-       return  "what is the new title?";
-    }
+    public static String allMovies = "Here are all the movies in the database:";
 
-    public static String newYear() {
-        return "what is the new year?";
-    }
+    public static String YearOutOfRange = "Year must be between 1888 and 2024. Please try again.";
 
-    public static String allMovies() {
-        return "Here are all the movies in the database:";
-    }
+    public static String yearCantBeZero = "Year cant be 0. Please try again.";
 
-    public static String YearOutOfRange() {
-        return "Year must be between 1888 and 2024. Please try again.";
-    }
+    public static String titleCantBeEmpty = "Title cant be empty. Please try again.";
 
-    public static String yearCantBeZero() {
-        return "Year cant be 0. Please try again.";
-    }
+    public static String titleCantBeSwe = "Title cant contain å, ä or ö. Please try again.";
 
-    public static String titleCantBeEmpty() {
-        return "Title cant be empty. Please try again.";
-    }
+    public static String breakBar = "=============================================";
 
-    public static String titleCantBeSwe() {
-        return "Title cant contain å, ä or ö. Please try again.";
-    }
+    public static String noMovieWithThatId = "There is no movie with that ID.";
 
     public static String movieInformation(MovieDTO movie) {
         return "Id: " + movie.getId()
                 + " Title: " + movie.getTitle()
                 + " Year: " + movie.getYear();
-    }
-
-    public static String breakBar() {
-        return "=============================================";
-    }
-
-    public static String noMovieWithThatId() {
-        return "There is no movie with that ID.";
     }
 }

@@ -1,5 +1,6 @@
 package org.CodeForPizza.consumer;
 
+import org.CodeForPizza.dto.MovieDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9095", "port=9095"})
 class DatabaseConsumerTest {
 
-    /*
+
     @Autowired
-    KafkaTemplate<String, String> kafkaTemplate;
+    KafkaTemplate<String, MovieDTO> kafkaTemplate;
 
     @Autowired
     private DatabaseConsumer databaseConsumer;
@@ -23,7 +24,8 @@ class DatabaseConsumerTest {
 
     @Test
     void consume_Success() {
-        String message = "{\"title\":\"The Matrix\",\"year\":\"1999\"}";
+        MovieDTO message = new MovieDTO();
+        message.setTitle("The Matrix");
         kafkaTemplate.send("movie", message);
         try {
             Thread.sleep(1000);
@@ -31,23 +33,10 @@ class DatabaseConsumerTest {
             e.printStackTrace();
         }
 
-        assert(databaseConsumer.movieInfo.get("title").equals("The Matrix"));
+        assert(databaseConsumer.movieToSaveJson.getTitle().equals("The Matrix"));
     }
 
-    @Test
-    void consume_Fail() {
-        String message = "\"title\":\"The Matrix\",\"yea\"1999\"}";
-        kafkaTemplate.send("movie", message);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertThrows(NullPointerException.class, () -> {
-            databaseConsumer.consume(message);
-        });
 
-    }
-
-     */
 }
+
+

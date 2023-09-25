@@ -9,6 +9,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,19 +69,7 @@ public class HttpConnection {
             int responseCode = response.getStatusLine().getStatusCode();
             log.info("Response Code: " + responseCode);
             if (responseCode == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuilder responseText = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    responseText.append(line);
-                }
-
-                List<MovieDTO> movieList = new ArrayList<>();
-                String movieListAsJson = responseText.toString();
-                MovieDTO[] movieArray = gson.fromJson(movieListAsJson, MovieDTO[].class);
-                movieList.addAll(Arrays.asList(movieArray));
-
-                return movieList;
+                return getMovieDTOS(response);
             } else {
                 log.error("Error: Unexpected response code - " + responseCode);
                 return Collections.emptyList();
@@ -89,6 +78,22 @@ public class HttpConnection {
             log.error("Error executing GET request, please check that you have the API running.");
             return Collections.emptyList();
         }
+    }
+
+    private List<MovieDTO> getMovieDTOS(CloseableHttpResponse response) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuilder responseText = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            responseText.append(line);
+        }
+
+        List<MovieDTO> movieList = new ArrayList<>();
+        String movieListAsJson = responseText.toString();
+        MovieDTO[] movieArray = gson.fromJson(movieListAsJson, MovieDTO[].class);
+        movieList.addAll(Arrays.asList(movieArray));
+
+        return movieList;
     }
 
 

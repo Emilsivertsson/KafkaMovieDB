@@ -1,5 +1,6 @@
 package org.CodeForPizza.producer;
 
+import org.CodeForPizza.dto.MovieDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -19,28 +20,30 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 class DatabaseProducerTest {
 
-    /*
+
     @Autowired
     private DatabaseProducer databaseProducer;
 
     @MockBean
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, MovieDTO> kafkaTemplate;
+
+    MovieDTO movieDTO = new MovieDTO();
 
     @Test
     void sendMessage_Success() {
-        when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<String>any())).thenReturn(new CompletableFuture<>());
-        databaseProducer.sendMessage("Movie Info");
-        verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
+        when(kafkaTemplate.send(Mockito.any(), Mockito.any())).thenReturn(new CompletableFuture<>());
+        databaseProducer.sendMessage(movieDTO);
+        verify(kafkaTemplate).send(Mockito.any(), Mockito.any());
     }
 
     @Test
     void sendMessage_Fail() {
-        when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<String>any())).thenThrow(new RuntimeException("An error occurred"));
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> databaseProducer.sendMessage("Movie Info"));
+        when(kafkaTemplate.send(Mockito.any(), Mockito.any())).thenThrow(new RuntimeException("An error occurred"));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> databaseProducer.sendMessage(movieDTO));
 
         assertEquals("Error producing message: An error occurred", exception.getMessage());
-        verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
+        verify(kafkaTemplate).send(Mockito.any(), Mockito.any());
     }
 
-     */
+
 }

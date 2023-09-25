@@ -1,0 +1,145 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ConsoleConsumer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.CodeForPizza.consumer</a>
+</div>
+
+<h1>Coverage Summary for Class: ConsoleConsumer (org.CodeForPizza.consumer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConsoleConsumer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41,7%
+  </span>
+  <span class="absValue">
+    (5/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.consumer;
+&nbsp;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;
+&nbsp;import org.CodeForPizza.dto.MovieDTO;
+&nbsp;import org.CodeForPizza.writer.FileWrite;
+&nbsp;import org.springframework.kafka.annotation.KafkaListener;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import com.google.gson.Gson;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class implements a kafka consumer that listens to the topic &quot;returningData&quot;, group &quot;Console&quot;.
+&nbsp; * It uses a KafkaListener to listen to the topic.
+&nbsp; * The listener is configured in the application.properties file.
+&nbsp; */
+<b class="fc">&nbsp;@Slf4j</b>
+&nbsp;@Service
+<b class="fc">&nbsp;public class ConsoleConsumer {</b>
+&nbsp;
+<b class="fc">&nbsp;    MovieDTO movie = new MovieDTO();</b>
+&nbsp;
+<b class="fc">&nbsp;    Gson gson = new Gson();</b>
+&nbsp;
+<b class="fc">&nbsp;    private final FileWrite fileWrite = new FileWrite();</b>
+&nbsp;
+&nbsp;    @KafkaListener(topics = &quot;returningData&quot;, groupId = &quot;Console&quot;)
+&nbsp;    public void consume(MovieDTO movieInfo) {
+&nbsp;        try{
+<b class="nc">&nbsp;            log.info(&quot;Consumed message: &quot; + movieInfo);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Movie information received from Database.&quot;);</b>
+<b class="nc">&nbsp;            fileWrite.writeToFile(movieInfo);</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            log.error(e.getMessage());</b>
+<b class="nc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + movieInfo);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-09-25 10:38</div>
+</div>
+</body>
+</html>

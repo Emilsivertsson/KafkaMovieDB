@@ -36,9 +36,6 @@ class MovieServiceImplTest {
     @Autowired
     private MovieServiceImpl movieServiceImpl;
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findById(Long)}
-     */
     @Test
     void testFindById() {
         Movie movie = new Movie();
@@ -54,9 +51,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findById(Long)}
-     */
+
     @Test
     void testFindById2() {
         Optional<Movie> emptyResult = Optional.empty();
@@ -65,9 +60,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findById(Long)}
-     */
+
     @Test
     void testFindById3() {
         when(movieRepository.findById(Mockito.<Long>any())).thenThrow(new RuntimeException("Movie not found"));
@@ -75,9 +68,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#save(MovieDTO)}
-     */
+
     @Test
     void testSave() {
         Movie movie = new Movie();
@@ -92,9 +83,7 @@ class MovieServiceImplTest {
         verify(movieRepository).save(Mockito.<Movie>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#save(MovieDTO)}
-     */
+
     @Test
     void testSave2() {
         Movie movie = new Movie();
@@ -109,9 +98,7 @@ class MovieServiceImplTest {
         verify(movieRepository).save(Mockito.<Movie>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#save(MovieDTO)}
-     */
+
     @Test
     void testSave3() {
         MovieDTO movieDTO = mock(MovieDTO.class);
@@ -120,9 +107,7 @@ class MovieServiceImplTest {
         verify(movieDTO).getId();
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#deleteById(Long)}
-     */
+
     @Test
     void testDeleteById() {
         Movie movie = new Movie();
@@ -137,9 +122,7 @@ class MovieServiceImplTest {
         verify(movieRepository).deleteById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#deleteById(Long)}
-     */
+
     @Test
     void testDeleteById2() {
         Movie movie = new Movie();
@@ -154,9 +137,7 @@ class MovieServiceImplTest {
         verify(movieRepository).deleteById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#deleteById(Long)}
-     */
+
     @Test
     void testDeleteById3() {
         Optional<Movie> emptyResult = Optional.empty();
@@ -165,9 +146,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#update(Long, MovieDTO)}
-     */
+
     @Test
     void testUpdate() {
         Movie movie = new Movie();
@@ -190,9 +169,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#update(Long, MovieDTO)}
-     */
+
     @Test
     void testUpdate2() {
         Movie movie = new Movie();
@@ -207,9 +184,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#update(Long, MovieDTO)}
-     */
+
     @Test
     void testUpdate3() {
         Optional<Movie> emptyResult = Optional.empty();
@@ -218,19 +193,10 @@ class MovieServiceImplTest {
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#update(Long, MovieDTO)}
-     */
+
     @Test
     @Disabled("TODO: Complete this test")
     void testUpdate4() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "org.CodeForPizza.dto.MovieDTO.getTitle()" because "movieDTO" is null
-        //       at org.CodeForPizza.service.movieImpl.MovieServiceImpl.update(MovieServiceImpl.java:61)
-        //   See https://diff.blue/R013 to resolve this issue.
 
         Movie movie = new Movie();
         movie.setId(1L);
@@ -247,9 +213,7 @@ class MovieServiceImplTest {
         movieServiceImpl.update(1L, null);
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findAll()}
-     */
+
     @Test
     void testFindAll() {
         when(movieRepository.findAll()).thenReturn(new ArrayList<>());
@@ -257,9 +221,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findAll();
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findAll()}
-     */
+
     @Test
     void testFindAll2() {
         Movie movie = new Movie();
@@ -279,9 +241,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findAll();
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findAll()}
-     */
+
     @Test
     void testFindAll3() {
         Movie movie = new Movie();
@@ -311,9 +271,7 @@ class MovieServiceImplTest {
         verify(movieRepository).findAll();
     }
 
-    /**
-     * Method under test: {@link MovieServiceImpl#findAll()}
-     */
+
     @Test
     void testFindAll4() {
         when(movieRepository.findAll()).thenThrow(new RuntimeException("foo"));

@@ -14,13 +14,13 @@ import java.io.FileWriter;
 @AllArgsConstructor
 public class FileWrite {
 
-    private FileWriter fileWriter;
+    private FileWriter file;
 
     public void writeToFile(MovieDTO movieInfo) {
         System.out.println("Writing movie information to file...");
 
         try {
-            FileWriter file = new FileWriter("Console-FileWrite-Consumer/src/main/java/org/CodeForPizza/log/TopicLog.txt", true);
+            file = new FileWriter("Console-FileWrite-Consumer/src/main/java/org/CodeForPizza/log/TopicLog.txt", true);
             file.write(movieInfo.toString()+ ",\n");
             file.flush();
             file.close();

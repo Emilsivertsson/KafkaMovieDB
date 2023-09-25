@@ -30,27 +30,27 @@ class KafkaProducerTest {
     @Mock
     private MovieDTO movieDTO;
 
-    /*
+
 
     @Test
-    void testSendMessage_Success() throws Exception {
+    void testSendMessage_Success() {
 
         when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<MovieDTO>any())).thenReturn(CompletableFuture.completedFuture(null));
-        kafkaProducer.sendMessage("Movie Info");
-        verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
+        kafkaProducer.sendMessage(movieDTO);
+        verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<MovieDTO>any());
     }
 
     @Test
     void testSendMessage_Fail() throws Exception {
-        when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<String>any())).thenThrow(new RuntimeException("An error occurred"));
+        when(kafkaTemplate.send(Mockito.<String>any(), Mockito.<MovieDTO>any())).thenThrow(new RuntimeException("An error occurred"));
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            kafkaProducer.sendMessage("Movie Info");
+            kafkaProducer.sendMessage(movieDTO);
         });
 
         assertEquals("An error occurred", exception.getMessage());
-        verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<String>any());
+        verify(kafkaTemplate).send(Mockito.<String>any(), Mockito.<MovieDTO>any());
     }
 
-     */
+
 }
 

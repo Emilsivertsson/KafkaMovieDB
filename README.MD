@@ -15,21 +15,22 @@
 ## Description
 This is a School projekt for the course in Integration plattforms. it consists of several moduls.
 - A Console application that takes the users input and sends it to a Rest API as a Json String \
-  and serves as a consumer for a kafka topic.
+  and serves as a consumer for a kafka topic. it also allows the user to preform CRUD operations on the database, via the API.
 - A Rest API that serves as a Kafka producer and sends the Json String to a Kafka topic.
+    The API also has basic CRUD functionality for the database.
 - A Console application that serves as a Kafka consumer and takes the Json String and prints its information to a TXT-file.
 - A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database. \
     It also serves as a Kafka producer and sends the information from the database to a Kafka topic.
-
+- A Movie module, that just contains the DTO, Entity and Repository that is used in several of the other modules.
 
 ## What was your motivation?
 Our assignment was to create a Rest API that takes the users input and sends it to a Kafka topic.\
 Then we were supposed to create a Kafka consumer that takes the Json String and prints its information to the user.\
 We were also supposed to create a Kafka consumer that takes the Json String and saves it to a database.\
 I wanted to take it a step further and create a JavaFX application that takes the users input and sends it to the Rest API as a Json String.\
-I learned alot from this project , and i can see the benefits of using Kafka in a project with multiple applications \
+I learned a lot from this project , and I can see the benefits of using Kafka in a project with multiple applications \
 and microservices that needs to communicate with each other.\
-i also extended my knowledge about spring boot. I have used it before but not to this extent.\
+I also extended my knowledge about Spring boot and APIs, witch I have used before but not to this extent.\
 
 
 ## Installation and Usage
@@ -81,7 +82,7 @@ The information from the Database also gets printed to the user via the Console 
 
 
 
-## Replication and participation over serveral brokers
+## Replication and participation over several brokers
 The application uses three Kafka servers (Brokers) to replicate the information sent through the Kafka topics.\
 One of the Brokers will serve as the leader for a partition and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
 Each topic uses the replication factor 3 and the partition factor 3, so that the information will be replicated over all three brokers.\
@@ -92,7 +93,7 @@ if the leader goes down one of the followers will take over as leader.\ this doe
 
 ## Efficient data usage
 I could have more efficiently only used one topic for the application to send to all the consumers, \
-but i wanted to add more producers, consumers and topics the make the application more complex.\
+but I wanted to add more producers, consumers and topics the make the application more complex.\
 To have the data replicated over several brokers demands more data usage, but it also makes the application more fail-safe.\
 and Kafka is designed to handle large amounts of data, so I think it's a good trade-off.\
 
@@ -106,14 +107,14 @@ All dependencies are included in the pom.xml file.
 - spring-boot-starter-data-jpa 
 - org.springframework.boot 3.1.2 
 - org.springframework.kafka 
-- com.googlecode.json-simple 1.1.1 
+- com.google.code.gson 2.10.1 
 - org.apache.httpcomponents 4.5.13 
-- org.junit.vintage 
+- org.junit.vintage 5.9.3
 - com.mysqlmysql-connector-j 8.0.33
 
 ## Credits
-- my classmates Kristoffer and Johan for prof-reading my code and checking that i did not miss anything.
-- chatGPT and Bard for helping me when i got stuck.
+- my classmates Kristoffer and Johan for prof-reading my code and checking that I did not miss anything.
+- chatGPT and Bard for helping me when I got stuck.
 - Diffblue for helping me with the tests for the HTTP Connections class.
 
 ## Tutorials
@@ -126,7 +127,6 @@ The application is licensed under the MIT license. Please see the license file f
 
 ## Tests
 I have added tests written with junit, Mockito and Kafka testing.\
-most of the test have two ,one for a positive test and one for a negative test.\
 the tests for the HTTP Connections class was written using Diffblue, to try out its functionality.
 
 ![Test results](Images/tests.png)

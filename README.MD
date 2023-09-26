@@ -1,6 +1,6 @@
 # Your favorite movies!
 
-### A Rest API, Kafka and MySQL project
+### A SpringBoot, Rest API, Kafka and MySQL project
 
 ## Table of Contents
 - [Description](#Description)
@@ -14,18 +14,18 @@
 
 ## Description
 This is a School projekt for the course in Integration plattforms. it consists of several moduls.
-- A Console application that takes the users input and sends it to a Rest API as a Json String \
+- A Console interface module that takes the users input and sends it to a Rest API as a Json String \
   and serves as a consumer for a kafka topic. it also allows the user to preform CRUD operations on the database, via the API.
-- A Rest API that serves as a Kafka producer and sends the Json String to a Kafka topic.
+- A REST API modul that serves as a Kafka producer and sends the Json String to a Kafka topic.
     The API also has basic CRUD functionality for the database.
-- A Console application that serves as a Kafka consumer and takes the Json String and prints its information to a TXT-file.
-- A MySQL database that serves as a Kafka consumer and takes the Json String and saves it to the database. \
-    It also serves as a Kafka producer and sends the information from the database to a Kafka topic.
+- A Console/writer module that serves as a Kafka consumer that receives the Json String and writes its information to a TXT-file.
+- A database module that serves as a Kafka consumer that receives the Json String and saves it to the database. \
+    It also serves as a Kafka producer and sends the information from the database to the writer module.
 - A Movie module, that just contains the DTO, Entity and Repository that is used in several of the other modules.
 
 ## What was your motivation?
 Our assignment was to create a Rest API that takes the users input and sends it to a Kafka topic.\
-Then we were supposed to create a Kafka consumer that takes the Json String and prints its information to the user.\
+Then we were supposed to create a Kafka consumer that takes the Json String and prints its information to the user in the original application.\
 We were also supposed to create a Kafka consumer that takes the Json String and saves it to a database.\
 I wanted to take it a step further and create a JavaFX application that takes the users input and sends it to the Rest API as a Json String.\
 I learned a lot from this project , and I can see the benefits of using Kafka in a project with multiple applications \
@@ -39,6 +39,8 @@ I also extended my knowledge about Spring boot and APIs, witch I have used befor
    - When you have installed MySQL Community you need to create a database called "movies".
    - The application uses password "root" and username "root" to connect to a local MySQL database.
    - please alter the password and username in the application.properties file in the MovieDBApplication, if yours not the same.
+   
+- You could also mount a Docker image of mySql, for help on how to do this please see the Docker homepage,\ or this tutorial https://youtu.be/kphq2TsVRIs?si=wS20hxnnLG2CAxr4
 
 2. You also need to have a local Kafka server running on your computer.
    - Download Kafka from https://kafka.apache.org/downloads and install it.
@@ -51,6 +53,9 @@ I also extended my knowledge about Spring boot and APIs, witch I have used befor
    - start your Zookeeper and the three Kafka servers (Brokers), information on how to do this for your system can be found on the Kafka homepage.
    - its very important that you start them before you start the applications, or else the applications you will get an error that the replication factor don't have enough brokers.
    
+- This could also be done as a docker image, for help on how to do this please see the Docker homepage,\ or this tutorial https://youtu.be/2sTCZeREs8w?si=dOLSi7sNWxbtHt5_ 
+
+
 3. Clone this repository to your computer and open it in your IDE.
    - First run the Rest API application.
      - This will start on port 8080, start the API that serves as a Producer for the Topic "movie". 
@@ -84,10 +89,10 @@ The information from the Database also gets printed to the user via the Console 
 
 ## Replication and participation over several brokers
 The application uses three Kafka servers (Brokers) to replicate the information sent through the Kafka topics.\
-One of the Brokers will serve as the leader for a partition and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\
-Each topic uses the replication factor 3 and the partition factor 3, so that the information will be replicated over all three brokers.\
-The Replication is a fail-safe if one of the brokers goes down, the information will still be available on the other brokers.\
-if the leader goes down one of the followers will take over as leader.\ this does take a few seconds, and the application will not be able to send or receive information during that time.\
+One of the Brokers will serve as the leader for a partition and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\ this does take a few seconds, and the application will not be able to send or receive information during that time.\
+Each topic uses the replication factor 3 and the partition factor 3, so that the information will be replicated over all three brokers three times.\
+The Replication is a fail-safe if one of the brokers goes down, the information will still be available on the other brokers and other partitions.\
+
 ![Replication](Images/relication1.png)
 ![Replication](Images/relication2.png)
 

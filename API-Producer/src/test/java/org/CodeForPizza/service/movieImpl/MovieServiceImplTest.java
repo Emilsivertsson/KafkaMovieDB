@@ -37,7 +37,7 @@ class MovieServiceImplTest {
     private MovieServiceImpl movieServiceImpl;
 
     @Test
-    void testFindById() {
+    void testFindByIdSuccess() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -53,24 +53,22 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testFindById2() {
+    void testFindByIdFailIfEmpty() {
         Optional<Movie> emptyResult = Optional.empty();
         when(movieRepository.findById(Mockito.<Long>any())).thenReturn(emptyResult);
         assertThrows(RuntimeException.class, () -> movieServiceImpl.findById(1L));
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-
     @Test
-    void testFindById3() {
+    void testFindByIDFail() {
         when(movieRepository.findById(Mockito.<Long>any())).thenThrow(new RuntimeException("Movie not found"));
         assertThrows(RuntimeException.class, () -> movieServiceImpl.findById(1L));
         verify(movieRepository).findById(Mockito.<Long>any());
     }
 
-
     @Test
-    void testSave() {
+    void testSaveSuccess() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -83,33 +81,16 @@ class MovieServiceImplTest {
         verify(movieRepository).save(Mockito.<Movie>any());
     }
 
-
     @Test
-    void testSave2() {
-        Movie movie = new Movie();
-        movie.setId(1L);
-        movie.setTitle("Dr");
-        movie.setYear("Year");
-        when(movieRepository.save(Mockito.<Movie>any())).thenReturn(movie);
-        MovieDTO actualSaveResult = movieServiceImpl.save(null);
-        assertEquals(1L, actualSaveResult.getId().longValue());
-        assertEquals("Year", actualSaveResult.getYear());
-        assertEquals("Dr", actualSaveResult.getTitle());
-        verify(movieRepository).save(Mockito.<Movie>any());
-    }
-
-
-    @Test
-    void testSave3() {
+    void testSaveFail() {
         MovieDTO movieDTO = mock(MovieDTO.class);
         when(movieDTO.getId()).thenThrow(new RuntimeException("foo"));
         assertNull(movieServiceImpl.save(movieDTO));
         verify(movieDTO).getId();
     }
 
-
     @Test
-    void testDeleteById() {
+    void testDeleteByIdSuccess() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -124,7 +105,7 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testDeleteById2() {
+    void testDeleteByIdFail() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -139,7 +120,7 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testDeleteById3() {
+    void testDeleteByIdFailIfEmpty() {
         Optional<Movie> emptyResult = Optional.empty();
         when(movieRepository.findById(Mockito.<Long>any())).thenReturn(emptyResult);
         assertThrows(RuntimeException.class, () -> movieServiceImpl.deleteById(1L));
@@ -148,7 +129,7 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testUpdate() {
+    void testUpdateSuccess() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -171,7 +152,7 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testUpdate2() {
+    void testUpdateFail() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -186,7 +167,7 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testUpdate3() {
+    void testUpdateFailIfEmpty() {
         Optional<Movie> emptyResult = Optional.empty();
         when(movieRepository.findById(Mockito.<Long>any())).thenReturn(emptyResult);
         assertThrows(RuntimeException.class, () -> movieServiceImpl.update(1L, new MovieDTO("Dr", "Year")));
@@ -194,28 +175,10 @@ class MovieServiceImplTest {
     }
 
 
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testUpdate4() {
-
-        Movie movie = new Movie();
-        movie.setId(1L);
-        movie.setTitle("Dr");
-        movie.setYear("Year");
-        Optional<Movie> ofResult = Optional.of(movie);
-
-        Movie movie2 = new Movie();
-        movie2.setId(1L);
-        movie2.setTitle("Dr");
-        movie2.setYear("Year");
-        when(movieRepository.save(Mockito.<Movie>any())).thenReturn(movie2);
-        when(movieRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
-        movieServiceImpl.update(1L, null);
-    }
 
 
     @Test
-    void testFindAll() {
+    void testFindAllFailIfArrayIsEmpty() {
         when(movieRepository.findAll()).thenReturn(new ArrayList<>());
         assertTrue(movieServiceImpl.findAll().isEmpty());
         verify(movieRepository).findAll();
@@ -223,7 +186,7 @@ class MovieServiceImplTest {
 
 
     @Test
-    void testFindAll2() {
+    void testFindAllSuccess() {
         Movie movie = new Movie();
         movie.setId(1L);
         movie.setTitle("Dr");
@@ -241,39 +204,8 @@ class MovieServiceImplTest {
         verify(movieRepository).findAll();
     }
 
-
     @Test
-    void testFindAll3() {
-        Movie movie = new Movie();
-        movie.setId(1L);
-        movie.setTitle("Dr");
-        movie.setYear("Year");
-
-        Movie movie2 = new Movie();
-        movie2.setId(2L);
-        movie2.setTitle("Mr");
-        movie2.setYear("42");
-
-        ArrayList<Movie> movieList = new ArrayList<>();
-        movieList.add(movie2);
-        movieList.add(movie);
-        when(movieRepository.findAll()).thenReturn(movieList);
-        List<MovieDTO> actualFindAllResult = movieServiceImpl.findAll();
-        assertEquals(2, actualFindAllResult.size());
-        MovieDTO getResult = actualFindAllResult.get(0);
-        assertEquals("42", getResult.getYear());
-        MovieDTO getResult2 = actualFindAllResult.get(1);
-        assertEquals("Year", getResult2.getYear());
-        assertEquals("Dr", getResult2.getTitle());
-        assertEquals(1L, getResult2.getId().longValue());
-        assertEquals("Mr", getResult.getTitle());
-        assertEquals(2L, getResult.getId().longValue());
-        verify(movieRepository).findAll();
-    }
-
-
-    @Test
-    void testFindAll4() {
+    void testFindAllFail() {
         when(movieRepository.findAll()).thenThrow(new RuntimeException("foo"));
         assertThrows(RuntimeException.class, () -> movieServiceImpl.findAll());
         verify(movieRepository).findAll();

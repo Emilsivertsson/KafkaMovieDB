@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">ConsoleConsumer</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    66,7%
+    0%
   </span>
   <span class="absValue">
-    (2/3)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    41,7%
+    0%
   </span>
   <span class="absValue">
-    (5/12)
+    (0/12)
   </span>
 </td>
 </tr>
@@ -90,15 +90,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * It uses a KafkaListener to listen to the topic.
 &nbsp; * The listener is configured in the application.properties file.
 &nbsp; */
-<b class="fc">&nbsp;@Slf4j</b>
+<b class="nc">&nbsp;@Slf4j</b>
 &nbsp;@Service
-<b class="fc">&nbsp;public class ConsoleConsumer {</b>
+<b class="nc">&nbsp;public class ConsoleConsumer {</b>
 &nbsp;
-<b class="fc">&nbsp;    MovieDTO movie = new MovieDTO();</b>
+<b class="nc">&nbsp;    MovieDTO movie = new MovieDTO();</b>
 &nbsp;
-<b class="fc">&nbsp;    Gson gson = new Gson();</b>
+<b class="nc">&nbsp;    Gson gson = new Gson();</b>
 &nbsp;
-<b class="fc">&nbsp;    private final FileWrite fileWrite = new FileWrite();</b>
+<b class="nc">&nbsp;    private final FileWrite fileWrite = new FileWrite();</b>
 &nbsp;
 &nbsp;    @KafkaListener(topics = &quot;returningData&quot;, groupId = &quot;Console&quot;)
 &nbsp;    public void consume(MovieDTO movieInfo) {
@@ -139,7 +139,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-25 10:38</div>
+    <div style="float:right;">generated on 2023-09-26 14:49</div>
 </div>
 </body>
 </html>

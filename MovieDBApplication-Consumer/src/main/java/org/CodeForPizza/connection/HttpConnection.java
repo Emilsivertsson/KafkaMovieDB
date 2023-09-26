@@ -64,7 +64,7 @@ public class HttpConnection {
         }
     }
 
-    private List<MovieDTO> executeGETAll(CloseableHttpClient httpClient, HttpGet httpGet) {
+    List<MovieDTO> executeGETAll(CloseableHttpClient httpClient, HttpGet httpGet) {
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             int responseCode = response.getStatusLine().getStatusCode();
             log.info("Response Code: " + responseCode);
@@ -109,7 +109,7 @@ public class HttpConnection {
         }
     }
 
-    private String executeDELETE(CloseableHttpClient httpClient, HttpDelete httpDelete) {
+    String executeDELETE(CloseableHttpClient httpClient, HttpDelete httpDelete) {
         try {
             CloseableHttpResponse response = httpClient.execute(httpDelete);
             int responseCode = response.getStatusLine().getStatusCode();
@@ -139,7 +139,7 @@ public class HttpConnection {
         }
     }
 
-    private String executePut(CloseableHttpClient httpClient, HttpPut httpPut) {
+    String executePut(CloseableHttpClient httpClient, HttpPut httpPut) {
         try{
             CloseableHttpResponse response = httpClient.execute(httpPut);
             int responseCode = response.getStatusLine().getStatusCode();
@@ -154,4 +154,5 @@ public class HttpConnection {
             return e.getMessage();
         }
     }
+
 }

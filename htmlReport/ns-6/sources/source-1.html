@@ -60,10 +60,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    56,7%
+    96,7%
   </span>
   <span class="absValue">
-    (17/30)
+    (29/30)
   </span>
 </td>
 </tr>
@@ -112,8 +112,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            log.info(&quot;Received message: &quot; + movie);</b>
 <b class="fc">&nbsp;            kafkaProducer.sendMessage(movie);</b>
 <b class="fc">&nbsp;            return ResponseEntity.ok().body(&quot;Message sent to Topic&quot;);</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            return ResponseEntity.badRequest().body(&quot;Error sending message to Topic&quot;);</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.badRequest().body(&quot;Error sending message to Topic&quot;);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -125,8 +125,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            log.info(&quot;Received message: &quot; + movieDTO);</b>
 <b class="fc">&nbsp;            MovieDTO savedMovie = movieService.save(movieDTO);</b>
 <b class="fc">&nbsp;            return ResponseEntity.ok(savedMovie);</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            return ResponseEntity.badRequest().body(null);</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.badRequest().body(null);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -137,8 +137,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            log.info(&quot;get all movies&quot;);</b>
 <b class="fc">&nbsp;            List&lt;MovieDTO&gt; movies = movieService.findAll();</b>
 <b class="fc">&nbsp;            return ResponseEntity.ok(movies);</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            return ResponseEntity.badRequest().body(new ArrayList&lt;&gt;());</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.badRequest().body(new ArrayList&lt;&gt;());</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -148,8 +148,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            try {
 <b class="fc">&nbsp;                MovieDTO movie = movieService.findById(id);</b>
 <b class="fc">&nbsp;                return ResponseEntity.ok(movie);</b>
-<b class="nc">&nbsp;            } catch (Exception e) {</b>
-<b class="nc">&nbsp;                return ResponseEntity.badRequest().body(new MovieDTO());</b>
+<b class="fc">&nbsp;            } catch (Exception e) {</b>
+<b class="fc">&nbsp;                return ResponseEntity.badRequest().body(new MovieDTO());</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;
@@ -160,8 +160,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            try {
 <b class="fc">&nbsp;                MovieDTO updatedMovie = movieService.update(id, movieDTO);</b>
 <b class="fc">&nbsp;                return ResponseEntity.ok(updatedMovie);</b>
-<b class="nc">&nbsp;            } catch (Exception e) {</b>
-<b class="nc">&nbsp;                return ResponseEntity.badRequest().body(new MovieDTO());</b>
+<b class="fc">&nbsp;            } catch (Exception e) {</b>
+<b class="fc">&nbsp;                return ResponseEntity.badRequest().body(new MovieDTO());</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;
@@ -171,8 +171,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            try{
 <b class="fc">&nbsp;                movieService.deleteById(id);</b>
 <b class="fc">&nbsp;                return ResponseEntity.ok().body(&quot;Movie deleted successfully&quot;);</b>
-<b class="nc">&nbsp;            } catch (Exception e) {</b>
-<b class="nc">&nbsp;                return ResponseEntity.badRequest().body(&quot;Error deleting movie&quot;);</b>
+<b class="fc">&nbsp;            } catch (Exception e) {</b>
+<b class="fc">&nbsp;                return ResponseEntity.badRequest().body(&quot;Error deleting movie&quot;);</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;
@@ -200,7 +200,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-25 10:38</div>
+    <div style="float:right;">generated on 2023-09-26 14:49</div>
 </div>
 </body>
 </html>

@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    83,3%
+    16,7%
   </span>
   <span class="absValue">
-    (5/6)
+    (1/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    6,2%
   </span>
   <span class="absValue">
-    (12/16)
+    (1/16)
   </span>
 </td>
 </tr>
@@ -93,31 +93,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * it prints out the movie information to the console.
 &nbsp; */
 &nbsp;@Getter
-<b class="fc">&nbsp;@NoArgsConstructor</b>
+<b class="nc">&nbsp;@NoArgsConstructor</b>
 <b class="nc">&nbsp;@AllArgsConstructor</b>
 <b class="fc">&nbsp;@Slf4j</b>
 &nbsp;@Service
 &nbsp;public class ApplicationConsumer {
 &nbsp;
-<b class="fc">&nbsp;    MovieDTO movieFromDataBase = new MovieDTO();</b>
+<b class="nc">&nbsp;    MovieDTO movieFromDataBase = new MovieDTO();</b>
 &nbsp;
-<b class="fc">&nbsp;    Gson gson = new Gson();</b>
+<b class="nc">&nbsp;    Gson gson = new Gson();</b>
 &nbsp;
 &nbsp;    @KafkaListener(topics = &quot;movie&quot;, groupId = &quot;user&quot;)
 &nbsp;    public void consume(MovieDTO movieInfo) {
 &nbsp;        try {
-<b class="fc">&nbsp;            log.info(&quot;Consumed message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;            String movieInfoString = gson.toJson(movieInfo);</b>
-<b class="fc">&nbsp;            movieFromDataBase = gson.fromJson(movieInfoString, MovieDTO.class);</b>
+<b class="nc">&nbsp;            log.info(&quot;Consumed message: &quot; + movieInfo);</b>
+<b class="nc">&nbsp;            String movieInfoString = gson.toJson(movieInfo);</b>
+<b class="nc">&nbsp;            movieFromDataBase = gson.fromJson(movieInfoString, MovieDTO.class);</b>
 &nbsp;
-<b class="fc">&nbsp;            System.out.println(&quot;=============================================&quot;);</b>
-<b class="fc">&nbsp;            System.out.println(&quot;Movie information saved in the database:&quot;);</b>
-<b class="fc">&nbsp;            System.out.println(&quot;Title: &quot; + movieFromDataBase.getTitle());</b>
-<b class="fc">&nbsp;            System.out.println(&quot;Year: &quot; + movieFromDataBase.getYear());</b>
+<b class="nc">&nbsp;            System.out.println(&quot;=============================================&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Movie information saved in the database:&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Title: &quot; + movieFromDataBase.getTitle());</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Year: &quot; + movieFromDataBase.getYear());</b>
 <b class="nc">&nbsp;        } catch (Exception e) {</b>
 <b class="nc">&nbsp;            log.error(&quot;Error parsing message: &quot; + movieInfo.toString());</b>
 <b class="nc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;        }</b>
+<b class="nc">&nbsp;        }</b>
 &nbsp;
 &nbsp;
 &nbsp;    }
@@ -145,7 +145,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-25 10:38</div>
+    <div style="float:right;">generated on 2023-09-26 14:49</div>
 </div>
 </body>
 </html>

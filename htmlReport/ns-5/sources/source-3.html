@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    50%
   </span>
   <span class="absValue">
-    (6/6)
+    (3/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    51,9%
+    18,5%
   </span>
   <span class="absValue">
-    (14/27)
+    (5/27)
   </span>
 </td>
 </tr>
@@ -117,22 +117,22 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @KafkaListener(topics = &quot;movie&quot;, groupId = &quot;Database&quot;)
 &nbsp;    public void consume(MovieDTO movieInfo) {
 &nbsp;        try {
-<b class="fc">&nbsp;            log.info(&quot;Consumed message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;            String movieInfoString = gson.toJson(movieInfo);</b>
-<b class="fc">&nbsp;            movieToSaveJson = gson.fromJson(movieInfoString, MovieDTO.class);</b>
+<b class="nc">&nbsp;            log.info(&quot;Consumed message: &quot; + movieInfo);</b>
+<b class="nc">&nbsp;            String movieInfoString = gson.toJson(movieInfo);</b>
+<b class="nc">&nbsp;            movieToSaveJson = gson.fromJson(movieInfoString, MovieDTO.class);</b>
 &nbsp;
-<b class="fc">&nbsp;            produceMessage(saveToDB(movieToSaveJson));</b>
+<b class="nc">&nbsp;            produceMessage(saveToDB(movieToSaveJson));</b>
 &nbsp;
 <b class="nc">&nbsp;        } catch (Exception e) {</b>
 <b class="nc">&nbsp;            log.error(&quot;Error parsing message: &quot; + movieInfo);</b>
 <b class="nc">&nbsp;            log.error(e.getMessage());</b>
 <b class="nc">&nbsp;            throw new NullPointerException(&quot;Error parsing message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;        }</b>
+<b class="nc">&nbsp;        }</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private MovieDTO saveToDB(MovieDTO movie) {
 &nbsp;        try{
-<b class="fc">&nbsp;        return movieService.save(movie);</b>
+<b class="nc">&nbsp;        return movieService.save(movie);</b>
 <b class="nc">&nbsp;        } catch (Exception e) {</b>
 <b class="nc">&nbsp;            log.error(&quot;Error saving movie to database: &quot; + movie);</b>
 <b class="nc">&nbsp;            log.error(e.getMessage());</b>
@@ -142,13 +142,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    private void produceMessage(MovieDTO movieInfo) {
 &nbsp;        try{
-<b class="fc">&nbsp;        databaseProducer.sendMessage(movieInfo);</b>
-<b class="fc">&nbsp;        log.info(&quot;Producing message: &quot; + movieInfo);</b>
+<b class="nc">&nbsp;        databaseProducer.sendMessage(movieInfo);</b>
+<b class="nc">&nbsp;        log.info(&quot;Producing message: &quot; + movieInfo);</b>
 <b class="nc">&nbsp;        } catch (Exception e) {</b>
 <b class="nc">&nbsp;            log.error(&quot;Error producing message: &quot; + movieInfo);</b>
 <b class="nc">&nbsp;            log.error(e.getMessage());</b>
 <b class="nc">&nbsp;            throw new NullPointerException(&quot;Error producing message: &quot; + movieInfo);</b>
-<b class="fc">&nbsp;        }</b>
+<b class="nc">&nbsp;        }</b>
 &nbsp;
 &nbsp;
 &nbsp;    }
@@ -178,7 +178,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-25 10:38</div>
+    <div style="float:right;">generated on 2023-09-26 14:49</div>
 </div>
 </body>
 </html>

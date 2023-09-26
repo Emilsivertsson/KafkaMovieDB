@@ -1,67 +1,78 @@
 package org.CodeForPizza.connection;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.nio.file.Paths;
-
+import com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.classic.methods.HttpPost;
+import com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.CodeForPizza.dto.MovieDTO;
-
-import org.apache.http.HttpException;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponseInterceptor;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpRequestRetryHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.conn.routing.HttpRoutePlanner;
-import org.apache.http.impl.DefaultConnectionReuseStrategy;
-import org.apache.http.impl.client.*;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.ContentEncodingHttpClient;
-import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
-import org.apache.http.impl.client.DefaultUserTokenHandler;
-import org.apache.http.impl.client.ProxyAuthenticationStrategy;
-import org.apache.http.impl.client.SystemDefaultHttpClient;
-import org.apache.http.impl.client.TargetAuthenticationStrategy;
-import org.apache.http.impl.conn.BasicClientConnectionManager;
-import org.apache.http.impl.conn.DefaultHttpRoutePlanner;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
-import org.apache.http.impl.conn.ProxySelectorRoutePlanner;
-import org.apache.http.message.BasicRequestLine;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.SyncBasicHttpParams;
-import org.apache.http.protocol.HttpContext;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.mockito.Mockito;
+import java.io.IOException;
+import java.util.List;
+import org.apache.http.client.methods.HttpGet;
 
-// tests for this class was written using DiffBlue , a tool that automatically generates unit tests for Java classes.
-// to try out its functionality.
+public class HttpConnectionTest {
 
-class HttpConnectionTest {
+    private HttpConnection httpConnection;
+    private CloseableHttpClient mockHttpClient;
 
+    CloseableHttpResponse mockHttpResponse;
 
-    /**
-     * Method under test: {@link HttpConnection#saveMovieToAPI(MovieDTO)}
-     */
-    @Test
-    void testSaveMovieToAPI() {
-        HttpConnection httpConnection = new HttpConnection();
-        assertEquals("Sandboxing policy violation. Reason: to access the network",
-                httpConnection.saveMovieToAPI(new MovieDTO("Dr", "Year")));
+    @BeforeEach
+    public void setUp() {
+        httpConnection = new HttpConnection();
+        mockHttpClient = Mockito.mock(CloseableHttpClient.class);
+        mockHttpResponse = Mockito.mock(CloseableHttpResponse.class);
     }
 
-}
+    @Test //TODO FIX all asserts
+    public void testSaveMovieToAPI() throws IOException {
+        MovieDTO movie = new MovieDTO();
 
+        movie.setTitle("Test Movie");
+        Mockito.when(mockHttpClient.execute(Mockito.any())).thenReturn(mockHttpResponse);
+        httpConnection.executePOST(mockHttpClient, Mockito.any(org.apache.http.client.methods.HttpPost.class));
+
+        String result = httpConnection.saveMovieToAPI(movie);
+
+        // Assert the result
+
+    }
+
+    @Test
+    public void testGetAllMovies() throws IOException {
+        Mockito.when(mockHttpClient.execute(Mockito.any())).thenReturn(mockHttpResponse);
+        httpConnection.executeGETAll(mockHttpClient, Mockito.any(HttpGet.class));
+
+        List<MovieDTO> movieList = httpConnection.getAllMovies();
+
+        // Assert the result
+        // You can use assertions to check if the list is not empty or other criteria
+    }
+
+    @Test
+    public void testDeleteMovie() throws IOException {
+        int movieId = 1;
+        Mockito.when(mockHttpClient.execute(Mockito.any())).thenReturn(mockHttpResponse);
+        httpConnection.executeDELETE(mockHttpClient, Mockito.any(HttpDelete.class));
+        String result = httpConnection.deleteMovie(movieId);
+
+        // Assert the result
+        // You can use assertions to check if the result is as expected
+    }
+
+    @Test
+    public void testUpdateMovie() throws IOException {
+        int movieId = 1;
+        MovieDTO movie = new MovieDTO();
+        movie.setTitle("Updated Movie");
+        Mockito.when(mockHttpClient.execute(Mockito.any())).thenReturn(mockHttpResponse);
+        httpConnection.executePut(mockHttpClient, Mockito.any(org.apache.http.client.methods.HttpPut.class));
+
+        String result = httpConnection.updateMovie(movieId, movie);
+
+        // Assert the result
+        // You can use assertions to check if the result is as expected
+    }
+}

@@ -4,6 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.writer.FileWrite;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
@@ -18,8 +22,13 @@ import com.google.gson.Gson;
 @Service
 public class ConsoleConsumer {
 
-    MovieDTO movieToPrint = new MovieDTO();
+    @Autowired
     private final FileWrite fileWrite = new FileWrite();
+
+    // this is to prevent the test from writing to file
+    boolean fileWriteEnabled = true;
+
+    MovieDTO movieToPrint = new MovieDTO();
 
     @KafkaListener(topics = "returningData", groupId = "Console")
     public void consume(MovieDTO movieInfo) {
@@ -27,12 +36,19 @@ public class ConsoleConsumer {
             log.info("Consumed message: " + movieInfo);
             movieToPrint = movieInfo;
             System.out.println("Movie information received from Database.");
-            fileWrite.writeToFile(movieInfo);
+
+            if (fileWriteEnabled) { // this is to prevent the test from writing to file
+                writeToFile(movieInfo);
+            }
 
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new NullPointerException("Error parsing message: " + movieInfo);
         }
+    }
+
+    private void writeToFile(MovieDTO movieInfo) {
+        fileWrite.writeToFile(movieInfo);
     }
 
 }

@@ -26,10 +26,13 @@ public class ApplicationConsumer {
 
     Gson gson = new Gson();
 
+
+
     @KafkaListener(topics = "movie", groupId = "user")
     public void consume(MovieDTO movieInfo) {
         try {
             log.info("Consumed message: " + movieInfo);
+
             String movieInfoString = gson.toJson(movieInfo);
             movieFromDataBase = gson.fromJson(movieInfoString, MovieDTO.class);
             System.out.println("=============================================");

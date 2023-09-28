@@ -47,6 +47,7 @@ class DatabaseConsumerTest {
         assertEquals(movieInfo.toString(), processedMovie.toString());
     }
 
+
     @AfterEach
     void tearDown() {
         kafkaTemplate.flush();

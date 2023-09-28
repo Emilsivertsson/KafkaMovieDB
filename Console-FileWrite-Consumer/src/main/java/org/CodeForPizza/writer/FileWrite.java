@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.dto.MovieDTO;
+import org.springframework.stereotype.Component;
+
 import java.io.FileWriter;
 
 /**
@@ -12,6 +14,7 @@ import java.io.FileWriter;
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class FileWrite {
 
     private FileWriter file;

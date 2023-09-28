@@ -1,18 +1,15 @@
 package org.CodeForPizza.consumer;
 
-import com.google.gson.JsonSerializer;
 import org.CodeForPizza.dto.MovieDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.listener.MessageListener;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +20,6 @@ class ConsoleConsumerTest {
 
     @Autowired
     private KafkaTemplate<String, MovieDTO> kafkaTemplate ;
-
 
     @Autowired
     private ConsoleConsumer consoleConsumer = new ConsoleConsumer();
@@ -43,6 +39,7 @@ class ConsoleConsumerTest {
 
     @Test
     void testConsumeSuccess() {
+        consoleConsumer.fileWriteEnabled = false;
         kafkaTemplate.send("returningData", movieInfo);
         consoleConsumer.consume(movieInfo);
         processedMovie = consoleConsumer.movieToPrint;

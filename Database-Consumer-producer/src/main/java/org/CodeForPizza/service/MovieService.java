@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface MovieService {
 
     MovieDTO save(MovieDTO movieDTO);
+
+    void deleteById(MovieDTO movieDTO);
 }

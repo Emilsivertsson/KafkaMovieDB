@@ -6,6 +6,7 @@ import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.writer.FileWrite;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import com.google.gson.Gson;
 
 
 /**
@@ -17,12 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConsoleConsumer {
 
+    MovieDTO movieToPrint = new MovieDTO();
     private final FileWrite fileWrite = new FileWrite();
 
     @KafkaListener(topics = "returningData", groupId = "Console")
     public void consume(MovieDTO movieInfo) {
         try{
             log.info("Consumed message: " + movieInfo);
+            movieToPrint = movieInfo;
             System.out.println("Movie information received from Database.");
             fileWrite.writeToFile(movieInfo);
 
@@ -31,7 +34,6 @@ public class ConsoleConsumer {
             throw new NullPointerException("Error parsing message: " + movieInfo);
         }
     }
-
 
 }
 

@@ -68,9 +68,5 @@ public class DatabaseConsumer {
             log.error(e.getMessage());
             throw new NullPointerException("Error producing message: " + movieInfo);
         }
-
-
     }
-
-
 }

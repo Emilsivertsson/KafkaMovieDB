@@ -1,45 +1,57 @@
 package org.CodeForPizza.consumer;
 
 import org.CodeForPizza.dto.MovieDTO;
-import org.junit.jupiter.api.Disabled;
+import org.CodeForPizza.service.MovieService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.listener.MessageListener;
+
 import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 
 
-
+@SpringBootTest
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9095", "port=9095"})
 class DatabaseConsumerTest {
 
-    @Mock
-    private MessageListener<String, String> messageListener;
+    @Autowired
+    MovieService movieService;
+
+    @Autowired
+    private KafkaTemplate<String, MovieDTO> kafkaTemplate ;
+
+    @Autowired
+    private DatabaseConsumer databaseConsumer = new DatabaseConsumer();
+
+    MovieDTO movieInfo;
+    MovieDTO processedMovie;
+
+    @BeforeEach
+    void setUp() {
+        movieInfo = new MovieDTO();
+        movieInfo.setId(1L);
+        movieInfo.setTitle("TestTitle");
+        movieInfo.setYear("2021");
+    }
 
     @Test
     void testConsumeSuccess() {
-
-        MovieDTO movieInfo = new MovieDTO();
-
-        DatabaseConsumer consumer = Mockito.spy(new DatabaseConsumer());
-        Mockito.doNothing().when(consumer).consume(movieInfo);
-
-        consumer.consume(movieInfo);
-
-        Mockito.verify(consumer).consume(movieInfo);
-
+        kafkaTemplate.send("movie", movieInfo);
+        databaseConsumer.consume(movieInfo);
+        processedMovie = databaseConsumer.movieToSaveJson;
+        assertEquals(movieInfo.toString(), processedMovie.toString());
     }
 
+    @AfterEach
+    void tearDown() {
+        kafkaTemplate.flush();
+        movieService.deleteById(processedMovie);
+    }
 }
 
 

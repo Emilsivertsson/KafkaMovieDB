@@ -41,4 +41,16 @@ public class MovieServiceImpl implements MovieService{
             return null;
         }
     }
+
+    @Transactional
+    @Override
+    public void deleteById(MovieDTO movieDTO) {
+        try{
+        Movie movie = MovieMapper.toMovie(movieDTO);
+        movieRepository.deleteById(movie.getId());
+        } catch (Exception e) {
+            log.info("Error deleting movie: " + e);
+    }
+
+    }
 }

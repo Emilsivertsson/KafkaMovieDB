@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 
+import static org.mockito.Mockito.verify;
+
 public class HttpConnectionTest {
 
     private HttpConnection httpConnection;
@@ -36,7 +38,6 @@ public class HttpConnectionTest {
 
         String result = httpConnection.saveMovieToAPI(movie);
 
-        // Assert the result
 
     }
 

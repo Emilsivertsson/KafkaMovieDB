@@ -49,6 +49,8 @@ public class Output {
     public static String breakBar = "=============================================";
 
     public static String noMovieWithThatId = "There is no movie with that ID.";
+    public static String noMoviesInDB = "There are no movies in the database.";
+    public static String idCantBeZero = "ID cant be 0. Please try again.";
 
     public static String movieInformation(MovieDTO movie) {
         return "Id: " + movie.getId()

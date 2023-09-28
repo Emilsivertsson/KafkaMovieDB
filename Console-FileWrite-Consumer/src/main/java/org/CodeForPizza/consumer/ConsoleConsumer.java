@@ -6,7 +6,7 @@ import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.writer.FileWrite;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import com.google.gson.Gson;
+
 
 /**
  * This class implements a kafka consumer that listens to the topic "returningData", group "Console".
@@ -16,10 +16,6 @@ import com.google.gson.Gson;
 @Slf4j
 @Service
 public class ConsoleConsumer {
-
-    MovieDTO movie = new MovieDTO();
-
-    Gson gson = new Gson();
 
     private final FileWrite fileWrite = new FileWrite();
 

@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class implements the MovieService interface. it is used to preform CRUD operations on the database.
+ * it uses the @Transactional annotation to make sure that the operations are sent to the database safely.
+ */
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,5 +1,6 @@
 package org.CodeForPizza.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,10 @@ import org.CodeForPizza.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class implements the movie service interface.
+ * It uses the movie repository to save the movie to the database.
+ */
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +24,7 @@ public class MovieServiceImpl implements MovieService{
     @Autowired
     private MovieRepository movieRepository;
 
+    @Transactional
     @Override
     public MovieDTO save(MovieDTO movieDTO) {
         try{

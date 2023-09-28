@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to create the REST API. it has one endpoint that receives a JSON object and sends it to Kafka producer.
+ * This class is used to create the REST API. it has one endpoint that receives a MovieDTO object and sends it to Kafka producer.
+ * the other are used to preform CRUD operations on the database.
  */
 @Slf4j
 @AllArgsConstructor
@@ -28,7 +29,10 @@ public class APIController {
     @Autowired
     private MovieService movieService;
 
-    // http://localhost:8080/api/v1/movie/save
+    /**
+     * http://localhost:8080/api/v1/movie/save
+     *  This method is used to send a MovieDTO object to Kafka producer.
+     */
     @PostMapping("/save")
     public ResponseEntity<String> publish(@RequestBody() MovieDTO movie) {
         try {
@@ -40,8 +44,11 @@ public class APIController {
         }
     }
 
-    //this method is used in development to test the API without Kafka
-    // http://localhost:8080/api/v1/movie/saveapi
+    /**
+     * this method is used in development to test the API without Kafka
+     * http://localhost:8080/api/v1/movie/saveapi
+     */
+
     @PostMapping("/saveapi")
     public ResponseEntity<MovieDTO> publishApi(@RequestBody() MovieDTO movieDTO) {
         try {
@@ -53,7 +60,10 @@ public class APIController {
         }
     }
 
-    // http://localhost:8080/api/v1/movie/all
+    /**
+     * http://localhost:8080/api/v1/movie/all
+     * This method is used to get all movies from the database.
+     */
     @GetMapping("/all")
     public ResponseEntity<List<MovieDTO>> getAllMovies() {
         try {
@@ -65,7 +75,10 @@ public class APIController {
         }
     }
 
-    // http://localhost:8080/api/v1/movie/{id}
+    /**
+     * http://localhost:8080/api/v1/movie/{id}
+     * This method is used to get a movie by id from the database.
+     */
     @GetMapping("/{id}")
         public ResponseEntity<MovieDTO> getMovieById(@PathVariable("id") long id) {
             try {
@@ -76,7 +89,10 @@ public class APIController {
             }
         }
 
-    // http://localhost:8080/api/v1/movie/update/{id}
+    /**
+     * http://localhost:8080/api/v1/movie/update/{id}
+     * This method is used to update a movie by id in the database.
+     */
     @PutMapping("/update/{id}")
         public ResponseEntity<MovieDTO> updateMovie(@PathVariable("id") long id,
                                                     @RequestBody MovieDTO movieDTO) {
@@ -88,7 +104,10 @@ public class APIController {
             }
         }
 
-    // http://localhost:8080/api/v1/movie/delete/{id}
+    /**
+     * http://localhost:8080/api/v1/movie/delete/{id}
+     * This method is used to delete a movie by id from the database.
+     */
     @DeleteMapping("/delete/{id}")
         public ResponseEntity<String> deleteMovie(@PathVariable("id") long id) {
             try{

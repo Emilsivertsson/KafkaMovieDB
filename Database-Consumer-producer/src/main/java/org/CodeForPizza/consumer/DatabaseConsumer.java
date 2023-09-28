@@ -1,17 +1,15 @@
 package org.CodeForPizza.consumer;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.CodeForPizza.dto.MovieDTO;
-import org.CodeForPizza.entity.Movie;
 import org.CodeForPizza.producer.DatabaseProducer;
-import org.CodeForPizza.repository.MovieRepository;
 import org.CodeForPizza.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import org.CodeForPizza.mapper.MovieMapper;
 import com.google.gson.Gson;
 
 /**
@@ -43,9 +41,7 @@ public class DatabaseConsumer {
             log.info("Consumed message: " + movieInfo);
             String movieInfoString = gson.toJson(movieInfo);
             movieToSaveJson = gson.fromJson(movieInfoString, MovieDTO.class);
-
             produceMessage(saveToDB(movieToSaveJson));
-
         } catch (Exception e) {
             log.error("Error parsing message: " + movieInfo);
             log.error(e.getMessage());

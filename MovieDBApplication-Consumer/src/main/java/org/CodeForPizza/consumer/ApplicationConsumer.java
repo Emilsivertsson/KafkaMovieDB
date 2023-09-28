@@ -32,7 +32,6 @@ public class ApplicationConsumer {
             log.info("Consumed message: " + movieInfo);
             String movieInfoString = gson.toJson(movieInfo);
             movieFromDataBase = gson.fromJson(movieInfoString, MovieDTO.class);
-
             System.out.println("=============================================");
             System.out.println("Movie information saved in the database:");
             System.out.println("Title: " + movieFromDataBase.getTitle());
@@ -41,7 +40,5 @@ public class ApplicationConsumer {
             log.error("Error parsing message: " + movieInfo.toString());
             throw new NullPointerException("Error parsing message: " + movieInfo);
         }
-
-
     }
 }

@@ -7,7 +7,7 @@ import org.CodeForPizza.dto.MovieDTO;
 import java.io.FileWriter;
 
 /**
- * FileWriter to write the Json object to a logfile. The logfile is located in the same folder as the project.
+ * FileWriter to write the Movie object to a logfile. The logfile is located in the same folder as the project.
  */
 @Slf4j
 @NoArgsConstructor

@@ -1,6 +1,10 @@
 package org.CodeForPizza.dto;
 
 import lombok.*;
+/**
+ * This class is a data transfer object for the movie entity.
+ * It is used to transfer data between the modules via kafka and the API
+ */
 
 @Getter
 @Setter

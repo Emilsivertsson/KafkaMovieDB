@@ -3,7 +3,9 @@ package org.CodeForPizza.mapper;
 import org.CodeForPizza.dto.MovieDTO;
 import org.CodeForPizza.entity.Movie;
 
-
+/**
+ * This class maps the movie entity to a movieDTO and vice versa.
+ */
 
 public class MovieMapper {
 

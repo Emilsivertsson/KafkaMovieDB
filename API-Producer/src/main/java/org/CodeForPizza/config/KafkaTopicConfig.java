@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
 /**
- * This class is used to create a topic in Kafka, for the broker running on 9092.
+ * This class is used to create the movie topic with 3 partitions and 3 replicas.
  */
 @Configuration
 public class KafkaTopicConfig {

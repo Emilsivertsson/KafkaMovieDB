@@ -8,24 +8,27 @@ import org.CodeForPizza.output.Output;
 
 import java.util.List;
 
+/**
+ * This class is the application itself, it lets the user preform CRUD operations on the database via the API.
+ * although the save function goes throu kafka as per the assignment.
+ */
+
 @Slf4j
 public class Application {
 
-    HttpConnection httpConnection = new HttpConnection();
+    private HttpConnection httpConnection = new HttpConnection();
 
-    Inputs inputs = new Inputs();
+    private Inputs inputs = new Inputs();
 
-    MovieDTO movie = new MovieDTO();
+    private MovieDTO movie = new MovieDTO();
 
-    MovieDTO movieToUpdate = new MovieDTO();
+    private MovieDTO movieToUpdate = new MovieDTO();
 
-    List<MovieDTO> moviesFromDB;
+    private List<MovieDTO> moviesFromDB;
 
-    Boolean containsId = false;
+    private Boolean containsId = false;
 
-    Boolean isEmpty = false;
-
-    int id;
+    private int id;
 
 
     public void run() {
@@ -54,6 +57,10 @@ public class Application {
         }
     }
 
+    /**
+     * all the metods basically do the same thing, they check if there are movies in the database, if there arent they return.
+     * if there are movies they list them and then ask for an id, if the id exists they preform the action.
+     */
     private void deleteMovie() {
         if (isThereMovies()) {
             return;
@@ -131,6 +138,11 @@ public class Application {
         return false;
     }
 
+    /**
+     * this method is the only one that doesnt use the API, it uses kafka to send the movie to the database.
+     * it uses the method createMovie to create a movie object and sends is to kafka.
+     * it then sleeps for 2 seconds to give kafka time to send and let the consumer recive the message.
+     */
     private void addMovie() {
         try {
             createMovie();

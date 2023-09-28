@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 
 /**
  * This class creates a HTTP client and sends a POST request to the API.
- * It uses the JSONObject movie to send the movie information to the API.
+ * It uses the Object movie to send the movie information to the API.
  */
 @Slf4j
 public class HttpConnection {

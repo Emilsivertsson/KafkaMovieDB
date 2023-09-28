@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * This class implements a kafka producer that sends a message to the topic "movie".
- * It uses a KafkaTemplate to send the message. The template is configured in the application.properties file.
+ * it uses a KafkaTemplate to send the message to the topic.
  */
 @Slf4j
 @Service

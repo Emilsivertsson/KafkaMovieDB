@@ -18,6 +18,15 @@ Alla moduler är Spring Boot Maven applikationer som startat på vars en port.\
 Jag ville bygga det i separata moduler för att simulera löskopplade applikationer som kommunicerar med varandra.\
 jag har skrivit modulerna och sedan skrivit tester och även satt upp för att använda 3 brokers och replikering i Kafka.\
 
+Jag börjde med en plan som var för en MVP, alltså det minsta som projektet krävde.\
+![firstplan](Images/firstplan.png)
+
+Efter det planerade jag för hur jag skulle bygga ut projektet med mer utmaningar.\
+![secondplan](Images/secondplan.jpg)
+
+Jag skrev sedan en plan för hur jag skulle bygga ut projektet för att få till den funktionalitet jag ville ha.\
+![lastplan](Images/endplan.jpg)
+
 ## Arbetet och dess genomförande
 Jag började med att skriva APIet och testade det med Postman.\
 sedan skrev jag den första API producern som skulle skicka informationen till Consol-consumer och till databasen-consumer.\
@@ -47,6 +56,10 @@ men det visade inte fungera, för javaFX har en egen launch() funktion som inte 
 Utan Spring, så funkar inte @annoteringarna, och då laddade inte @Kafkalistner de inkommande meddelandena.
 Jag lärde mig sen av Kristoffer Larsson att man kunde göra det i en stort separat tråd., men det var inte på det sättet jag hade tänkte mig funktionaliteten.
 Så jag skrotade det och skrev om till en vanlig consol GUI som gjorde samma sak.\
+
+Från början gjorde jag en separat modul som höll Entity,DTO och repository classer som de andra modulerna kunde använda,\
+men detta visade sig inte funka vid Build, så jag fick lägga till dem i de andra modulerna istället.\
+Det blev lite stökigare med "samma" filer på olika platser, men om man tänker att de är helt separata applikationer så känns det rimligt.
 
 ## Slutsatser
 

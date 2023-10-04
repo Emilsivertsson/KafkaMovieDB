@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > Output</title>
+  <title>Coverage Report > MovieMapper</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.output</a>
+    <a href="../index.html">org.CodeForPizza.mapper</a>
 </div>
 
-<h1>Coverage Summary for Class: Output (org.CodeForPizza.output)</h1>
+<h1>Coverage Summary for Class: MovieMapper (org.CodeForPizza.mapper)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,29 +41,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Output</td>
+  <td class="name">MovieMapper</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    66,7%
   </span>
   <span class="absValue">
-    (0/3)
+    (2/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    92,3%
   </span>
   <span class="absValue">
-    (0/24)
+    (12/13)
   </span>
 </td>
 </tr>
@@ -75,62 +75,35 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.output;
-&nbsp;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.mapper;
 &nbsp;
 &nbsp;import org.CodeForPizza.dto.MovieDTO;
+&nbsp;import org.CodeForPizza.entity.Movie;
 &nbsp;
-<b class="nc">&nbsp;public class Output {</b>
+&nbsp;/**
+&nbsp; * This class maps the movie entity to a movieDTO and vice versa.
+&nbsp; */
 &nbsp;
-<b class="nc">&nbsp;    public static String printMenu = &quot;&quot;&quot;</b>
-&nbsp;            Welcome to the movie database. Please choose an option:
-&nbsp;            1. Add a movie to the database
-&nbsp;            2. list all movies in the database
-&nbsp;            3. update a movie in the database
-&nbsp;            4. delete a movie from the database
-&nbsp;            5. exit program
-&nbsp;            &quot;&quot;&quot;;
-<b class="nc">&nbsp;    public static String thankYou = &quot;Thank you for using the movie database. Goodbye.&quot;;</b>
+<b class="nc">&nbsp;public class MovieMapper {</b>
 &nbsp;
-<b class="nc">&nbsp;    public static String askForYear = &quot;Please enter the year: &quot;;</b>
-<b class="nc">&nbsp;    public static String askForTitle = &quot;Please enter the title: &quot;;</b>
+&nbsp;    public static MovieDTO toMovieDTO(Movie movie) {
+<b class="fc">&nbsp;        if (movie == null) return null;</b>
 &nbsp;
-<b class="nc">&nbsp;    public static String movieSaved = &quot;Movie information sent to the database.&quot;;</b>
+<b class="fc">&nbsp;        MovieDTO movieDTO = new MovieDTO();</b>
+<b class="fc">&nbsp;        movieDTO.setId(movie.getId());</b>
+<b class="fc">&nbsp;        movieDTO.setTitle(movie.getTitle());</b>
+<b class="fc">&nbsp;        movieDTO.setYear(movie.getYear());</b>
+<b class="fc">&nbsp;        return movieDTO;</b>
+&nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    public static String movieDeleted = &quot;Movie deleted from the database.&quot;;</b>
+&nbsp;    public static Movie toMovie(MovieDTO movieDTO) {
+<b class="fc">&nbsp;        if (movieDTO == null) return null;</b>
 &nbsp;
-<b class="nc">&nbsp;    public static String MovieUpdated = &quot;Movie updated in the database.&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String whatMovieToDelete = &quot;What movie do you want to delete?&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String whatIdToDelete = &quot;what is the id of the movie you want to delete?&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String whatMovieToUpdate = &quot;What movie do you want to update?&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String whatIdToUpdate = &quot;what is the id of the movie you want to update?&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String newTitle = &quot;what is the new title?&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String newYear = &quot;what is the new year?&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String allMovies = &quot;Here are all the movies in the database:&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String YearOutOfRange = &quot;Year must be between 1888 and 2024. Please try again.&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String yearCantBeZero = &quot;Year cant be 0. Please try again.&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String titleCantBeEmpty = &quot;Title cant be empty. Please try again.&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String titleCantBeSwe = &quot;Title cant contain å, ä or ö. Please try again.&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String breakBar = &quot;=============================================&quot;;</b>
-&nbsp;
-<b class="nc">&nbsp;    public static String noMovieWithThatId = &quot;There is no movie with that ID.&quot;;</b>
-&nbsp;
-&nbsp;    public static String movieInformation(MovieDTO movie) {
-<b class="nc">&nbsp;        return &quot;Id: &quot; + movie.getId()</b>
-<b class="nc">&nbsp;                + &quot; Title: &quot; + movie.getTitle()</b>
-<b class="nc">&nbsp;                + &quot; Year: &quot; + movie.getYear();</b>
+<b class="fc">&nbsp;        Movie movie = new Movie();</b>
+<b class="fc">&nbsp;        movie.setId(movieDTO.getId());</b>
+<b class="fc">&nbsp;        movie.setTitle(movieDTO.getTitle());</b>
+<b class="fc">&nbsp;        movie.setYear(movieDTO.getYear());</b>
+<b class="fc">&nbsp;        return movie;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -156,7 +129,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-26 14:49</div>
+    <div style="float:right;">generated on 2023-10-04 08:48</div>
 </div>
 </body>
 </html>

@@ -21,7 +21,6 @@ This is a School projekt for the course in Integration plattforms. it consists o
 - A Console/writer module that serves as a Kafka consumer that receives the Json String and writes its information to a TXT-file.
 - A database module that serves as a Kafka consumer that receives the Json String and saves it to the database. \
     It also serves as a Kafka producer and sends the information from the database to the writer module.
-- A Movie module, that just contains the DTO, Entity and Repository that is used in several of the other modules.
 
 ## What was your motivation?
 Our assignment was to create a Rest API that takes the users input and sends it to a Kafka topic.\

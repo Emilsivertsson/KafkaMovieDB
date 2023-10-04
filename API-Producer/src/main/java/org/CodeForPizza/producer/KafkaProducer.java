@@ -1,6 +1,7 @@
 package org.CodeForPizza.producer;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.CodeForPizza.dto.MovieDTO;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;

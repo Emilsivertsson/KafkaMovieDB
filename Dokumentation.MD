@@ -57,6 +57,10 @@ Utan Spring, så funkar inte @annoteringarna, och då laddade inte @Kafkalistner
 Jag lärde mig sen av Kristoffer Larsson att man kunde göra det i en stort separat tråd., men det var inte på det sättet jag hade tänkte mig funktionaliteten.
 Så jag skrotade det och skrev om till en vanlig consol GUI som gjorde samma sak.\
 
+Från början gjorde jag en separat modul som höll Entity,DTO och repository classer som de andra modulerna kunde använda,\
+men detta visade sig inte funka vid Build, så jag fick lägga till dem i de andra modulerna istället.\
+Det blev lite stökigare med "samma" filer på olika platser, men om man tänker att de är helt separata applikationer så känns det rimligt.
+
 ## Slutsatser
 
 ### Vad gick bra

@@ -33,6 +33,10 @@ I also extended my knowledge about Spring boot and APIs, witch I have used befor
 
 
 ## Installation and Usage
+Important!\
+if you don't have a local MySQL database and a local Kafka server running on your computer, the application will not start.\
+you will get an error message that the application cant connect to the database or that the brokers is not available.
+
 1. To use the application you need to have a local MySQL database running on your computer.
    - Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
    - When you have installed MySQL Community you need to create a database called "movies".

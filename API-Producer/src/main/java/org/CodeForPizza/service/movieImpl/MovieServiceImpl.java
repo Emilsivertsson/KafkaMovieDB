@@ -11,6 +11,9 @@ import org.CodeForPizza.mapper.MovieMapper;
 import org.CodeForPizza.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.rmi.ConnectException;
+import java.sql.SQLDataException;
 import java.util.List;
 import java.util.stream.Collectors;
 

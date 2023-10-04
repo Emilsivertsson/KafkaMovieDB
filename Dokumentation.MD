@@ -18,6 +18,15 @@ Alla moduler är Spring Boot Maven applikationer som startat på vars en port.\
 Jag ville bygga det i separata moduler för att simulera löskopplade applikationer som kommunicerar med varandra.\
 jag har skrivit modulerna och sedan skrivit tester och även satt upp för att använda 3 brokers och replikering i Kafka.\
 
+Jag börjde med en plan som var för en MVP, alltså det minsta som projektet krävde.\
+![firstplan](Images/firstplan.png)
+
+Efter det planerade jag för hur jag skulle bygga ut projektet med mer utmaningar.\
+![secondplan](Images/secondplan.jpg)
+
+Jag skrev sedan en plan för hur jag skulle bygga ut projektet för att få till den funktionalitet jag ville ha.\
+![lastplan](Images/endplan.jpg)
+
 ## Arbetet och dess genomförande
 Jag började med att skriva APIet och testade det med Postman.\
 sedan skrev jag den första API producern som skulle skicka informationen till Consol-consumer och till databasen-consumer.\

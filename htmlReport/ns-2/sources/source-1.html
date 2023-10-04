@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > Application</title>
+  <title>Coverage Report > Inputs</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.application</a>
+    <a href="../index.html">org.CodeForPizza.Input</a>
 </div>
 
-<h1>Coverage Summary for Class: Application (org.CodeForPizza.application)</h1>
+<h1>Coverage Summary for Class: Inputs (org.CodeForPizza.Input)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Application</td>
+  <td class="name">Inputs</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/12)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/110)
+    (0/36)
   </span>
 </td>
 </tr>
@@ -75,190 +75,72 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.application;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.Input;
 &nbsp;
-&nbsp;import lombok.extern.slf4j.Slf4j;
-&nbsp;import org.CodeForPizza.connection.HttpConnection;
-&nbsp;import org.CodeForPizza.dto.MovieDTO;
 &nbsp;import org.CodeForPizza.output.Output;
 &nbsp;
-&nbsp;import java.util.List;
+&nbsp;import java.util.InputMismatchException;
 &nbsp;import java.util.Scanner;
 &nbsp;
-<b class="nc">&nbsp;@Slf4j</b>
-&nbsp;public class Application {
+<b class="nc">&nbsp;public class Inputs {</b>
 &nbsp;
-<b class="nc">&nbsp;    HttpConnection httpConnection = new HttpConnection();</b>
-&nbsp;
-<b class="nc">&nbsp;    MovieDTO movie = new MovieDTO();</b>
-&nbsp;
-<b class="nc">&nbsp;    MovieDTO movieToUpdate = new MovieDTO();</b>
-&nbsp;
-&nbsp;    List&lt;MovieDTO&gt; moviesFromDB;
-&nbsp;
-<b class="nc">&nbsp;    Boolean containsId = false;</b>
-&nbsp;
-&nbsp;    int id;
 <b class="nc">&nbsp;    Scanner scanner = new Scanner(System.in);</b>
 &nbsp;
-<b class="nc">&nbsp;    public Application() {</b>
-&nbsp;        try {
-<b class="nc">&nbsp;            run();</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            log.error(&quot;Error running application&quot;);</b>
-<b class="nc">&nbsp;            log.error(e.getMessage());</b>
-<b class="nc">&nbsp;        }</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void run() {
-&nbsp;        while (true) {
-<b class="nc">&nbsp;        System.out.println(Output.printMenu);</b>
-<b class="nc">&nbsp;        int input = Integer.parseInt(scanner.nextLine());</b>
-<b class="nc">&nbsp;        switch (input){</b>
-<b class="nc">&nbsp;            case 1: addMovie();</b>
-<b class="nc">&nbsp;                break;</b>
-<b class="nc">&nbsp;            case 2: listMovies();</b>
-<b class="nc">&nbsp;                break;</b>
-<b class="nc">&nbsp;            case 3: updateMovie();</b>
-<b class="nc">&nbsp;                break;</b>
-<b class="nc">&nbsp;            case 4: deleteMovie();</b>
-<b class="nc">&nbsp;                break;</b>
-&nbsp;            case 5:
-<b class="nc">&nbsp;                System.out.println(Output.thankYou);</b>
-<b class="nc">&nbsp;                System.exit(0);</b>
-<b class="nc">&nbsp;                break;</b>
-<b class="nc">&nbsp;            default: System.out.println(&quot;Invalid input. Please try again.&quot;);</b>
-&nbsp;        }
-<b class="nc">&nbsp;    }</b>
-&nbsp;}
-&nbsp;
-&nbsp;    private  void deleteMovie() {
-<b class="nc">&nbsp;        System.out.println(Output.whatMovieToDelete);</b>
-<b class="nc">&nbsp;        moviesFromDB = httpConnection.getAllMovies();</b>
-<b class="nc">&nbsp;        for (MovieDTO movie : moviesFromDB) {</b>
-<b class="nc">&nbsp;            System.out.println(Output.movieInformation(movie));</b>
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        System.out.println(Output.breakBar);</b>
-<b class="nc">&nbsp;        System.out.println(Output.whatIdToDelete);</b>
-<b class="nc">&nbsp;        id = Integer.parseInt(scanner.nextLine());</b>
-<b class="nc">&nbsp;        ifIdExistsDelete();</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    private void ifIdExistsDelete() {
-<b class="nc">&nbsp;        for (MovieDTO movie : moviesFromDB) {</b>
-<b class="nc">&nbsp;            if (movie.getId() == id) {</b>
-<b class="nc">&nbsp;                containsId = true;</b>
-<b class="nc">&nbsp;                break;</b>
-&nbsp;            }
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        if (containsId) {</b>
-<b class="nc">&nbsp;            System.out.println(httpConnection.deleteMovie(id));</b>
-&nbsp;        } else {
-<b class="nc">&nbsp;            System.out.println(Output.noMovieWithThatId);</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    private void updateMovie() {
-<b class="nc">&nbsp;        System.out.println(Output.whatMovieToUpdate);</b>
-<b class="nc">&nbsp;        moviesFromDB = httpConnection.getAllMovies();</b>
-<b class="nc">&nbsp;        for (MovieDTO movie : moviesFromDB) {</b>
-<b class="nc">&nbsp;            System.out.println(Output.movieInformation(movie));</b>
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        System.out.println(Output.breakBar);</b>
-<b class="nc">&nbsp;        System.out.println(Output.whatIdToUpdate);</b>
-<b class="nc">&nbsp;        id = Integer.parseInt(scanner.nextLine());</b>
-<b class="nc">&nbsp;        ifIdExistsUpdate();</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    private void ifIdExistsUpdate() {
-<b class="nc">&nbsp;        for (MovieDTO movie : moviesFromDB) {</b>
-<b class="nc">&nbsp;            if (movie.getId() == id) {</b>
-<b class="nc">&nbsp;                containsId = true;</b>
-<b class="nc">&nbsp;                break;</b>
-&nbsp;            }
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        if (containsId) {</b>
-<b class="nc">&nbsp;            System.out.println(Output.newTitle);</b>
-<b class="nc">&nbsp;            String newTitle = scanner.nextLine();</b>
-<b class="nc">&nbsp;            System.out.println(Output.newYear);</b>
-<b class="nc">&nbsp;            int newYear = Integer.parseInt(scanner.nextLine());</b>
-<b class="nc">&nbsp;            movieToUpdate.setTitle(newTitle);</b>
-<b class="nc">&nbsp;            movieToUpdate.setYear(String.valueOf(newYear));</b>
-<b class="nc">&nbsp;            System.out.println(httpConnection.updateMovie(id, movieToUpdate));</b>
-<b class="nc">&nbsp;        } else {</b>
-<b class="nc">&nbsp;            System.out.println(Output.noMovieWithThatId);</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    private  void listMovies() {
-<b class="nc">&nbsp;        System.out.println(Output.allMovies);</b>
-<b class="nc">&nbsp;        moviesFromDB = httpConnection.getAllMovies();</b>
-<b class="nc">&nbsp;        for (MovieDTO movie : moviesFromDB) {</b>
-<b class="nc">&nbsp;            System.out.println(Output.movieInformation(movie));</b>
-&nbsp;
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        System.out.println(Output.breakBar);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    private  void addMovie() {
-&nbsp;        try{
-<b class="nc">&nbsp;        createMovie();</b>
-<b class="nc">&nbsp;        System.out.println(httpConnection.saveMovieToAPI(movie));</b>
-<b class="nc">&nbsp;        Thread.sleep(2000);</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            log.error(&quot;Error adding movie&quot;);</b>
-<b class="nc">&nbsp;            log.error(e.getMessage());</b>
-<b class="nc">&nbsp;        }</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    private void createMovie( ) {
-&nbsp;        try  {
-<b class="nc">&nbsp;            movie.setTitle(askForTitle());</b>
-<b class="nc">&nbsp;            movie.setYear(askForYear());</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            log.error(&quot;Error creating Movie&quot;);</b>
-<b class="nc">&nbsp;            log.error(e.getMessage());</b>
-<b class="nc">&nbsp;        }</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    private String askForYear( ) {
-&nbsp;        int year;
-&nbsp;        try{
-&nbsp;            do {
-<b class="nc">&nbsp;                System.out.println(Output.askForYear);</b>
-<b class="nc">&nbsp;                year = Integer.parseInt(scanner.nextLine());</b>
-<b class="nc">&nbsp;                if (year &lt; 1888 || year &gt; 2024) {</b>
-<b class="nc">&nbsp;                    System.out.println(Output.YearOutOfRange);</b>
-&nbsp;                }
-<b class="nc">&nbsp;                if (year &lt;= 0 ) {</b>
-<b class="nc">&nbsp;                    System.out.println(Output.yearCantBeZero);</b>
-&nbsp;                }
-<b class="nc">&nbsp;            } while (year &lt; 1888 || year &gt; 2024);</b>
-<b class="nc">&nbsp;            return String.valueOf(year);</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            log.error(&quot;Error asking for year&quot;);</b>
-<b class="nc">&nbsp;            return e.getMessage();</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    private String askForTitle() {
-&nbsp;        String title;
-&nbsp;        try{
-&nbsp;            do {
-<b class="nc">&nbsp;                System.out.println(Output.askForTitle);</b>
+&nbsp;    public String askForString(String message) {
+<b class="nc">&nbsp;        String title = &quot;&quot;;</b>
+&nbsp;        do {
+&nbsp;            try {
+<b class="nc">&nbsp;                System.out.println(message);</b>
 <b class="nc">&nbsp;                title = scanner.nextLine();</b>
-<b class="nc">&nbsp;                if(title.isEmpty()){</b>
+<b class="nc">&nbsp;                if (title.isEmpty()) {</b>
 <b class="nc">&nbsp;                    System.out.println(Output.titleCantBeEmpty);</b>
 &nbsp;                }
 <b class="nc">&nbsp;                if (title.contains(&quot;å&quot;) || title.contains(&quot;ä&quot;) || title.contains(&quot;ö&quot;)) {</b>
 <b class="nc">&nbsp;                    System.out.println(Output.titleCantBeSwe);</b>
 &nbsp;                }
-<b class="nc">&nbsp;            } while (title.contains(&quot;å&quot;) || title.contains(&quot;ä&quot;) || title.contains(&quot;ö&quot;) || title.isEmpty() || title.isBlank());</b>
-<b class="nc">&nbsp;            return title;</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            log.error(&quot;Error asking for title&quot;);</b>
-<b class="nc">&nbsp;            return e.getMessage();</b>
-&nbsp;        }
+<b class="nc">&nbsp;            } catch (InputMismatchException | NumberFormatException e) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid input. Please try again.&quot;);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        } while (title.contains(&quot;å&quot;) || title.contains(&quot;ä&quot;) || title.contains(&quot;ö&quot;) || title.isEmpty() || title.isBlank());</b>
+<b class="nc">&nbsp;        return title;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String askForIntAsString(String message) {
+<b class="nc">&nbsp;        int year = 0;</b>
+&nbsp;
+&nbsp;        do {
+&nbsp;            try {
+<b class="nc">&nbsp;                System.out.println(message);</b>
+<b class="nc">&nbsp;                year = Integer.parseInt(scanner.nextLine());</b>
+<b class="nc">&nbsp;                if (year &lt; 1888 || year &gt; 2024) {</b>
+<b class="nc">&nbsp;                    System.out.println(Output.YearOutOfRange);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                if (year == 0) {</b>
+<b class="nc">&nbsp;                    System.out.println(Output.yearCantBeZero);</b>
+&nbsp;                }
+<b class="nc">&nbsp;            } catch (InputMismatchException | NumberFormatException e) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid input. Please try again.&quot;);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        } while (year &lt; 1888 || year &gt; 2024);</b>
+<b class="nc">&nbsp;        return String.valueOf(year);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public int askForInt(String message) {
+<b class="nc">&nbsp;        int id = 0;</b>
+&nbsp;        do {
+&nbsp;            try {
+<b class="nc">&nbsp;                System.out.println(message);</b>
+<b class="nc">&nbsp;                id = Integer.parseInt(scanner.nextLine());</b>
+<b class="nc">&nbsp;                if (id &lt;= 0) {</b>
+<b class="nc">&nbsp;                    System.out.println(Output.idCantBeZero);</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;            } catch (InputMismatchException | NumberFormatException e) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid input. Please try again.&quot;);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        } while (id &lt;= 0);</b>
+<b class="nc">&nbsp;        return id;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -284,7 +166,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-26 14:49</div>
+    <div style="float:right;">generated on 2023-10-04 08:48</div>
 </div>
 </body>
 </html>

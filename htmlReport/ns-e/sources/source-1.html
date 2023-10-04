@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > MovieRepository</title>
+  <title>Coverage Report > MovieServiceImpl</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,37 +19,55 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.repository</a>
+    <a href="../index.html">org.CodeForPizza.service.movieImpl</a>
 </div>
 
-<h1>Coverage Summary for Class: MovieRepository (org.CodeForPizza.repository)</h1>
+<h1>Coverage Summary for Class: MovieServiceImpl (org.CodeForPizza.service.movieImpl)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
 </tr>
-  <tr>
-    <td class="name">MovieRepository$MockitoMock$95ZkjwoV</td>
-  </tr>
-  <tr>
-    <td class="name">MovieRepository$MockitoMock$95ZkjwoV$auxiliary$dvatwJaU</td>
-  </tr>
-  <tr>
-    <td class="name">MovieRepository$MockitoMock$95ZkjwoV$auxiliary$Ybw2HAHL</td>
-  </tr>
-  <tr>
-    <td class="name">MovieRepository$MockitoMock$JlTwfhU6</td>
-  </tr>
-  <tr>
-    <td class="name">MovieRepository$MockitoMock$JlTwfhU6$auxiliary$68LSa12S</td>
-  </tr>
-  <tr>
-    <td class="name">MovieRepository$MockitoMock$JlTwfhU6$auxiliary$vyRV2cTD</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">MovieServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95,7%
+  </span>
+  <span class="absValue">
+    (22/23)
+  </span>
+</td>
 </tr>
+
 </table>
 
 <br/>
@@ -57,19 +75,83 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.service.movieImpl;
 &nbsp;
+&nbsp;import jakarta.transaction.Transactional;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import lombok.NoArgsConstructor;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;
+&nbsp;import org.CodeForPizza.dto.MovieDTO;
 &nbsp;import org.CodeForPizza.entity.Movie;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
-&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;import org.CodeForPizza.mapper.MovieMapper;
+&nbsp;import org.CodeForPizza.repository.MovieRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
 &nbsp;
+&nbsp;/**
+&nbsp; * This class implements the MovieService interface. it is used to preform CRUD operations on the database.
+&nbsp; * it uses the @Transactional annotation to make sure that the operations are sent to the database safely.
+&nbsp; */
+<b class="fc">&nbsp;@Slf4j</b>
+<b class="fc">&nbsp;@NoArgsConstructor</b>
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+&nbsp;@Service
+&nbsp;public class MovieServiceImpl implements MovieService {
 &nbsp;
-&nbsp;@Repository
-&nbsp;public interface MovieRepository extends JpaRepository&lt;Movie, Long&gt; {
+&nbsp;    @Autowired
+&nbsp;    private MovieRepository movieRepository;
 &nbsp;
-&nbsp;    //this is how you can create custom queries
-&nbsp;    //@Query(&quot;SELECT m FROM Movie m WHERE m.year = :year&quot;)
-&nbsp;    //List&lt;Movie&gt; findByYear(@Param(&quot;year&quot;) String year);
+&nbsp;    @Transactional
+&nbsp;    @Override
+&nbsp;    public MovieDTO findById(Long id) {
+<b class="fc">&nbsp;        Movie movie = movieRepository.findById(id).orElseThrow(() -&gt; new RuntimeException(&quot;Movie not found&quot;));</b>
+<b class="fc">&nbsp;        return MovieMapper.toMovieDTO(movie);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    @Override
+&nbsp;    public MovieDTO save(MovieDTO movieDTO) {
+&nbsp;        try{
+<b class="fc">&nbsp;        log.info(&quot;Saving movie: &quot; + movieDTO);</b>
+<b class="fc">&nbsp;        Movie movie = MovieMapper.toMovie(movieDTO);</b>
+<b class="fc">&nbsp;        log.info(&quot;mapped movie: &quot; + movie);</b>
+&nbsp;
+<b class="fc">&nbsp;        Movie savedMovie = movieRepository.save(movie);</b>
+<b class="fc">&nbsp;        log.info(&quot;saved movie: &quot; + savedMovie);</b>
+<b class="fc">&nbsp;        return MovieMapper.toMovieDTO(savedMovie);</b>
+&nbsp;
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            log.info(&quot;Error saving movie: &quot; + e);</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    @Override
+&nbsp;    public void deleteById(Long id) {
+<b class="fc">&nbsp;        Movie movie = movieRepository.findById(id).orElseThrow(() -&gt; new RuntimeException(&quot;Movie not found&quot;));</b>
+<b class="fc">&nbsp;        movieRepository.deleteById(movie.getId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    @Override
+&nbsp;    public MovieDTO update(Long id,MovieDTO movieDTO) {
+<b class="fc">&nbsp;        Movie movie = movieRepository.findById(id).orElseThrow(() -&gt; new RuntimeException(&quot;Movie not found&quot;));</b>
+<b class="fc">&nbsp;        movie.setTitle(movieDTO.getTitle());</b>
+<b class="fc">&nbsp;        movie.setYear(movieDTO.getYear());</b>
+<b class="fc">&nbsp;        Movie updatedMovie = movieRepository.save(movie);</b>
+<b class="fc">&nbsp;        return MovieMapper.toMovieDTO(updatedMovie);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    @Override
+&nbsp;    public List&lt;MovieDTO&gt; findAll() {
+<b class="fc">&nbsp;        List&lt;Movie&gt; movies = movieRepository.findAll();</b>
+<b class="fc">&nbsp;        return movies.stream().map(MovieMapper::toMovieDTO).collect(Collectors.toList());</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -94,7 +176,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-26 14:49</div>
+    <div style="float:right;">generated on 2023-10-04 08:48</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > MovieMapper</title>
+  <title>Coverage Report > Movie</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,18 +19,15 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.mapper</a>
+    <a href="../index.html">org.CodeForPizza.entity</a>
 </div>
 
-<h1>Coverage Summary for Class: MovieMapper (org.CodeForPizza.mapper)</h1>
+<h1>Coverage Summary for Class: Movie (org.CodeForPizza.entity)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -41,13 +38,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">MovieMapper</td>
+  <td class="name">Movie</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    85,7%
   </span>
   <span class="absValue">
-    (1/1)
+    (6/7)
   </span>
 </td>
 <td class="coverageStat">
@@ -55,19 +52,41 @@ Current scope:     <a href="../../index.html">all classes</a>
     66,7%
   </span>
   <span class="absValue">
-    (2/3)
+    (6/9)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Movie$HibernateInstantiator$DNFstSAL</td>
+  </tr>
+  <tr>
+    <td class="name">Movie$HibernateInstantiator$FPWeqhZQ</td>
+  </tr>
+  <tr>
+    <td class="name">Movie$HibernateProxy$8w6kL5sI</td>
+  </tr>
+  <tr>
+    <td class="name">Movie$HibernateProxy$dflr1lhx</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    85,7%
+  </span>
+  <span class="absValue">
+    (6/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92,3%
+    66,7%
   </span>
   <span class="absValue">
-    (12/13)
+    (6/9)
   </span>
 </td>
 </tr>
-
 </table>
 
 <br/>
@@ -75,34 +94,50 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.mapper;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.entity;
 &nbsp;
-&nbsp;import org.CodeForPizza.dto.MovieDTO;
-&nbsp;import org.CodeForPizza.entity.Movie;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import lombok.Getter;
+&nbsp;import lombok.Setter;
 &nbsp;
+&nbsp;/**
+&nbsp; * This class is used to create a movie object.
+&nbsp; * It is used to save the movie information to the database.
+&nbsp; */
+&nbsp;@Getter
+<b class="fc">&nbsp;@Setter</b>
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;movies&quot;)
+&nbsp;public class Movie {
 &nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<b class="fc">&nbsp;    private Long id;</b>
 &nbsp;
-<b class="nc">&nbsp;public class MovieMapper {</b>
+&nbsp;    @Column(name = &quot;title&quot;)
+<b class="fc">&nbsp;    private String title;</b>
 &nbsp;
-&nbsp;    public static MovieDTO toMovieDTO(Movie movie) {
-<b class="fc">&nbsp;        if (movie == null) return null;</b>
+&nbsp;    @Column(name = &quot;year&quot;)
+<b class="fc">&nbsp;    private String year;</b>
 &nbsp;
-<b class="fc">&nbsp;        MovieDTO movieDTO = new MovieDTO();</b>
-<b class="fc">&nbsp;        movieDTO.setId(movie.getId());</b>
-<b class="fc">&nbsp;        movieDTO.setTitle(movie.getTitle());</b>
-<b class="fc">&nbsp;        movieDTO.setYear(movie.getYear());</b>
-<b class="fc">&nbsp;        return movieDTO;</b>
+<b class="nc">&nbsp;    public Movie(String title, String year) {</b>
+<b class="nc">&nbsp;        this.title = title;</b>
+<b class="nc">&nbsp;        this.year = year;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public static Movie toMovie(MovieDTO movieDTO) {
-<b class="fc">&nbsp;        if (movieDTO == null) return null;</b>
+<b class="fc">&nbsp;    public Movie() {</b>
 &nbsp;
-<b class="fc">&nbsp;        Movie movie = new Movie();</b>
-<b class="fc">&nbsp;        movie.setId(movieDTO.getId());</b>
-<b class="fc">&nbsp;        movie.setTitle(movieDTO.getTitle());</b>
-<b class="fc">&nbsp;        movie.setYear(movieDTO.getYear());</b>
-<b class="fc">&nbsp;        return movie;</b>
 &nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return &quot;Movie{&quot; +</b>
+&nbsp;                &quot;title=&#39;&quot; + title + &#39;\&#39;&#39; +
+&nbsp;                &quot;, year=&#39;&quot; + year + &#39;\&#39;&#39; +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -127,7 +162,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-26 14:49</div>
+    <div style="float:right;">generated on 2023-10-04 08:48</div>
 </div>
 </body>
 </html>

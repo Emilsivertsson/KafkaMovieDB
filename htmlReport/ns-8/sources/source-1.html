@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > Movie</title>
+  <title>Coverage Report > MovieDTO</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,15 +19,18 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">org.CodeForPizza.entity</a>
+    <a href="../index.html">org.CodeForPizza.dto</a>
 </div>
 
-<h1>Coverage Summary for Class: Movie (org.CodeForPizza.entity)</h1>
+<h1>Coverage Summary for Class: MovieDTO (org.CodeForPizza.dto)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -38,13 +41,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Movie</td>
+  <td class="name">MovieDTO</td>
 <td class="coverageStat">
   <span class="percent">
     100%
   </span>
   <span class="absValue">
-    (7/7)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
@@ -52,30 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (9/9)
-  </span>
-</td>
-</tr>
-  <tr>
-    <td class="name">Movie$HibernateInstantiator$kD15NiGJ</td>
-  </tr>
-  <tr>
-    <td class="name">Movie$HibernateInstantiator$qgh4vgw6</td>
-  </tr>
-  <tr>
-    <td class="name">Movie$HibernateProxy$PCVoqswG</td>
-  </tr>
-  <tr>
-    <td class="name">Movie$HibernateProxy$w3P4u2ZB</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (7/7)
+    (8/8)
   </span>
 </td>
 <td class="coverageStat">
@@ -83,10 +63,11 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (9/9)
+    (13/13)
   </span>
 </td>
 </tr>
+
 </table>
 
 <br/>
@@ -94,50 +75,30 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.entity;
+<code class="sourceCode" id="sourceCode">&nbsp;package org.CodeForPizza.dto;
 &nbsp;
-&nbsp;import jakarta.persistence.*;
-&nbsp;import lombok.Getter;
-&nbsp;import lombok.Setter;
+&nbsp;import lombok.*;
 &nbsp;
 &nbsp;/**
-&nbsp; * This class is used to create a movie object.
-&nbsp; * It is used to save the movie information to the database.
+&nbsp; * This class is a data transfer object for the movie entity.
+&nbsp; * It is used to transfer data between the modules via kafka and the API
 &nbsp; */
-&nbsp;@Getter
+&nbsp;
+<b class="fc">&nbsp;@Getter</b>
 <b class="fc">&nbsp;@Setter</b>
-&nbsp;@Entity
-&nbsp;@Table(name = &quot;movies&quot;)
-&nbsp;public class Movie {
-&nbsp;
-&nbsp;    @Id
-&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<b class="fc">&nbsp;@NoArgsConstructor</b>
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+<b class="fc">&nbsp;@ToString</b>
+&nbsp;public class MovieDTO {
+<b class="fc">&nbsp;</b>
 <b class="fc">&nbsp;    private Long id;</b>
-&nbsp;
-&nbsp;    @Column(name = &quot;title&quot;)
 <b class="fc">&nbsp;    private String title;</b>
-&nbsp;
-&nbsp;    @Column(name = &quot;year&quot;)
 <b class="fc">&nbsp;    private String year;</b>
-&nbsp;
-<b class="fc">&nbsp;    public Movie(String title, String year) {</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public MovieDTO(String title, String year) {</b>
 <b class="fc">&nbsp;        this.title = title;</b>
 <b class="fc">&nbsp;        this.year = year;</b>
 &nbsp;    }
-&nbsp;
-<b class="fc">&nbsp;    public Movie() {</b>
-&nbsp;
-&nbsp;    }
-&nbsp;
-&nbsp;    @Override
-&nbsp;    public String toString() {
-<b class="fc">&nbsp;        return &quot;Movie{&quot; +</b>
-&nbsp;                &quot;title=&#39;&quot; + title + &#39;\&#39;&#39; +
-&nbsp;                &quot;, year=&#39;&quot; + year + &#39;\&#39;&#39; +
-&nbsp;                &#39;}&#39;;
-&nbsp;    }
-&nbsp;
-&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -162,7 +123,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-09-26 14:49</div>
+    <div style="float:right;">generated on 2023-10-04 08:48</div>
 </div>
 </body>
 </html>

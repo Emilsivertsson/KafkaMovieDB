@@ -33,7 +33,7 @@ I also extended my knowledge about Spring boot and APIs, witch I have used befor
 
 
 ## Installation and Usage
-Important!\
+==Important!==
 if you don't have a local MySQL database and a local Kafka server running on your computer, the application will not start.\
 you will get an error message that the application cant connect to the database or that the brokers is not available.
 

@@ -41,7 +41,7 @@ you will get an error message that the application cant connect to the database 
    - Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
    - When you have installed MySQL Community you need to create a database called "movies".
    - The application uses password "root" and username "root" to connect to a local MySQL database.
-   - please alter the password and username in the application.properties file in the MovieDBApplication, if yours not the same.
+   - please alter the password and username in the application.properties file in both the API-Producer and the Database-Consumer-producer, if yours not the same.
    
 - You could also mount a Docker image of mySql, for help on how to do this please see the Docker homepage,\ or this tutorial https://youtu.be/kphq2TsVRIs?si=wS20hxnnLG2CAxr4
 

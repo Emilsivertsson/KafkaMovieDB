@@ -29,7 +29,7 @@ We were also supposed to create a Kafka consumer that takes the Json String and 
 I wanted to take it a step further and create a JavaFX application that takes the users input and sends it to the Rest API as a Json String.\
 I learned a lot from this project , and I can see the benefits of using Kafka in a project with multiple applications \
 and microservices that needs to communicate with each other.\
-I also extended my knowledge about Spring boot and APIs, witch I have used before but not to this extent.\
+I also extended my knowledge about Spring boot and APIs, I have used it before but not to this extent.\
 
 
 ## Installation and Usage
@@ -88,8 +88,6 @@ The information from the Database also gets printed to the user via the Console 
 
 ![Database](Images/Database.png)
 
-
-
 ## Replication and participation over several brokers
 The application uses three Kafka servers (Brokers) to replicate the information sent through the Kafka topics.\
 One of the Brokers will serve as the leader for a partition and the other two will serve as followers.\ if the leader goes down one of the followers will take over as leader.\ this does take a few seconds, and the application will not be able to send or receive information during that time.\
@@ -135,6 +133,10 @@ The application is licensed under the MIT license. Please see the license file f
 
 ## Tests
 I have added tests written with junit, Mockito and Kafka testing.\
-the tests for the HTTP Connections class was written using Diffblue, to try out its functionality.
+The tests for the HTTP Connections class was written using Diffblue, to try out its functionality.
+You need to have the application running to run the tests, or else some of the Topics will start consuming messages from the test\
+when you start the application afterward.\
+After you have run the tests, you will manually need to clear the Log.txt file in the ConsoleWriter module,\
+and the database.\
 
 ![Test results](Images/tests.png)

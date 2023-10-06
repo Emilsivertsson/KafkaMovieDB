@@ -136,7 +136,6 @@ I have added tests written with junit, Mockito and Kafka testing.\
 The tests for the HTTP Connections class was written using Diffblue, to try out its functionality.
 You need to have the application running to run the tests, or else some of the Topics will start consuming messages from the test\
 when you start the application afterward.\
-After you have run the tests, you will manually need to clear the Log.txt file in the ConsoleWriter module,\
-and the database.\
+After you have run the tests, you will manually need to clear the Log.txt file in the ConsoleWriter module.
 
 ![Test results](Images/tests.png)

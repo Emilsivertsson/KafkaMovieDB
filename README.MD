@@ -26,7 +26,6 @@ This is a School projekt for the course in Integration plattforms. it consists o
 Our assignment was to create a Rest API that takes the users input and sends it to a Kafka topic.\
 Then we were supposed to create a Kafka consumer that takes the Json String and prints its information to the user in the original application.\
 We were also supposed to create a Kafka consumer that takes the Json String and saves it to a database.\
-I wanted to take it a step further and create a JavaFX application that takes the users input and sends it to the Rest API as a Json String.\
 I learned a lot from this project , and I can see the benefits of using Kafka in a project with multiple applications \
 and microservices that needs to communicate with each other.\
 I also extended my knowledge about Spring boot and APIs, I have used it before but not to this extent.\
@@ -119,9 +118,9 @@ All dependencies are included in the pom.xml file.
 - com.mysqlmysql-connector-j 8.0.33
 
 ## Credits
-- my classmates Kristoffer and Johan for prof-reading my code and checking that I did not miss anything.
+- my classmates Kristoffer, Johan and Clara for prof-reading my code and checking that I did not miss anything.
 - chatGPT and Bard for helping me when I got stuck.
-- Diffblue for helping me with the tests for the HTTP Connections class.
+- Diffblue for helping me with the tests for the HTTP Connections and API class.
 
 ## Tutorials
 - https://youtube.com/playlist?list=PLGRDMO4rOGcNLwoack4ZiTyewUcF6y6BU&si=BByR1u0OqgjQH9TE
@@ -133,7 +132,7 @@ The application is licensed under the MIT license. Please see the license file f
 
 ## Tests
 I have added tests written with junit, Mockito and Kafka testing.\
-The tests for the HTTP Connections class was written using Diffblue, to try out its functionality.
+The tests for the HTTP Connections and API class was written using Diffblue, to try out its functionality.
 You need to have the application running to run the tests, or else some of the Topics will start consuming messages from the test\
 when you start the application afterward.\
 After you have run the tests, you will manually need to clear the Log.txt file in the ConsoleWriter module.

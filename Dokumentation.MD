@@ -69,7 +69,7 @@ Jag fick till det mesta som jag ville, och jag fick även till en del extra funk
 jag hade tid kvar.\
 
 ### Vad gick dåligt
-Jag ville fått till en snyggare Consol, om vi hade hämtat informationen via Apiet så hade min ide funkat,\
+Jag ville fått till en snyggare Consol, om vi hade hämtat informationen via Apiet så hade min ide med ett javaFX fönster funkat,\
 men som det var nu så får jag dyka ner i lite mer kurser om web, så jag kan får till något mer HTML och javascript baserat.\
 
 ### Vad har du lärt dig

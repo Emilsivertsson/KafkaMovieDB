@@ -44,12 +44,6 @@ jag hade Jsondeserializer istället för stringdeserializer, vilket gjorde att m
 eftersom det inte gick att Parsa.\
 Jag fick till slut ta hjälp av min klasskamrat för att leta reda på problemet.
 
-### Beskriv lite olika lösningar du gjort
-Eftersom jag vill ha det så löst kopplat som möjligt så har jag valt att inte skapa någon Movie klass som jag skickar runt.\
-Istället skapar java applikationen ett Json objekt som skickas som en String.\
-På så sätt skulle den kunna skicka en vilken typ av information som helst, vilket underlättar för framtida förändringar.\
-till ex att om jag skulle byta till mongo eller om användaren ska få välja vart den vill spara sin data.
-
 ### Beskriv om du fått byta lösning och varför i sådana fall
 Min första tanke var att använda ett JavaFX GUI för att ta input från användaren och visa en lista på alla filmer.\
 men det visade inte fungera, för javaFX har en egen launch() funktion som inte fungerar med Spring Boot.run metoden\

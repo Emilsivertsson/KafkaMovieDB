@@ -39,7 +39,6 @@ class ConsoleConsumerTest {
 
     @Test
     void testConsumeSuccess() {
-        consoleConsumer.fileWriteEnabled = false;
         kafkaTemplate.send("returningData", movieInfo);
         consoleConsumer.consume(movieInfo);
         processedMovie = consoleConsumer.movieToPrint;

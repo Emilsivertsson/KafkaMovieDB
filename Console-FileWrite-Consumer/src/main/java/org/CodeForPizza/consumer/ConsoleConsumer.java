@@ -25,8 +25,6 @@ public class ConsoleConsumer {
     @Autowired
     private final FileWrite fileWrite = new FileWrite();
 
-    // this is to prevent the test from writing to file
-    boolean fileWriteEnabled = true;
 
     MovieDTO movieToPrint = new MovieDTO();
 
@@ -37,9 +35,7 @@ public class ConsoleConsumer {
             movieToPrint = movieInfo;
             System.out.println("Movie information received from Database.");
 
-            if (fileWriteEnabled) { // this is to prevent the test from writing to file
-                writeToFile(movieInfo);
-            }
+            writeToFile(movieInfo);
 
         } catch (Exception e) {
             log.error(e.getMessage());
